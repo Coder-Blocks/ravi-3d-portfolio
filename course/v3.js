@@ -248,11 +248,6 @@ function initGSAP(){
     stagger:.12,duration:1.05,ease:"power4.out"
   });
 
-  gsap.from(".skill",{
-    scrollTrigger:{trigger:".skills",start:"top 84%",toggleActions:"play none none reverse"},
-    y:80,rotationX:52,transformOrigin:"50% 100%",opacity:0,stagger:.1,duration:.9,ease:"power3.out"
-  });
-
   gsap.from(".compare",{
     scrollTrigger:{trigger:".compare",start:"top 82%",toggleActions:"play none none reverse"},
     clipPath:"inset(0 50% 0 50%)",opacity:.2,duration:1.15,ease:"expo.out"
