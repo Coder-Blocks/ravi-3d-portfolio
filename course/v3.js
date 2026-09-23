@@ -20,27 +20,41 @@ const violet = new THREE.Color("#ad6cff");
 const blue = new THREE.Color("#6477ff");
 const pink = new THREE.Color("#ff54c8");
 
-const knotMat = new THREE.MeshPhysicalMaterial({
-  color:0x314bff, metalness:.62, roughness:.2, transmission:.08,
-  emissive:0x101b55, emissiveIntensity:1.1, clearcoat:1, clearcoatRoughness:.18
-});
-const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.25,.34,220,32,2,3),knotMat);
-knot.position.set(2.6,.25,0);
-root.add(knot);
+const aiCanvas = document.createElement("canvas");
+aiCanvas.width = 1024; aiCanvas.height = 1024;
+const aictx = aiCanvas.getContext("2d");
+const grad = aictx.createLinearGradient(120,100,900,900);
+grad.addColorStop(0,"#42e8ff");
+grad.addColorStop(.48,"#dce6ff");
+grad.addColorStop(1,"#ad6cff");
+aictx.clearRect(0,0,1024,1024);
+aictx.shadowColor = "rgba(66,232,255,.75)";
+aictx.shadowBlur = 42;
+aictx.fillStyle = grad;
+aictx.font = "900 520px Inter, Arial, sans-serif";
+aictx.textAlign = "center";
+aictx.textBaseline = "middle";
+aictx.fillText("AI",512,540);
+const aiTexture = new THREE.CanvasTexture(aiCanvas);
+aiTexture.colorSpace = THREE.SRGBColorSpace;
+const aiMat = new THREE.MeshBasicMaterial({map:aiTexture,transparent:true,depthWrite:false,side:THREE.DoubleSide});
+const aiMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.5,3.5),aiMat);
+aiMesh.position.set(2.6,.25,0);
+root.add(aiMesh);
 
 const shell = new THREE.Mesh(
   new THREE.IcosahedronGeometry(2.08,2),
-  new THREE.MeshBasicMaterial({color:0x42e8ff,wireframe:true,transparent:true,opacity:.13})
+  new THREE.MeshBasicMaterial({color:0x42e8ff,wireframe:true,transparent:true,opacity:.10})
 );
-shell.position.copy(knot.position);
+shell.position.copy(aiMesh.position);
 root.add(shell);
 
 const ringMat1 = new THREE.MeshBasicMaterial({color:0x42e8ff,transparent:true,opacity:.22});
 const ringMat2 = new THREE.MeshBasicMaterial({color:0xad6cff,transparent:true,opacity:.18});
 const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.7,.012,8,180),ringMat1);
-ring1.position.copy(knot.position); ring1.rotation.x=1.06; root.add(ring1);
+ring1.position.copy(aiMesh.position); ring1.rotation.x=1.06; root.add(ring1);
 const ring2 = new THREE.Mesh(new THREE.TorusGeometry(3.25,.009,8,180),ringMat2);
-ring2.position.copy(knot.position); ring2.rotation.y=.95; ring2.rotation.x=.35; root.add(ring2);
+ring2.position.copy(aiMesh.position); ring2.rotation.y=.95; ring2.rotation.x=.35; root.add(ring2);
 
 const orbGeom = new THREE.SphereGeometry(.095,18,18);
 const orbMat = new THREE.MeshBasicMaterial({color:0xff54c8});
@@ -103,8 +117,7 @@ addEventListener("resize",resize);
 const clock = new THREE.Clock();
 function tick(){
   const t=clock.getElapsedTime();
-  knot.rotation.x=t*.18 + my*.25;
-  knot.rotation.y=t*.31 + mx*.38;
+  aiMesh.rotation.x = my*.10 + Math.sin(t*.45)*.035;\n  aiMesh.rotation.y = mx*.16 + Math.cos(t*.38)*.05;\n  aiMesh.scale.setScalar(1 + Math.sin(t*.8)*.025);
   shell.rotation.x=-t*.09;
   shell.rotation.y=t*.12;
   ring1.rotation.z=t*.16;
@@ -118,8 +131,7 @@ function tick(){
     m.rotation.y+=m.userData.s*1.25;
     m.position.y += Math.sin(t*.6+m.userData.o)*.0008;
   });
-  root.rotation.z = scrollP*.7;
-  root.position.y = -scrollP*1.7;
+  root.rotation.z = scrollP*.28;\n  root.position.y = -scrollP*7.5;
   camera.position.x += ((mx*.6)-camera.position.x)*.035;
   camera.position.y += ((-my*.38)-camera.position.y)*.035;
   camera.position.z = 8.2 - scrollP*.8;
