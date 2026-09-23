@@ -136,3 +136,49 @@ footer{padding:48px 0 68px;margin-top:90px;border-top:1px solid var(--line);colo
 .scheduleBadge{position:relative;z-index:2;padding:10px 13px;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#06101a;font-size:11px;font-weight:950;letter-spacing:.08em;white-space:nowrap}
 .duration{line-height:1.4;min-height:34px}
 @media(max-width:680px){.schedulePanel{grid-template-columns:auto 1fr;padding:18px}.scheduleBadge{grid-column:1/-1;justify-self:start}.section{scroll-margin-top:84px}}
+
+/* v7: reliable module visibility + recommended badge fix */
+.plan.pop{padding-top:50px}
+.planBadge{
+  top:14px!important;
+  right:14px!important;
+  left:auto!important;
+  transform:translateZ(34px)!important;
+  padding:7px 12px!important;
+  border-radius:999px!important;
+  z-index:6!important;
+  max-width:calc(100% - 28px);
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.skills{align-items:stretch}
+.skill.courseModule{
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none;
+  min-height:220px;
+  border-color:rgba(255,255,255,.13);
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+}
+.skill.courseModule:hover{
+  transform:translateY(-8px) rotateX(3deg) rotateY(-3deg)!important;
+}
+.moduleNo{
+  display:inline-flex;
+  margin-bottom:13px;
+  padding:5px 9px;
+  border-radius:999px;
+  border:1px solid rgba(66,232,255,.22);
+  background:rgba(66,232,255,.06);
+  color:#aeefff;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.13em;
+}
+#skills .sectionHead{margin-bottom:34px}
+#skills .skills{position:relative;z-index:4}
+#skills{min-height:auto}
+@media(max-width:680px){
+  .plan.pop{padding-top:54px}
+  .planBadge{top:15px!important;right:12px!important;left:12px!important;text-align:center}
+}
