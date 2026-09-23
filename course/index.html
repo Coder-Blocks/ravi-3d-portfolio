@@ -21,6 +21,15 @@
     <div class="loaderText">Loading AI Automation Experience</div>
   </div>
 </div>
+<script>
+(function(){
+  const killLoader=()=>{const el=document.querySelector('.loader');if(!el)return;el.style.transition='opacity .35s ease';el.style.opacity='0';setTimeout(()=>el.remove(),380)};
+  window.__ticKillLoader=killLoader;
+  setTimeout(killLoader,2600);
+  window.addEventListener('error',()=>setTimeout(killLoader,150));
+  window.addEventListener('unhandledrejection',()=>setTimeout(killLoader,150));
+})();
+</script>
 <div class="pageWipe"></div>
 <canvas id="webgl"></canvas>
 <div id="noise"></div>
