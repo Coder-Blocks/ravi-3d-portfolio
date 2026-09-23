@@ -117,7 +117,9 @@ addEventListener("resize",resize);
 const clock = new THREE.Clock();
 function tick(){
   const t=clock.getElapsedTime();
-  aiMesh.rotation.x = my*.10 + Math.sin(t*.45)*.035;\n  aiMesh.rotation.y = mx*.16 + Math.cos(t*.38)*.05;\n  aiMesh.scale.setScalar(1 + Math.sin(t*.8)*.025);
+  aiMesh.rotation.x = my*.10 + Math.sin(t*.45)*.035;
+  aiMesh.rotation.y = mx*.16 + Math.cos(t*.38)*.05;
+  aiMesh.scale.setScalar(1 + Math.sin(t*.8)*.025);
   shell.rotation.x=-t*.09;
   shell.rotation.y=t*.12;
   ring1.rotation.z=t*.16;
@@ -131,7 +133,8 @@ function tick(){
     m.rotation.y+=m.userData.s*1.25;
     m.position.y += Math.sin(t*.6+m.userData.o)*.0008;
   });
-  root.rotation.z = scrollP*.28;\n  root.position.y = -scrollP*7.5;
+  root.rotation.z = scrollP*.28;
+  root.position.y = -scrollP*7.5;
   camera.position.x += ((mx*.6)-camera.position.x)*.035;
   camera.position.y += ((-my*.38)-camera.position.y)*.035;
   camera.position.z = 8.2 - scrollP*.8;
