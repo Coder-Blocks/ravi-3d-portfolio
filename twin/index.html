@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#050814"/>
+<title>TIC Digital Twin — Ravi Kumar Sarma</title>
+<style>
+:root{
+  --bg:#050814;--panel:#0b1324;--panel2:#101936;--line:#1e3a5f;
+  --cyan:#22d3ee;--cyan2:#67e8f9;--violet:#8b5cf6;--pink:#c084fc;
+  --text:#eefaff;--muted:#92a7b5;--green:#34d399;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 18% 15%,rgba(34,211,238,.12),transparent 26%),
+    radial-gradient(circle at 82% 12%,rgba(139,92,246,.14),transparent 30%),
+    linear-gradient(135deg,#030712,#06111f 48%,#0a0920);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;
+  background-image:linear-gradient(rgba(34,211,238,.08) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(34,211,238,.08) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.shell{width:min(1180px,94vw);margin:auto;padding:26px 0 60px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  border:1px solid rgba(34,211,238,.2);background:rgba(5,8,20,.72);
+  backdrop-filter:blur(16px);padding:14px 18px;border-radius:18px;position:sticky;top:12px;z-index:20
+}
+.brand{font-weight:800;letter-spacing:.14em;color:var(--cyan);font-size:14px}
+.status{font-size:13px;color:var(--muted)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);margin-right:7px}
+.hero{
+  margin-top:26px;padding:42px;border:1px solid rgba(34,211,238,.24);
+  border-radius:28px;background:linear-gradient(145deg,rgba(8,20,38,.9),rgba(19,10,42,.82));
+  position:relative;overflow:hidden
+}
+.hero:after{
+  content:"";position:absolute;width:380px;height:380px;border:1px solid rgba(34,211,238,.17);
+  border-radius:50%;right:-120px;top:-140px;box-shadow:0 0 100px rgba(34,211,238,.08) inset
+}
+.kicker{color:var(--cyan);letter-spacing:.22em;font-size:13px;font-weight:700}
+h1{font-size:clamp(38px,7vw,78px);line-height:.95;margin:18px 0 16px;max-width:900px}
+.lead{font-size:clamp(17px,2.2vw,23px);color:#b9d7e2;max-width:850px;line-height:1.55}
+.twin-grid{display:grid;grid-template-columns:320px 1fr;gap:30px;align-items:center;margin-top:34px}
+.avatar-wrap{display:grid;place-items:center;min-height:320px}
+.avatar{
+  width:220px;height:220px;border-radius:50%;border:2px solid var(--cyan);
+  position:relative;box-shadow:0 0 50px rgba(34,211,238,.2),inset 0 0 60px rgba(34,211,238,.08);
+  animation:pulse 3s ease-in-out infinite
+}
+.avatar:before,.avatar:after{content:"";position:absolute;border-radius:50%;inset:-28px;border:1px dashed rgba(34,211,238,.34);animation:spin 9s linear infinite}
+.avatar:after{inset:-52px;border-color:rgba(139,92,246,.32);animation-direction:reverse;animation-duration:13s}
+.face{position:absolute;inset:36px;border-radius:42% 42% 46% 46%;background:linear-gradient(160deg,#0d1d36,#14203d);border:1px solid rgba(103,232,249,.3)}
+.eye{position:absolute;top:76px;width:15px;height:15px;border-radius:50%;background:#dffcff;box-shadow:0 0 10px #dffcff}
+.eye.l{left:72px}.eye.r{right:72px}
+.mouth{position:absolute;width:56px;height:22px;border-bottom:4px solid var(--cyan2);border-radius:50%;left:50%;top:122px;transform:translateX(-50%)}
+.core{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--cyan);left:50%;bottom:-58px;transform:translateX(-50%);box-shadow:0 0 26px var(--cyan)}
+.routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.route{
+  appearance:none;text-decoration:none;color:var(--text);border:1px solid rgba(34,211,238,.22);
+  background:linear-gradient(145deg,rgba(9,22,40,.95),rgba(13,17,44,.95));
+  border-radius:20px;padding:22px;text-align:left;cursor:pointer;transition:.22s transform,.22s border-color,.22s box-shadow;
+  min-height:140px
+}
+.route:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 14px 40px rgba(34,211,238,.11)}
+.route.violet:hover{border-color:var(--violet);box-shadow:0 14px 40px rgba(139,92,246,.12)}
+.num{font-size:12px;letter-spacing:.2em;color:var(--cyan);font-weight:800}
+.violet .num{color:var(--pink)}
+.route h3{font-size:24px;margin:12px 0 8px}
+.route p{margin:0;color:var(--muted);line-height:1.5}
+.panel{
+  margin-top:26px;padding:28px;border:1px solid rgba(34,211,238,.2);border-radius:24px;
+  background:rgba(7,14,27,.84)
+}
+.panel h2{margin:0 0 8px;font-size:30px}
+.small{color:var(--muted);line-height:1.55}
+.challenge{display:none}
+.challenge.active{display:block}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+label{font-size:13px;color:#b9d7e2}
+input,textarea,select{
+  width:100%;border-radius:14px;border:1px solid #24415f;background:#071322;color:var(--text);
+  padding:13px 14px;font:inherit;outline:none
+}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.08)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+  border:0;border-radius:13px;padding:12px 18px;font-weight:800;cursor:pointer;font:inherit
+}
+.primary{background:linear-gradient(90deg,var(--cyan),#38bdf8);color:#03101a}
+.secondary{background:#151c34;color:#fff;border:1px solid #31405f}
+.violetBtn{background:linear-gradient(90deg,var(--violet),var(--pink));color:white}
+.toast{margin-top:12px;color:var(--green);font-size:14px;min-height:20px}
+.footer{margin-top:34px;color:var(--muted);text-align:center;font-size:13px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{box-shadow:0 0 80px rgba(34,211,238,.28),inset 0 0 80px rgba(34,211,238,.12)}}
+@media(max-width:860px){
+  .hero{padding:26px}
+  .twin-grid{grid-template-columns:1fr}
+  .routes,.form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .avatar-wrap{min-height:280px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">TIC // DIGITAL TWIN</div>
+    <div class="status"><span class="dot"></span>ONLINE • INTENT ROUTER ACTIVE</div>
+  </div>
+
+  <section class="hero">
+    <div class="kicker">THINK INNOVATIVE CREATIONS</div>
+    <h1>RAVI TWIN</h1>
+    <p class="lead">Choose what you want. The Twin routes you directly to the right place instead of making you search through a long profile.</p>
+
+    <div class="twin-grid">
+      <div class="avatar-wrap" aria-hidden="true">
+        <div class="avatar">
+          <div class="face"></div>
+          <span class="eye l"></span><span class="eye r"></span>
+          <span class="mouth"></span><span class="core"></span>
+        </div>
+      </div>
+
+      <div class="routes">
+        <a class="route" href="../">
+          <div class="num">01 // BUILD</div>
+          <h3>Explore what I build</h3>
+          <p>Open the 3D portfolio, products, software ideas and execution work.</p>
+        </a>
+
+        <a class="route violet" href="../course/">
+          <div class="num">02 // LEARN</div>
+          <h3>Learn with TIC</h3>
+          <p>Open courses, learning paths and skill-building programs.</p>
+        </a>
+
+        <a class="route" href="https://www.linkedin.com/in/ravi-kumar-1633b7244/" target="_blank" rel="noopener">
+          <div class="num">03 // HIRE</div>
+          <h3>Hire / Collaborate</h3>
+          <p>Open LinkedIn for services, collaboration and professional opportunities.</p>
+        </a>
+
+        <button class="route violet" id="challengeBtn" type="button">
+          <div class="num">04 // CHALLENGE</div>
+          <h3>Give me a real problem</h3>
+          <p>Open the challenge console and describe something worth solving.</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel challenge" id="challenge">
+    <h2>⚡ Challenge Console</h2>
+    <p class="small">Describe the problem. You can open a pre-filled Gmail compose window or copy the complete challenge text to your clipboard.</p>
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" placeholder="Name"/>
+      </div>
+      <div class="field">
+        <label for="title">Challenge title</label>
+        <input id="title" placeholder="Example: Offline shop follow-up problem"/>
+      </div>
+      <div class="field full">
+        <label for="problem">Problem to solve</label>
+        <textarea id="problem" placeholder="Explain the real-world problem..."></textarea>
+      </div>
+      <div class="field">
+        <label for="people">Who faces it?</label>
+        <input id="people" placeholder="Students, shops, field teams..."/>
+      </div>
+      <div class="field">
+        <label for="platform">Preferred platform</label>
+        <select id="platform">
+          <option>Any platform</option>
+          <option>Web</option>
+          <option>Windows</option>
+          <option>Android</option>
+          <option>Offline-first</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="constraint">Hard constraint</label>
+        <input id="constraint" placeholder="No paid API, low-end device, no login, etc."/>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="gmailBtn" type="button">Open Gmail Compose</button>
+      <button class="btn secondary" id="copyBtn" type="button">Copy Challenge</button>
+      <a class="btn violetBtn" href="mailto:ravigarimella9@gmail.com">Open Default Email App</a>
+    </div>
+    <div class="toast" id="toast"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Twin Logic</h2>
+    <p class="small">BUILD → portfolio. LEARN → courses. HIRE → professional contact. CHALLENGE → a real problem intake. This page is intentionally lightweight, fast and works without any paid API.</p>
+  </section>
+
+  <div class="footer">Think Innovative Creations (TIC) • Build Different. Build Useful. Keep Evolving.</div>
+</div>
+
+<script>
+const challenge = document.getElementById('challenge');
+const challengeBtn = document.getElementById('challengeBtn');
+const toast = document.getElementById('toast');
+
+function challengeText(){
+  const v = id => (document.getElementById(id).value || '').trim();
+  return [
+    'TIC DIGITAL TWIN — REAL WORLD CHALLENGE',
+    '',
+    'Name: ' + v('name'),
+    'Challenge Title: ' + v('title'),
+    'Problem to solve: ' + v('problem'),
+    'Who faces it: ' + v('people'),
+    'Preferred platform: ' + v('platform'),
+    'Hard constraint: ' + v('constraint')
+  ].join('\n');
+}
+
+function openChallenge(){
+  challenge.classList.add('active');
+  challenge.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+challengeBtn.addEventListener('click', openChallenge);
+
+document.getElementById('gmailBtn').addEventListener('click', () => {
+  const subject = encodeURIComponent('TIC Digital Twin Challenge: ' + (document.getElementById('title').value || 'New Problem'));
+  const body = encodeURIComponent(challengeText());
+  const url = 'https://mail.google.com/mail/?view=cm&fs=1&to=ravigarimella9@gmail.com&su=' + subject + '&body=' + body;
+  window.open(url, '_blank', 'noopener');
+});
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  try{
+    await navigator.clipboard.writeText(challengeText());
+    toast.textContent = '✓ Challenge copied to clipboard.';
+  }catch(e){
+    toast.textContent = 'Copy was blocked by the browser. Select the text manually and copy it.';
+  }
+});
+
+if(location.hash === '#challenge'){ setTimeout(openChallenge, 250); }
+</script>
+</body>
+</html>
