@@ -63,27 +63,108 @@ E.copy.onclick=async function(){if(!current)return;try{await navigator.clipboard
 E.download.onclick=async function(){
 if(!current)return;
 var u=current.d.user,a=current.a,cv=document.createElement("canvas");cv.width=1200;cv.height=630;var x=cv.getContext("2d");
-function rr(px,py,w,h,r){r=Math.min(r,w/2,h/2);x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath()}
-function fit(t,m,s,z){for(;s>z;s-=2){x.font="800 "+s+"px system-ui";if(x.measureText(t).width<=m)return s}return s}
-function wrap(t,px,py,m,lh){var w=String(t||"").split(/\\s+/),l="",yy=py;w.forEach(function(q){var test=l?l+" "+q:q;if(x.measureText(test).width>m&&l){x.fillText(l,px,yy);l=q;yy+=lh}else l=test});if(l)x.fillText(l,px,yy)}
-var g=x.createLinearGradient(0,0,1200,630);g.addColorStop(0,"#060914");g.addColorStop(.55,"#0a1330");g.addColorStop(1,"#050814");x.fillStyle=g;x.fillRect(0,0,1200,630);
-var hue=parseInt(a.hx.slice(0,6),16)%360,gl=x.createRadialGradient(180,80,20,180,80,340);gl.addColorStop(0,"hsla("+hue+",85%,62%,.14)");gl.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=gl;x.fillRect(0,0,1200,630);
-rr(60,56,1080,520,22);x.fillStyle="rgba(10,14,35,.84)";x.fill();x.strokeStyle="rgba(103,132,255,.28)";x.lineWidth=1.25;x.stroke();
-x.fillStyle="#aeb8e9";x.font="700 13px system-ui";x.fillText("GITHUB AURA // DEVELOPER FINGERPRINT",110,118);x.textAlign="right";x.fillText(a.id,1090,118);x.textAlign="left";
-try{var im=new Image();im.crossOrigin="anonymous";im.src=u.avatar_url;await im.decode();x.save();rr(110,160,118,118,26);x.clip();x.drawImage(im,110,160,118,118);x.restore();x.strokeStyle="rgba(255,255,255,.9)";x.lineWidth=2;rr(110,160,118,118,26);x.stroke()}catch(e){}
-var nm=(u.name||u.login).toUpperCase(),fs=fit(nm,690,40,28);x.fillStyle="#f8f9ff";x.font="800 "+fs+"px system-ui";x.fillText(nm,258,210);
-x.fillStyle="#9fb0ff";x.font="600 22px system-ui";x.fillText("@"+u.login,258,246);
-x.fillStyle="#c6cceb";x.font="500 18px system-ui";wrap(u.bio||"Building software and creating in public.",258,302,640,28);
-var stats=[["REPOS",c(u.public_repos),"▣"],["FOLLOWERS",c(u.followers),"◔"],["STARS",c(a.stars),"★"],["TOP LANG",a.langs[0]?a.langs[0].name:"—","</>"]];
-stats.forEach(function(q,i){var px=110+i*180;x.fillStyle="rgba(79,110,255,.14)";x.beginPath();x.arc(px+28,408,17,0,Math.PI*2);x.fill();x.fillStyle="#8fb0ff";x.font="700 15px system-ui";x.fillText(q[2],px+20,414);if(i<3){x.strokeStyle="rgba(120,140,220,.25)";x.beginPath();x.moveTo(px+153,388);x.lineTo(px+153,525);x.stroke()}x.fillStyle="#8f99bf";x.font="700 13px system-ui";x.fillText(q[0],px,445);var z=fit(String(q[1]),120,30,18);x.fillStyle="#fff";x.font="800 "+z+"px system-ui";x.fillText(String(q[1]),px,486)});
-x.fillStyle="#6aa2ff";x.font="700 22px system-ui";x.fillText("◔",110,536);x.fillStyle="#8f99bf";x.font="600 14px system-ui";x.fillText("CODE FINGERPRINT   "+a.fp,140,535);
-x.strokeStyle="rgba(120,140,220,.28)";x.beginPath();x.moveTo(705,245);x.lineTo(705,520);x.stroke();
-rr(735,255,300,170,18);x.fillStyle="rgba(12,18,44,.95)";x.fill();x.strokeStyle="rgba(79,110,255,.35)";x.stroke();
-x.fillStyle="#8fb0ff";x.font="700 18px system-ui";x.fillText("▮▮▮",760,290);x.fillStyle="#fff";x.font="800 16px system-ui";x.fillText("TOP LANGUAGES",810,290);x.fillStyle="#9aa5d7";x.font="600 11px system-ui";x.textAlign="right";x.fillText("BY REPOSITORY",1010,290);x.textAlign="left";
-var total=a.langs.reduce(function(z,l){return z+l.count},0)||1,langs=a.langs.slice(0,4).map(function(l){return{name:l.name,share:l.count/total}});if(a.langs.length>4){var first=a.langs.slice(0,3).map(function(l){return{name:l.name,share:l.count/total}}),oth=Math.max(0,1-first.reduce(function(z,l){return z+l.share},0));langs=first.concat([{name:"Other",share:oth}])}if(!langs.length)langs=[{name:"No data",share:1}];
-langs.forEach(function(l,i){var yy=326+i*38,p=Math.round(l.share*100),col=l.name==="Other"?"#9b5cff":lc(l.name);x.fillStyle=col;x.beginPath();x.arc(760,yy,7,0,Math.PI*2);x.fill();x.fillStyle="#e5e9ff";x.font="600 14px system-ui";x.fillText(l.name,778,yy+5);rr(875,yy-8,100,14,7);x.fillStyle="rgba(68,79,130,.55)";x.fill();rr(875,yy-8,Math.max(12,100*l.share),14,7);x.fillStyle=col;x.fill();x.fillStyle="#d6dcfb";x.font="600 14px system-ui";x.textAlign="right";x.fillText(p+"%",1010,yy+5);x.textAlign="left"});
-x.fillStyle="#8f99bf";x.font="600 14px system-ui";x.textAlign="right";x.fillText("Generated with GitHub Aura · public data only",1090,535);x.textAlign="left";
-var l=document.createElement("a");l.download=u.login+"-github-aura.png";l.href=cv.toDataURL("image/png");l.click()
+
+function rr(px,py,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);
+  x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath()
+}
+function fit(t,m,s,z,w){
+  w=w||"800";
+  for(;s>z;s-=2){x.font=w+" "+s+"px system-ui";if(x.measureText(t).width<=m)return s}
+  return s
+}
+function wrap(t,px,py,m,lh,maxLines){
+  var words=String(t||"").split(/\s+/),lines=[],line="";
+  words.forEach(function(word){
+    var test=line?line+" "+word:word;
+    if(x.measureText(test).width>m&&line){lines.push(line);line=word}else line=test
+  });
+  if(line)lines.push(line);
+  if(lines.length>maxLines){
+    lines=lines.slice(0,maxLines);
+    var last=lines[maxLines-1];
+    while(last.length&&x.measureText(last+"…").width>m)last=last.slice(0,-1);
+    lines[maxLines-1]=last+"…";
+  }
+  lines.forEach(function(line,i){x.fillText(line,px,py+i*lh)});
+}
+function stat(px,label,value,icon,divider){
+  x.fillStyle="rgba(79,110,255,.14)";x.beginPath();x.arc(px+22,405,15,0,Math.PI*2);x.fill();
+  x.fillStyle="#8fb0ff";x.font="700 14px system-ui";x.fillText(icon,px+15,410);
+  if(divider){x.strokeStyle="rgba(120,140,220,.24)";x.beginPath();x.moveTo(px+116,383);x.lineTo(px+116,500);x.stroke()}
+  x.fillStyle="#8f99bf";x.font="700 12px system-ui";x.fillText(label,px,438);
+  var sz=fit(String(value),105,28,17,"800");x.fillStyle="#fff";x.font="800 "+sz+"px system-ui";x.fillText(String(value),px,476)
+}
+
+var bg=x.createLinearGradient(0,0,1200,630);bg.addColorStop(0,"#060914");bg.addColorStop(.55,"#0a1330");bg.addColorStop(1,"#050814");
+x.fillStyle=bg;x.fillRect(0,0,1200,630);
+
+var hue=parseInt(a.hx.slice(0,6),16)%360;
+var glow=x.createRadialGradient(180,80,20,180,80,340);glow.addColorStop(0,"hsla("+hue+",85%,62%,.14)");glow.addColorStop(1,"rgba(0,0,0,0)");
+x.fillStyle=glow;x.fillRect(0,0,1200,630);
+
+rr(60,56,1080,520,22);x.fillStyle="rgba(10,14,35,.86)";x.fill();x.strokeStyle="rgba(103,132,255,.30)";x.lineWidth=1.25;x.stroke();
+
+x.fillStyle="#aeb8e9";x.font="700 13px system-ui";x.fillText("GITHUB AURA // DEVELOPER FINGERPRINT",110,118);
+x.textAlign="right";x.fillText(a.id,1090,118);x.textAlign="left";
+
+try{
+  var im=new Image();im.crossOrigin="anonymous";im.src=u.avatar_url;await im.decode();
+  x.save();rr(110,158,118,118,26);x.clip();x.drawImage(im,110,158,118,118);x.restore();
+  x.strokeStyle="rgba(255,255,255,.92)";x.lineWidth=2;rr(110,158,118,118,26);x.stroke()
+}catch(e){}
+
+var nm=(u.name||u.login).toUpperCase();
+var nameSize=fit(nm,790,40,27,"800");
+x.fillStyle="#f8f9ff";x.font="800 "+nameSize+"px system-ui";x.fillText(nm,258,205);
+
+x.fillStyle="#9fb0ff";x.font="600 21px system-ui";x.fillText("@"+u.login,258,242);
+
+x.fillStyle="#c6cceb";x.font="500 17px system-ui";
+wrap(u.bio||"Building software and creating in public.",258,287,790,25,2);
+
+stat(110,"REPOS",c(u.public_repos),"▣",true);
+stat(250,"FOLLOWERS",c(u.followers),"◔",true);
+stat(390,"STARS",c(a.stars),"★",true);
+stat(530,"TOP LANG",a.langs[0]?a.langs[0].name:"—","</>",false);
+
+x.fillStyle="#6aa2ff";x.font="700 22px system-ui";x.fillText("◔",110,536);
+x.fillStyle="#8f99bf";x.font="600 14px system-ui";x.fillText("CODE FINGERPRINT   "+a.fp,140,535);
+
+rr(748,326,292,180,18);x.fillStyle="rgba(12,18,44,.96)";x.fill();x.strokeStyle="rgba(79,110,255,.38)";x.lineWidth=1;x.stroke();
+
+x.fillStyle="#8fb0ff";x.font="700 16px system-ui";x.fillText("▮▮▮",772,361);
+x.fillStyle="#fff";x.font="800 15px system-ui";x.fillText("TOP LANGUAGES",817,361);
+x.fillStyle="#9aa5d7";x.font="600 10px system-ui";x.textAlign="right";x.fillText("BY REPOSITORY",1016,361);x.textAlign="left";
+
+var total=a.langs.reduce(function(z,l){return z+l.count},0)||1;
+var langs=a.langs.slice(0,4).map(function(l){return{name:l.name,share:l.count/total}});
+if(a.langs.length>4){
+  var first=a.langs.slice(0,3).map(function(l){return{name:l.name,share:l.count/total}});
+  var oth=Math.max(0,1-first.reduce(function(z,l){return z+l.share},0));
+  langs=first.concat([{name:"Other",share:oth}])
+}
+if(!langs.length)langs=[{name:"No data",share:1}];
+
+langs.forEach(function(l,i){
+  var yy=394+i*31,p=Math.round(l.share*100),col=l.name==="Other"?"#9b5cff":lc(l.name);
+  x.fillStyle=col;x.beginPath();x.arc(772,yy,6,0,Math.PI*2);x.fill();
+
+  x.fillStyle="#e5e9ff";x.font="600 12px system-ui";
+  var label=l.name.length>11?l.name.slice(0,10)+"…":l.name;
+  x.fillText(label,788,yy+4);
+
+  rr(880,yy-6,92,12,6);x.fillStyle="rgba(68,79,130,.55)";x.fill();
+  rr(880,yy-6,Math.max(10,92*l.share),12,6);x.fillStyle=col;x.fill();
+
+  x.fillStyle="#d6dcfb";x.font="600 12px system-ui";x.textAlign="right";x.fillText(p+"%",1018,yy+4);x.textAlign="left"
+});
+
+x.fillStyle="#8f99bf";x.font="600 13px system-ui";x.textAlign="right";
+x.fillText("Generated with GitHub Aura · public data only",1090,535);x.textAlign="left";
+
+var link=document.createElement("a");link.download=u.login+"-github-aura.png";link.href=cv.toDataURL("image/png");link.click()
 };
 E.form.onsubmit=function(e){e.preventDefault();run(E.user.value)};
 E.tilt.onpointermove=function(e){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;var r=E.tilt.getBoundingClientRect(),rx=((e.clientY-r.top)/r.height-.5)*-5,ry=((e.clientX-r.left)/r.width-.5)*7;E.tilt.style.transform="perspective(950px) rotateX("+rx+"deg) rotateY("+ry+"deg)"};E.tilt.onpointerleave=function(){E.tilt.style.transform=""};
