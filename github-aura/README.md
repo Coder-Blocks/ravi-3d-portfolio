@@ -29,3 +29,12 @@ HTML5 · CSS · Vanilla JavaScript · GitHub REST API · Canvas API
 Built by [Coder-Blocks](https://github.com/Coder-Blocks) as an open-source visual experiment.
 
 GitHub Aura is an independent project and is not affiliated with GitHub, Inc.
+
+
+## TIC Attribution
+
+Official GitHub Aura builds and exported developer cards carry the attribution:
+
+**Built by TIC • Think Innovative Creations**
+
+Please preserve this attribution in redistributed or derivative builds. See [ATTRIBUTION.md](./ATTRIBUTION.md).
