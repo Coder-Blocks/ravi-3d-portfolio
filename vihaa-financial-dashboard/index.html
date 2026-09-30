@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0d2b59" />
+<title>VIHAA Financial Services — Admin Dashboard</title>
+<style>
+:root{--bg:#f4f8ff;--card:#fff;--ink:#10213b;--muted:#60708c;--blue:#155eef;--blue2:#0b46c5;--nav:#0d2b59;--line:#dbe6f5;--soft:#edf4ff;--shadow:0 10px 34px rgba(24,73,145,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,a{font:inherit}.shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+aside{background:var(--nav);color:#fff;padding:26px 18px;position:sticky;top:0;height:100vh;z-index:40}.brand{font-weight:900;font-size:25px;letter-spacing:.5px}.brand small{display:block;font-size:12px;font-weight:700;opacity:.78;margin-top:5px;letter-spacing:.8px}.nav{margin-top:32px;display:grid;gap:9px}.nav a{color:#dbe8ff;text-decoration:none;padding:13px 14px;border-radius:12px;display:flex;gap:10px;align-items:center}.nav a:hover,.nav a.active{background:#173f78;color:#fff}.adminnote{position:absolute;left:18px;right:18px;bottom:20px;padding:13px;border:1px solid #2a538a;border-radius:14px;font-size:12px;line-height:1.5;color:#cfe0ff}.mobilebar{display:none}
+main{padding:34px;min-width:0}.header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}.header h1{margin:0;font-size:30px}.header p{margin:7px 0 0;color:var(--muted)}.badge{background:#e9f2ff;color:#0d51c7;padding:9px 12px;border-radius:999px;font-size:13px;font-weight:800;white-space:nowrap}
+.quick{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}.quick a{flex:0 0 auto}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.icon{width:48px;height:48px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:23px}.card h2{font-size:18px;margin:16px 0 8px}.card p{font-size:14px;color:var(--muted);line-height:1.55;min-height:66px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:12px 14px;font-weight:800;font-size:14px;border:1px solid var(--line);color:var(--ink);background:#fff;cursor:pointer;min-height:44px}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue2)}.section{margin-top:24px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panelhead h3{margin:0}.panelhead span{font-size:12px;color:var(--muted)}iframe{width:100%;height:680px;border:1px solid var(--line);border-radius:15px;background:#fff}.notice{margin-top:18px;padding:14px 16px;background:#fff8e8;border:1px solid #f1dfa8;border-radius:14px;color:#725b19;font-size:13px;line-height:1.55}
+.overlay{display:none}
+@media(max-width:950px){
+ body{padding-top:64px}.shell{display:block}.mobilebar{display:flex;position:fixed;inset:0 0 auto 0;height:64px;background:var(--nav);color:#fff;z-index:60;align-items:center;justify-content:space-between;padding:0 14px;box-shadow:0 4px 18px rgba(0,0,0,.18)}.mobilebrand{font-weight:900;line-height:1.05}.mobilebrand small{display:block;font-size:10px;opacity:.78;margin-top:3px}.menubtn{width:44px;height:44px;border:1px solid rgba(255,255,255,.22);border-radius:11px;background:#173f78;color:#fff;font-size:22px;cursor:pointer}
+ aside{position:fixed;left:-290px;top:64px;width:275px;height:calc(100vh - 64px);transition:left .22s ease;overflow:auto;box-shadow:12px 0 30px rgba(0,0,0,.18)}aside.open{left:0}.overlay.show{display:block;position:fixed;inset:64px 0 0 0;background:rgba(3,18,43,.45);z-index:30}.adminnote{position:static;margin-top:18px}.grid{grid-template-columns:1fr}.header{align-items:flex-start}.header h1{font-size:25px}.badge{display:none}main{padding:18px}.card{padding:18px}.card p{min-height:0}.actions{display:grid;grid-template-columns:1fr}.actions .btn{width:100%}.quick{display:grid;grid-template-columns:1fr 1fr}.quick .btn{width:100%}iframe{height:72vh;min-height:560px}.panel{padding:12px}.panelhead{padding:4px}.brand{display:none}
+}
+@media(max-width:520px){.quick{grid-template-columns:1fr}.header h1{font-size:23px}.header p{font-size:14px}main{padding:14px}.card,.panel{border-radius:16px}}
+</style>
+</head>
+<body>
+<div class="mobilebar">
+  <button class="menubtn" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+  <div class="mobilebrand">VIHAA<small>FINANCIAL SERVICES</small></div>
+  <div style="width:44px"></div>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu(false)"></div>
+<div class="shell">
+  <aside id="sidebar">
+    <div class="brand">VIHAA<small>FINANCIAL SERVICES</small></div>
+    <div class="nav">
+      <a class="active" href="#dashboard" onclick="toggleMenu(false)">🏠 Dashboard</a>
+      <a href="#customer-form" onclick="toggleMenu(false)">📝 Customer Form</a>
+      <a href="https://docs.google.com/forms/d/172QgLDfmU7q2LbZKGqH-cn2ffx33a5Of-tCzlzaFUQs/viewform?pli=1&pli=1&edit_requested=true" target="_blank" rel="noopener">⚙️ Manage Form ↗</a>
+      <a href="https://docs.google.com/spreadsheets/d/1rZwKMaNvN6RLy5dhqE8d6CB4f2ddyN4srQmQAuT9iNE/edit?usp=drivesdk" target="_blank" rel="noopener">📊 Loan Leads ↗</a>
+    </div>
+    <div class="adminnote"><b>ADMIN DASHBOARD</b><br/>Keep this page private. Share only the customer loan enquiry form with customers.</div>
+  </aside>
+
+  <main id="dashboard">
+    <div class="header"><div><h1>Financial Services Dashboard</h1><p>Customer enquiry, form management and lead tracking — one place.</p></div><div class="badge">VIHAA • Admin Hub</div></div>
+
+    <div class="quick">
+      <a class="btn primary" href="https://docs.google.com/spreadsheets/d/1rZwKMaNvN6RLy5dhqE8d6CB4f2ddyN4srQmQAuT9iNE/edit?usp=drivesdk" target="_blank" rel="noopener">📊 Open Leads</a>
+      <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScJVksfGrugcdBSjLR7mvM8jgZM8pgAs_9eJsgfMHuQnaI0JQ/viewform" target="_blank" rel="noopener">📝 Customer Form</a>
+      <button class="btn" onclick="copyCustomerLink()">🔗 Copy Form Link</button>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div class="icon">📝</div><h2>Customer Loan Form</h2><p>Share this link with customers for loan eligibility and enquiry submission.</p><div class="actions"><a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLScJVksfGrugcdBSjLR7mvM8jgZM8pgAs_9eJsgfMHuQnaI0JQ/viewform" target="_blank" rel="noopener">Open Customer Form</a><button class="btn" onclick="copyCustomerLink()">Copy Link</button></div></div>
+      <div class="card"><div class="icon">⚙️</div><h2>Manage Google Form</h2><p>Admin area for editing questions, settings, confirmation message and responses.</p><div class="actions"><a class="btn primary" href="https://docs.google.com/forms/d/172QgLDfmU7q2LbZKGqH-cn2ffx33a5Of-tCzlzaFUQs/viewform?pli=1&pli=1&edit_requested=true" target="_blank" rel="noopener">Manage Form</a></div></div>
+      <div class="card"><div class="icon">📊</div><h2>Loan Leads</h2><p>Open your live Google Sheet to review new leads and manage follow-ups.</p><div class="actions"><a class="btn primary" href="https://docs.google.com/spreadsheets/d/1rZwKMaNvN6RLy5dhqE8d6CB4f2ddyN4srQmQAuT9iNE/edit?usp=drivesdk" target="_blank" rel="noopener">Open Loan Leads</a></div></div>
+    </div>
+
+    <div class="section panel" id="customer-form"><div class="panelhead"><h3>Customer Form Preview</h3><span>Live Google Form</span></div><iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJVksfGrugcdBSjLR7mvM8jgZM8pgAs_9eJsgfMHuQnaI0JQ/viewform?embedded=true" title="VIHAA Financial Services Loan Form">Loading…</iframe></div>
+    <div class="notice"><strong>Security:</strong> Do not share this admin dashboard publicly because it contains admin links to your form and lead sheet. Share only the Customer Loan Form link with customers.</div>
+  </main>
+</div>
+<script>
+const CUSTOMER_FORM='https://docs.google.com/forms/d/e/1FAIpQLScJVksfGrugcdBSjLR7mvM8jgZM8pgAs_9eJsgfMHuQnaI0JQ/viewform';
+function toggleMenu(force){const s=document.getElementById('sidebar'),o=document.getElementById('overlay');const open=typeof force==='boolean'?force:!s.classList.contains('open');s.classList.toggle('open',open);o.classList.toggle('show',open)}
+async function copyCustomerLink(){try{await navigator.clipboard.writeText(CUSTOMER_FORM);alert('Customer Form link copied.')}catch(e){prompt('Copy this link:',CUSTOMER_FORM)}}
+</script>
+</body>
+</html>
