@@ -16,56 +16,6 @@
 <meta name="twitter:description" content="A real-provider global AI language behavior observatory.">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"VIHAA LINGUA-360","applicationCategory":"DeveloperApplication","operatingSystem":"Web","url":"https://vihaa-lingua-360.onrender.com/","description":"Global AI language behavior observatory for multilingual benchmarking, dialect analysis, refusal consistency, disagreement detection, regression tracking, voice interaction and multilingual exploration.","creator":{"@type":"Organization","name":"Think Innovative Creations (TIC)"}}
-
-function vihaaSetView(view,scroll=true){
- const groups={
-  explore:['.explore'],
-  benchmark:['.flow-top'],
-  results:['.results-top','.bottom-grid'],
-  observatory:['.observatory'],
-  labs:['.nextlabs'],
-  research:['.open-research-access','.research-portal']
- };
- Object.entries(groups).forEach(([k,sels])=>sels.forEach(sel=>document.querySelectorAll(sel).forEach(el=>el.classList.toggle('ui-view-hidden',k!==view))));
- document.querySelectorAll('.ui-view-block').forEach(el=>el.classList.toggle('ui-view-hidden',el.dataset.viewBlock!==view));
- document.querySelectorAll('.appnav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
- localStorage.setItem('vihaa_lingua_ui_view',view);
- if(scroll)window.scrollTo({top:0,behavior:'smooth'});
-}
-function setupProviderHub(){
- const mini=document.querySelector('.provider-mini');if(!mini)return;
- if(!mini.querySelector('.provider-hub-title')){
-   const h=document.createElement('div');h.className='provider-hub-title';h.innerHTML='<div><h2>Universal AI Provider Hub</h2><p>Connect a preset, discover supported models, or use a custom OpenAI / Anthropic / Cohere-compatible endpoint.</p></div><button class="provider-hub-close" id="closeProviderHub">Close ✕</button>';mini.prepend(h);
- }
- const parent=mini.parentElement;
- if(parent&&!parent.querySelector('.provider-launch')){
-   const launch=document.createElement('div');launch.className='provider-launch';launch.innerHTML='<div class="provider-launch-copy"><b>AI Providers</b><span id="providerLaunchSummary">Manage API keys, endpoints and models in a full-size workspace.</span></div><button type="button" class="open-provider-local">Open Provider Hub</button>';parent.insertBefore(launch,mini);
- }
- const backdrop=document.getElementById('providerBackdrop');
- const open=()=>{mini.classList.add('hub-open');backdrop?.classList.add('show');document.body.style.overflow='hidden'};
- const close=()=>{mini.classList.remove('hub-open');backdrop?.classList.remove('show');document.body.style.overflow='';updateProviderSummary()};
- document.getElementById('openProviderHubGlobal')?.addEventListener('click',open);
- document.getElementById('openProviderHubBenchmark')?.addEventListener('click',open);
- document.querySelector('.open-provider-local')?.addEventListener('click',open);
- mini.querySelector('#closeProviderHub')?.addEventListener('click',close);
- backdrop?.addEventListener('click',close);
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mini.classList.contains('hub-open'))close()});
- window.__openVihaaProviderHub=open;window.__closeVihaaProviderHub=close;updateProviderSummary();
-}
-function updateProviderSummary(){
- const e=document.getElementById('providerLaunchSummary');if(!e)return;
- const configured=(providers||[]).filter(p=>p.model&&p.url).length,total=(providers||[]).length;
- e.textContent=configured?configured+' configured provider'+(configured===1?'':'s')+' ready • '+total+' added in this session':'No provider fully configured yet • open the hub to connect one';
-}
-document.querySelectorAll('.appnav-btn').forEach(b=>b.addEventListener('click',()=>vihaaSetView(b.dataset.view)));
-document.getElementById('backToBenchmark')?.addEventListener('click',()=>vihaaSetView('benchmark'));
-document.getElementById('jumpRunBenchmark')?.addEventListener('click',()=>{document.getElementById('runBtn')?.scrollIntoView({behavior:'smooth',block:'center'})});
-document.getElementById('benchmarkExplore')?.addEventListener('click',()=>vihaaSetView('benchmark',false));
-const __shellRenderProviders=renderProviders;renderProviders=function(){__shellRenderProviders();updateProviderSummary()};
-const __shellRenderResults=renderResults;renderResults=function(){__shellRenderResults();const b=document.getElementById('resultsBadge');if(b)b.textContent=runRecords.length};
-setupProviderHub();
-const __savedView=localStorage.getItem('vihaa_lingua_ui_view');vihaaSetView(['explore','benchmark','results','observatory','labs','research'].includes(__savedView)?__savedView:'explore',false);
-
 </script>
 <style>
 :root{--navy:#07162f;--navy2:#0b2347;--blue:#2563eb;--vio:#6d4dff;--cyan:#19b9f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--ink:#10203b;--muted:#64748b;--line:#d9e5f4;--soft:#f6f9fe;--card:#fff;--shadow:0 12px 32px rgba(24,57,103,.12)}
@@ -1041,5 +991,54 @@ document.getElementById('exploreVoice').onclick=()=>{const st=document.getElemen
 function loadAskLink(){if(!location.hash.startsWith('#ask='))return;try{const d=JSON.parse(base64UrlDecode(location.hash.slice(5)));if(d.q)document.getElementById('exploreQuestion').value=d.q;if(d.lang)document.getElementById('exploreLang').value=d.lang;if(d.depth)document.getElementById('exploreDepth').value=d.depth;document.getElementById('exploreStatus').textContent='Shared Ask configuration loaded. Connect your own real provider to answer it.';document.getElementById('exploreMode').scrollIntoView({block:'start'})}catch{}}
 populateExploreLanguages();refreshExploreProviders();renderExploreHistory();loadAskLink();
 
+
+function vihaaSetView(view,scroll=true){
+ const groups={
+  explore:['.explore'],
+  benchmark:['.flow-top'],
+  results:['.results-top','.bottom-grid'],
+  observatory:['.observatory'],
+  labs:['.nextlabs'],
+  research:['.open-research-access','.research-portal']
+ };
+ Object.entries(groups).forEach(([k,sels])=>sels.forEach(sel=>document.querySelectorAll(sel).forEach(el=>el.classList.toggle('ui-view-hidden',k!==view))));
+ document.querySelectorAll('.ui-view-block').forEach(el=>el.classList.toggle('ui-view-hidden',el.dataset.viewBlock!==view));
+ document.querySelectorAll('.appnav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+ localStorage.setItem('vihaa_lingua_ui_view',view);
+ if(scroll)window.scrollTo({top:0,behavior:'smooth'});
+}
+function setupProviderHub(){
+ const mini=document.querySelector('.provider-mini');if(!mini)return;
+ if(!mini.querySelector('.provider-hub-title')){
+   const h=document.createElement('div');h.className='provider-hub-title';h.innerHTML='<div><h2>Universal AI Provider Hub</h2><p>Connect a preset, discover supported models, or use a custom OpenAI / Anthropic / Cohere-compatible endpoint.</p></div><button class="provider-hub-close" id="closeProviderHub">Close ✕</button>';mini.prepend(h);
+ }
+ const parent=mini.parentElement;
+ if(parent&&!parent.querySelector('.provider-launch')){
+   const launch=document.createElement('div');launch.className='provider-launch';launch.innerHTML='<div class="provider-launch-copy"><b>AI Providers</b><span id="providerLaunchSummary">Manage API keys, endpoints and models in a full-size workspace.</span></div><button type="button" class="open-provider-local">Open Provider Hub</button>';parent.insertBefore(launch,mini);
+ }
+ const backdrop=document.getElementById('providerBackdrop');
+ const open=()=>{mini.classList.add('hub-open');backdrop?.classList.add('show');document.body.style.overflow='hidden'};
+ const close=()=>{mini.classList.remove('hub-open');backdrop?.classList.remove('show');document.body.style.overflow='';updateProviderSummary()};
+ document.getElementById('openProviderHubGlobal')?.addEventListener('click',open);
+ document.getElementById('openProviderHubBenchmark')?.addEventListener('click',open);
+ document.querySelector('.open-provider-local')?.addEventListener('click',open);
+ mini.querySelector('#closeProviderHub')?.addEventListener('click',close);
+ backdrop?.addEventListener('click',close);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mini.classList.contains('hub-open'))close()});
+ window.__openVihaaProviderHub=open;window.__closeVihaaProviderHub=close;updateProviderSummary();
+}
+function updateProviderSummary(){
+ const e=document.getElementById('providerLaunchSummary');if(!e)return;
+ const configured=(providers||[]).filter(p=>p.model&&p.url).length,total=(providers||[]).length;
+ e.textContent=configured?configured+' configured provider'+(configured===1?'':'s')+' ready • '+total+' added in this session':'No provider fully configured yet • open the hub to connect one';
+}
+document.querySelectorAll('.appnav-btn').forEach(b=>b.addEventListener('click',()=>vihaaSetView(b.dataset.view)));
+document.getElementById('backToBenchmark')?.addEventListener('click',()=>vihaaSetView('benchmark'));
+document.getElementById('jumpRunBenchmark')?.addEventListener('click',()=>{document.getElementById('runBtn')?.scrollIntoView({behavior:'smooth',block:'center'})});
+document.getElementById('benchmarkExplore')?.addEventListener('click',()=>vihaaSetView('benchmark',false));
+const __shellRenderProviders=renderProviders;renderProviders=function(){__shellRenderProviders();updateProviderSummary()};
+const __shellRenderResults=renderResults;renderResults=function(){__shellRenderResults();const b=document.getElementById('resultsBadge');if(b)b.textContent=runRecords.length};
+setupProviderHub();
+const __savedView=localStorage.getItem('vihaa_lingua_ui_view');vihaaSetView(['explore','benchmark','results','observatory','labs','research'].includes(__savedView)?__savedView:'explore',false);
 </script>
 </body></html>
