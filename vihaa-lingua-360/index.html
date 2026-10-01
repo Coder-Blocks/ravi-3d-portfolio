@@ -207,6 +207,27 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 @media(max-width:1380px){.flow-top{grid-template-columns:1fr}.selection-grid{grid-template-columns:1.15fr .85fr}.langs{max-height:300px}}
 @media(max-width:850px){.selection-grid{grid-template-columns:1fr}.model-pane{padding:12px}.run-config{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.run-config{grid-template-columns:1fr}.run-config .answer-models-field,.run-config .max-lang-field{grid-column:auto}.langs{grid-template-columns:1fr}.config-toggles{grid-template-columns:1fr}}
+
+/* ===== DEEP RESEARCH MODE ===== */
+.explore-controls{grid-template-columns:repeat(4,minmax(0,1fr))}
+.deep-research-config{display:none;margin-top:10px;border:1px solid #cfe0f3;background:linear-gradient(180deg,#f9fcff,#eef6ff);border-radius:12px;padding:12px}
+.deep-research-config.show{display:block}
+.deep-research-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:9px}
+.deep-research-head b{font-size:11px;color:#174474}.deep-research-head span{font-size:8px;color:#7186a0;line-height:1.45;max-width:600px}
+.deep-research-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:8px}
+.deep-research-grid label span{font-size:7.5px;color:#7186a0;font-weight:700;margin-bottom:4px}
+.deep-research-grid input,.deep-research-grid select{height:36px;border-radius:8px;font-size:8.5px}
+.deep-google-extra{display:none}.deep-google-extra.show{display:block}
+.deep-research-note{margin-top:8px;font-size:7.5px;line-height:1.45;color:#6c819b}
+.research-progress{display:none;margin-top:9px;border:1px solid #dce7f3;background:#fff;border-radius:9px;padding:9px}.research-progress.show{display:block}
+.research-progress-title{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:#4c6686;margin-bottom:5px}.research-progress-bar{height:6px;background:#e7eef7;border-radius:99px;overflow:hidden}.research-progress-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#168cff,#6d4eff);transition:.25s}
+.kr-research-strip{display:none;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 0 14px}.kr-research-strip.show{display:grid}.kr-research-stat{border:1px solid #dbe6f2;border-radius:9px;padding:9px;background:#fbfdff}.kr-research-stat small{display:block;color:#8091a8;font-size:6.5px;text-transform:uppercase;letter-spacing:.5px}.kr-research-stat b{display:block;margin-top:3px;color:#214b79;font-size:10px}
+.kr-topic a.cite,.kr-overview a.cite,.kr-summary a.cite{color:#2563eb;text-decoration:none;font-size:.92em;font-weight:700}
+.kr-diagrams{margin-top:14px}.kr-diagram{border:1px solid #dbe6f2;border-radius:12px;padding:14px;margin-bottom:10px;background:linear-gradient(180deg,#fff,#f8fbff);break-inside:avoid}.kr-diagram h3{margin:0 0 8px;color:#174474;font-size:12px}.kr-diagram-caption{font-size:8px;line-height:1.5;color:#73869d;margin-top:8px}.kr-diagram-flow{display:flex;align-items:center;gap:6px;overflow:auto;padding:6px 0}.kr-diagram-node{min-width:120px;max-width:180px;border:1px solid #cfe0f3;background:#fff;border-radius:10px;padding:9px;text-align:center}.kr-diagram-node b{display:block;color:#244d79;font-size:9px}.kr-diagram-node span{display:block;color:#6d819a;font-size:7.5px;line-height:1.4;margin-top:3px}.kr-diagram-arrow{color:#2f6fc5;font-size:17px;font-weight:900}.kr-diagram-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;position:relative}.kr-diagram-timeline .kr-diagram-node{max-width:none;position:relative}.kr-diagram-concept{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px;align-items:center}.kr-diagram-center{border:2px solid #5d8fe6;background:#edf5ff;border-radius:50%;aspect-ratio:1;display:grid;place-items:center;text-align:center;padding:12px;color:#174474;font-size:9px;font-weight:800;max-width:150px;margin:auto}.kr-diagram-side{display:grid;gap:6px}
+.kr-sources{margin-top:14px;border:1px solid #dbe6f2;border-radius:12px;padding:14px;background:#fff}.kr-sources h3{margin:0 0 8px;font-size:12px;color:#173f70}.kr-source{display:grid;grid-template-columns:42px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid #edf1f6}.kr-source:last-child{border-bottom:0}.kr-source-id{display:grid;place-items:center;border-radius:8px;background:#edf5ff;color:#285d9d;font-size:8px;font-weight:800;height:30px}.kr-source a{font-size:9px;color:#245999;text-decoration:none;font-weight:700;word-break:break-word}.kr-source small{display:block;color:#7b8ca3;font-size:7.5px;line-height:1.45;margin-top:2px}
+.pdf-diagram{border:1px solid #dfe8f3;border-radius:9px;padding:11px;margin-bottom:9px;background:#fbfdff;break-inside:avoid}.pdf-diagram h2{font-size:11px;color:#174474;margin:0 0 7px}.pdf-diagram-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.pdf-diagram-node{border:1px solid #cfe0f2;border-radius:7px;background:#fff;padding:7px;min-width:100px;max-width:150px;text-align:center;font-size:7.8px;color:#315272}.pdf-diagram-arrow{font-size:12px;color:#2f6fc5;font-weight:bold}.pdf-source-list{border:1px solid #dfe8f3;border-radius:9px;padding:10px;background:#fff;break-inside:auto}.pdf-source-item{font-size:7.5px;line-height:1.45;color:#3a526d;padding:5px 0;border-bottom:1px solid #edf1f5;word-break:break-word}.pdf-source-item:last-child{border-bottom:0}.pdf-source-item b{color:#214d7b}
+@media(max-width:1050px){.explore-controls{grid-template-columns:1fr 1fr}.deep-research-grid{grid-template-columns:1fr 1fr}.kr-research-strip{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.explore-controls,.deep-research-grid{grid-template-columns:1fr}.kr-research-strip{grid-template-columns:1fr 1fr}.kr-diagram-concept{grid-template-columns:1fr}.kr-diagram-center{max-width:120px}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -224,16 +245,18 @@ function pdfFooter(pageLabel){
 function makeExplorePdfHtml(){
  if(!currentExplore)return '';
  const d=currentExplore.data||{},rtl=isRtl(currentExplore.langCode),T=exploreUiText(currentExplore.langCode),L=exploreLabels(d,currentExplore.langCode);
- const facts=Array.isArray(d.key_facts)&&d.key_facts.length?'<div class="pdf-keyfacts">'+d.key_facts.map(x=>'<div class="pdf-keyfact"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'')+'</b></div>').join('')+'</div>':'';
+ const diagrams=(d.diagrams||[]).map(di=>'<div class="pdf-diagram" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(di.title||'')+'</h2><div class="pdf-diagram-row">'+(di.items||[]).map((x,i)=>'<div class="pdf-diagram-node"><b>'+esc(x.label||'')+'</b><br>'+esc(x.detail||'')+'</div>'+(di.type==='flow'&&i<(di.items||[]).length-1?'<span class="pdf-diagram-arrow">→</span>':'')).join('')+'</div><div style="font-size:7px;color:#75869c;margin-top:6px">'+esc(di.caption||'')+'</div></div>').join('');
+ const bibliography=(d.sources||[]).length?'<div class="pdf-section"><h2>'+esc(L.sources)+'</h2><div class="pdf-source-list">'+d.sources.map((s,i)=>'<div class="pdf-source-item"><b>[S'+(i+1)+'] '+esc(s.title||s.url)+'</b><br>'+esc(s.url)+(s.snippet?'<br>'+esc(String(s.snippet).slice(0,260)):'')+'</div>').join('')+'</div></div>':'';
+ const facts=Array.isArray(d.key_facts)&&d.key_facts.length?'<div class="pdf-keyfacts">'+d.key_facts.map(x=>'<div class="pdf-keyfact"><small>'+esc(x.label||'')+'</small><b>'+citationHtml(x.value||'')+'</b></div>').join('')+'</div>':'';
  const summary=d.executive_summary?'<div class="pdf-report-summary" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.summary)+'</h2><p>'+esc(d.executive_summary)+'</p></div>':'';
  const overview=d.overview?'<div class="pdf-topic" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.overview)+'</h2><p>'+esc(d.overview)+'</p></div>':'';
- const topics=(Array.isArray(d.sections)?d.sections:[]).map(x=>'<div class="pdf-topic" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(x.heading||'')+'</h2><p>'+esc(x.body||'')+'</p>'+((x.bullets||[]).length?'<ul>'+x.bullets.map(b=>'<li>'+esc(b)+'</li>').join('')+'</ul>':'')+'</div>').join('');
+ const topics=(Array.isArray(d.sections)?d.sections:[]).map(x=>'<div class="pdf-topic" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(x.heading||'')+'</h2><p>'+esc(x.body||'')+'</p>'+((x.bullets||[]).length?'<ul>'+x.bullets.map(b=>'<li>'+citationHtml(b)+'</li>').join('')+'</ul>':'')+'</div>').join('');
  const notes=(d.important_notes||[]).length?'<div class="pdf-topic" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.notes)+'</h2><ul>'+d.important_notes.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>':'';
  const faq=(d.faqs||[]).length?'<div class="pdf-section" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.faqs)+'</h2>'+d.faqs.map(x=>'<div class="pdf-faq"><b>'+esc(x.q||'')+'</b><div>'+esc(x.a||'')+'</div></div>').join('')+'</div>':'';
  const related=pdfList(L.related,d.related_questions||[],rtl);
  const source=pdfText(L.sources,d.source_note||'This Explore answer has not been independently verified.',rtl);
- const body=summary+(facts?'<div class="pdf-section" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.facts)+'</h2>'+facts+'</div>':'')+overview+topics+notes+faq+related+source;
- return '<div class="pdf-page"><div class="pdf-cover"><div class="pdf-brand"><div class="pdf-logo">◎</div><div><b>VIHAA LINGUA-360</b><small>Knowledge Report • Built by TIC</small></div></div><h1>'+esc(d.title||'Comprehensive Knowledge Report')+'</h1><p>'+esc(d.subtitle||currentExplore.question)+'</p><div class="pdf-meta-strip"><div class="pdf-meta-item"><span>'+esc(T.language)+'</span><b>'+esc(currentExplore.langName)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.depth)+'</span><b>'+esc(T[currentExplore.depth]||currentExplore.depth)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.provider)+'</span><b>'+esc(currentExplore.providerName+' / '+currentExplore.model)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.generated)+'</span><b>'+esc(new Date(currentExplore.at).toLocaleString())+'</b></div></div></div><div class="pdf-body"><div class="pdf-intro-note">'+esc(T.question)+': '+esc(currentExplore.question)+'<br><br>'+esc(T.warning)+'</div>'+body+'</div>'+pdfFooter(T.report)+'</div>';
+ const body=summary+(facts?'<div class="pdf-section" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.facts)+'</h2>'+facts+'</div>':'')+overview+topics+notes+(diagrams?'<div class="pdf-section"><h2>'+esc(T.diagrams)+'</h2>'+diagrams+'</div>':'')+faq+related+source+bibliography;
+ return '<div class="pdf-page"><div class="pdf-cover"><div class="pdf-brand"><div class="pdf-logo">◎</div><div><b>VIHAA LINGUA-360</b><small>Knowledge Report • Built by TIC</small></div></div><h1>'+esc(d.title||'Comprehensive Knowledge Report')+'</h1><p>'+esc(d.subtitle||currentExplore.question)+'</p><div class="pdf-meta-strip"><div class="pdf-meta-item"><span>'+esc(T.language)+'</span><b>'+esc(currentExplore.langName)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.depth)+'</span><b>'+esc(T[currentExplore.depth]||currentExplore.depth)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.provider)+'</span><b>'+esc(currentExplore.providerName+' / '+currentExplore.model)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.generated)+'</span><b>'+esc(new Date(currentExplore.at).toLocaleString())+'</b></div></div></div><div class="pdf-body"><div class="pdf-intro-note">'+esc(T.question)+': '+esc(currentExplore.question)+'<br><br>'+(currentExplore.researchMode==='deep'?('Deep Web Research • '+(d.sources||[]).length+' sources • '+(currentExplore.researchQueries||[]).length+' search queries<br><br>'):'')+esc(T.warning)+'</div>'+body+'</div>'+pdfFooter(T.report)+'</div>';
 }
 function benchmarkSummary(){
  const judged=runRecords.filter(r=>r.status==='ok'&&r.metrics),ok=runRecords.filter(r=>r.status==='ok'),fail=runRecords.filter(r=>r.status!=='ok'),langs=new Set(runRecords.map(r=>r.langCode)),models=new Set(runRecords.map(r=>r.providerName+'|'+r.model));
@@ -297,6 +320,18 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
         <label><span>Answer language</span><select id="exploreLang"></select></label>
         <label><span>Answer depth</span><select id="exploreDepth"><option value="simple">Simple</option><option value="detailed" selected>Detailed</option><option value="expert">Expert</option></select></label>
         <label><span>Real AI provider</span><select id="exploreProvider"></select></label>
+        <label><span>Research mode</span><select id="exploreResearchMode"><option value="standard">Knowledge Report</option><option value="deep">Deep Web Research</option></select></label>
+      </div>
+      <div class="deep-research-config" id="deepResearchConfig">
+        <div class="deep-research-head"><div><b>Deep Research Sources</b><span>Use a web-enabled AI provider or a search API. The app will generate multiple queries, collect sources, deduplicate them, synthesize only from the research dossier, and preserve citations.</span></div></div>
+        <div class="deep-research-grid">
+          <label><span>Research source</span><select id="deepResearchSource"><option value="webprovider">Web-enabled AI provider (Perplexity/Sonar etc.)</option><option value="tavily">Tavily Advanced Search</option><option value="google">Google Programmable Search</option><option value="serper">Serper Google Search</option></select></label>
+          <label><span>Research API key (only for search APIs)</span><input id="deepResearchKey" type="password" autocomplete="off" placeholder="Not saved"></label>
+          <label class="deep-google-extra" id="deepGoogleExtra"><span>Google Search Engine ID (cx)</span><input id="deepResearchCx" placeholder="Programmable Search Engine ID"></label>
+          <label><span>Research breadth</span><select id="deepResearchBreadth"><option value="4">Focused • 4 queries</option><option value="6" selected>Deep • 6 queries</option><option value="8">Exhaustive • 8 queries</option></select></label>
+        </div>
+        <div class="deep-research-note">For the strongest web-grounded result, use Perplexity Sonar Deep Research or Tavily Advanced Search. Google/Serper modes provide search-result evidence; depth depends on what their API returns. No source = no claim of completed deep web research.</div>
+        <div class="research-progress" id="researchProgress"><div class="research-progress-title"><span id="researchProgressText">Preparing research…</span><span id="researchProgressPct">0%</span></div><div class="research-progress-bar"><i id="researchProgressBar"></i></div></div>
       </div>
       <div class="explore-q"><label><span>Your question</span><textarea id="exploreQuestion" placeholder="Ask anything…">Explain artificial intelligence and how it can affect everyday life.</textarea></label></div>
       <div class="explore-actions"><button class="askbtn" id="askExplore">Ask in Selected Language →</button><button class="btn" id="exploreVoice">🎙 Voice Input</button><span class="explore-status" id="exploreStatus">Waiting for a connected provider.</span></div>
@@ -319,7 +354,10 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
       </div>
       <div class="kr-body">
         <div class="kr-warning">AI-generated information can be incomplete or wrong. For medical, legal, financial, emergency, and other high-stakes topics, verify important decisions with appropriate qualified or official sources.</div>
+        <div class="kr-research-strip" id="krResearchStrip"><div class="kr-research-stat"><small>Research Mode</small><b id="krResearchMode">Standard</b></div><div class="kr-research-stat"><small>Sources</small><b id="krSourceCount">0</b></div><div class="kr-research-stat"><small>Search Queries</small><b id="krQueryCount">0</b></div><div class="kr-research-stat"><small>Diagrams</small><b id="krDiagramCount">0</b></div></div>
         <div class="answer-sections" id="exploreSections"></div>
+        <div class="kr-diagrams" id="exploreDiagrams"></div>
+        <div class="kr-sources" id="exploreSources" style="display:none"></div>
         <div class="kr-footer-grid"><div class="source-note" id="exploreSourceNote"><b>Sources / Evidence</b>Not independently verified in this mode.</div><div class="related-box" id="exploreRelated"></div></div>
       </div>
       <div class="kr-report-foot"><span>VIHAA LINGUA-360 • Think Innovative Creations (TIC)</span><span>Research-friendly multilingual knowledge report</span></div>
@@ -1042,6 +1080,84 @@ async function getExploreAnswer(provider,question,langName,depth,signal){
  if(!data)data={title:'Answer',subtitle:'',labels:{executive_summary:'Summary',key_facts:'Key Facts',overview:'Overview',important_notes:'Important Notes',faqs:'FAQs',related_questions:'Related Questions',sources:'Sources / Evidence'},executive_summary:out.text,key_facts:[],overview:out.text,sections:[],important_notes:[],faqs:[],related_questions:[],source_note:'The provider did not return structured JSON. The raw answer is shown and has not been independently verified.'};
  return {data,out};
 }
+
+function setResearchProgress(pct,textMsg){
+ const box=document.getElementById('researchProgress'),bar=document.getElementById('researchProgressBar'),txt=document.getElementById('researchProgressText'),p=document.getElementById('researchProgressPct');
+ if(box)box.classList.toggle('show',pct<100&&pct>=0);if(bar)bar.style.width=Math.max(0,Math.min(100,pct))+'%';if(txt)txt.textContent=textMsg||'';if(p)p.textContent=Math.round(pct)+'%';
+}
+function extractProviderSources(raw){
+ const out=[];if(!raw||typeof raw!=='object')return out;
+ const push=(url,title='',snippet='')=>{if(!url||typeof url!=='string')return;out.push({url,title:title||url,snippet:snippet||''})};
+ if(Array.isArray(raw.citations))raw.citations.forEach((x,i)=>typeof x==='string'?push(x,'Source '+(i+1),''):push(x.url||x.link,x.title||('Source '+(i+1)),x.snippet||x.text||''));
+ if(Array.isArray(raw.search_results))raw.search_results.forEach(x=>push(x.url||x.link,x.title,x.snippet||x.text||x.content||''));
+ if(Array.isArray(raw.sources))raw.sources.forEach(x=>push(x.url||x.link,x.title,x.snippet||x.text||x.content||''));
+ return dedupeSources(out);
+}
+function dedupeSources(arr){
+ const seen=new Set(),out=[];for(const s of arr){try{const u=new URL(s.url);const k=(u.origin+u.pathname).replace(/\/$/,'').toLowerCase();if(seen.has(k))continue;seen.add(k);out.push({...s,domain:u.hostname.replace(/^www\./,'')})}catch{}}
+ return out;
+}
+async function makeResearchQueries(provider,question,breadth,signal){
+ const sys='Create '+breadth+' diverse web-search queries for deep research on the user question. Cover definitions/background, current authoritative information, specialist/academic or government sources where relevant, controversies/limitations, and statistics only when needed. Return ONLY JSON: {"queries":[""]}. No explanations.';
+ const out=await callProvider(provider,[{role:'system',content:sys},{role:'user',content:question}],signal);let j=parseJsonLoose(out.text);let q=Array.isArray(j?.queries)?j.queries.filter(Boolean).slice(0,breadth):[];
+ if(!q.length)q=[question];return q;
+}
+async function searchTavily(key,query,signal){
+ const rr=await fetch('https://api.tavily.com/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({api_key:key,query,search_depth:'advanced',max_results:8,include_raw_content:true,include_answer:false}),signal});
+ if(!rr.ok)throw new Error('Tavily: HTTP '+rr.status+' '+await rr.text());const j=await rr.json();return (j.results||[]).map(x=>({url:x.url,title:x.title||x.url,snippet:String(x.raw_content||x.content||'').slice(0,5000)}));
+}
+async function searchGoogle(key,cx,query,signal){
+ const u='https://www.googleapis.com/customsearch/v1?key='+encodeURIComponent(key)+'&cx='+encodeURIComponent(cx)+'&q='+encodeURIComponent(query)+'&num=10';const rr=await fetch(u,{signal});
+ if(!rr.ok)throw new Error('Google Search: HTTP '+rr.status+' '+await rr.text());const j=await rr.json();return (j.items||[]).map(x=>({url:x.link,title:x.title||x.link,snippet:x.snippet||''}));
+}
+async function searchSerper(key,query,signal){
+ const rr=await fetch('https://google.serper.dev/search',{method:'POST',headers:{'Content-Type':'application/json','X-API-KEY':key},body:JSON.stringify({q:query,num:10}),signal});
+ if(!rr.ok)throw new Error('Serper: HTTP '+rr.status+' '+await rr.text());const j=await rr.json();return (j.organic||[]).map(x=>({url:x.link,title:x.title||x.link,snippet:x.snippet||''}));
+}
+function researchDossier(sources){
+ return sources.map((s,i)=>'[S'+(i+1)+'] '+s.title+'\nURL: '+s.url+'\n'+String(s.snippet||'').slice(0,3500)).join('\n\n---\n\n');
+}
+async function performDeepResearch(provider,question,langName,depth,signal){
+ const sourceType=document.getElementById('deepResearchSource').value,breadth=Math.max(2,Math.min(8,Number(document.getElementById('deepResearchBreadth').value||6))),key=document.getElementById('deepResearchKey').value.trim(),cx=document.getElementById('deepResearchCx').value.trim();
+ setResearchProgress(8,'Planning research queries…');
+ if(sourceType==='webprovider'){
+   const sys='Act as a deep web researcher. Use your built-in web search/research capability if available. Research the question broadly across authoritative, primary, academic, government, institutional and high-quality specialist sources where relevant. Cross-check important claims. Return a detailed research dossier in '+langName+' with inline citations and a source list. Do not invent sources.';
+   const out=await callProvider(provider,[{role:'system',content:sys},{role:'user',content:question}],signal);const sources=extractProviderSources(out.raw);
+   if(!sources.length)throw new Error('Selected AI provider did not return web citations/search results. Use a web-enabled model such as Perplexity Sonar Deep Research, or choose Tavily / Google / Serper in Deep Research Sources.');
+   setResearchProgress(58,'Web research returned '+sources.length+' sources. Structuring report…');
+   return {queries:[question],sources,rawResearch:out.text,sourceType};
+ }
+ if(!key)throw new Error('Deep Research API key is required for the selected search source.');
+ if(sourceType==='google'&&!cx)throw new Error('Google Programmable Search Engine ID (cx) is required.');
+ const queries=await makeResearchQueries(provider,question,breadth,signal);let all=[];
+ for(let i=0;i<queries.length;i++){
+   setResearchProgress(12+Math.round((i/queries.length)*42),'Searching '+(i+1)+' / '+queries.length+': '+queries[i]);
+   let rows=[];if(sourceType==='tavily')rows=await searchTavily(key,queries[i],signal);else if(sourceType==='google')rows=await searchGoogle(key,cx,queries[i],signal);else rows=await searchSerper(key,queries[i],signal);all.push(...rows);
+ }
+ const sources=dedupeSources(all).slice(0,60);if(!sources.length)throw new Error('Deep research search returned no usable sources.');
+ setResearchProgress(60,'Collected '+sources.length+' unique sources. Synthesizing A–Z report…');
+ return {queries,sources,rawResearch:researchDossier(sources),sourceType};
+}
+function deepResearchSchemaPrompt(langName,depth){
+ const depthRule=depth==='expert'?'Write an expert-level, exhaustive research report with 10-16 substantive sections when the topic supports them.':'Write a deep, comprehensive research report with 8-14 substantive sections when the topic supports them.';
+ return 'You are VIHAA LINGUA-360 Deep Research Mode. '+depthRule+' Answer entirely in '+langName+'. You will receive a SOURCE DOSSIER with source IDs [S1], [S2] etc. Use ONLY claims supported by that dossier or clearly label uncertainty. Cross-check major claims across sources when possible. Preserve disagreements between sources rather than smoothing them over. Every important factual claim should include one or more source IDs like [S3] or [S4][S7]. Do not invent citations. Adapt sections to the topic. Also propose 2-4 useful schematic diagrams based only on supported content. Return ONLY valid JSON: {"title":"","subtitle":"","labels":{"executive_summary":"","key_facts":"","overview":"","important_notes":"","faqs":"","related_questions":"","sources":"","diagrams":""},"executive_summary":"","key_facts":[{"label":"","value":"","citations":["S1"]}],"overview":"","sections":[{"heading":"","body":"","bullets":[],"citations":["S1"]}],"important_notes":[""],"faqs":[{"q":"","a":""}],"related_questions":[""],"diagrams":[{"title":"","type":"flow|timeline|concept|comparison","center":"","items":[{"label":"","detail":""}],"caption":""}],"source_note":""}. All headings/labels/content must be in '+langName+'. Do not include URLs inside content; use [S#] citations. Diagrams are schematic explanatory visuals, not anatomical or engineering-scale drawings.';
+}
+function citationHtml(text){
+ let s=esc(text||'');return s.replace(/\[(S\d+)\]/g,'<a class="cite" href="#source-$1">[$1]</a>');
+}
+function renderResearchDiagrams(data,rtl){
+ const box=document.getElementById('exploreDiagrams'),T=exploreUiText(currentExplore?.langCode||'en'),L=exploreLabels(data,currentExplore?.langCode||'en');if(!box)return;const ds=Array.isArray(data.diagrams)?data.diagrams:[];box.innerHTML='';if(!ds.length)return;
+ box.innerHTML='<h3 class="kr-section-title">'+esc(data?.labels?.diagrams||'Diagrams / Schematics')+'</h3>'+ds.map(d=>{
+   const items=Array.isArray(d.items)?d.items:[];
+   if(d.type==='concept'){const mid=Math.ceil(items.length/2),left=items.slice(0,mid),right=items.slice(mid);return '<div class="kr-diagram" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(d.title||'')+'</h3><div class="kr-diagram-concept"><div class="kr-diagram-side">'+left.map(x=>'<div class="kr-diagram-node"><b>'+esc(x.label||'')+'</b><span>'+esc(x.detail||'')+'</span></div>').join('')+'</div><div class="kr-diagram-center">'+esc(d.center||d.title||'')+'</div><div class="kr-diagram-side">'+right.map(x=>'<div class="kr-diagram-node"><b>'+esc(x.label||'')+'</b><span>'+esc(x.detail||'')+'</span></div>').join('')+'</div></div><div class="kr-diagram-caption">'+esc(d.caption||'')+'</div></div>'}
+   const cls=d.type==='timeline'?'kr-diagram-timeline':'kr-diagram-flow';const inner=items.map((x,i)=>'<div class="kr-diagram-node"><b>'+esc(x.label||'')+'</b><span>'+esc(x.detail||'')+'</span></div>'+(d.type==='flow'&&i<items.length-1?'<div class="kr-diagram-arrow">→</div>':'')).join('');
+   return '<div class="kr-diagram" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(d.title||'')+'</h3><div class="'+cls+'">'+inner+'</div><div class="kr-diagram-caption">'+esc(d.caption||'')+'</div></div>';
+ }).join('');
+}
+function renderResearchSources(data,rtl){
+ const box=document.getElementById('exploreSources');if(!box)return;const ss=Array.isArray(data.sources)?data.sources:[];if(!ss.length){box.style.display='none';box.innerHTML='';return}box.style.display='block';const L=exploreLabels(data,currentExplore?.langCode||'en');box.innerHTML='<h3>'+esc(L.sources)+'</h3>'+ss.map((s,i)=>'<div class="kr-source" id="source-S'+(i+1)+'"><div class="kr-source-id">S'+(i+1)+'</div><div><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.title||s.url)+'</a><small>'+esc(s.domain||'')+(s.snippet?' • '+esc(String(s.snippet).slice(0,240)):'')+'</small></div></div>').join('');
+}
+
 function exploreUiText(code){
  const te={
   kicker:'సమగ్ర AI జ్ఞాన నివేదిక',
@@ -1061,14 +1177,15 @@ function exploreUiText(code){
   detailed:'వివరణాత్మకం',
   expert:'నిపుణ స్థాయి',
   report:'VIHAA జ్ఞాన నివేదిక',
-  question:'ప్రశ్న'
+  question:'ప్రశ్న',
+  diagrams:'రేఖాచిత్రాలు / వివరణాత్మక స్కెచ్‌లు'
  };
  const en={
   kicker:'COMPREHENSIVE AI KNOWLEDGE REPORT',
   language:'Language',depth:'Depth',provider:'Provider / Model',generated:'Generated',
   warning:'AI-generated information can be incomplete or wrong. For medical, legal, financial, emergency, and other high-stakes topics, verify important decisions with appropriate qualified or official sources.',
   summary:'Summary',facts:'Key Facts',overview:'Overview',notes:'Important Notes',faqs:'FAQs',related:'Related Questions',sources:'Sources / Evidence',
-  simple:'Simple',detailed:'Detailed',expert:'Expert',report:'VIHAA Knowledge Report',question:'Question'
+  simple:'Simple',detailed:'Detailed',expert:'Expert',report:'VIHAA Knowledge Report',question:'Question',diagrams:'Diagrams / Schematics'
  };
  return code==='te'?te:en;
 }
@@ -1085,14 +1202,15 @@ function renderExplore(data,meta){
  const depthKey=(meta.depth||'detailed');document.getElementById('krDepth').textContent=T.depth+': '+(T[depthKey]||depthKey);
  document.getElementById('krProvider').textContent=T.provider+': '+meta.providerName+' / '+meta.model;
  document.getElementById('krGenerated').textContent=T.generated+': '+new Date(meta.at).toLocaleString();const warn=document.querySelector('#knowledgeReport .kr-warning');if(warn)warn.textContent=T.warning;
- const summary=data.executive_summary?'<div class="kr-summary" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.summary)+'</h3><p>'+esc(data.executive_summary)+'</p></div>':'';
+ const summary=data.executive_summary?'<div class="kr-summary" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.summary)+'</h3><p>'+citationHtml(data.executive_summary)+'</p></div>':'';
  const facts=Array.isArray(data.key_facts)&&data.key_facts.length?'<div class="kr-facts-wrap" dir="'+(rtl?'rtl':'auto')+'"><h3 class="kr-section-title">'+esc(L.facts)+'</h3><div class="kr-facts">'+data.key_facts.map(x=>'<div class="kr-fact"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'')+'</b></div>').join('')+'</div></div>':'';
- const overview=data.overview?'<div class="kr-overview" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.overview)+'</h3><p>'+esc(data.overview)+'</p></div>':'';
- const topics=(Array.isArray(data.sections)?data.sections:[]).map((x,i)=>'<div class="kr-topic '+((data.sections.length%2===1&&i===data.sections.length-1)?'full':'')+'" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(x.heading||'')+'</h3><p>'+esc(x.body||'')+'</p>'+((Array.isArray(x.bullets)&&x.bullets.length)?'<ul>'+x.bullets.map(b=>'<li>'+esc(b)+'</li>').join('')+'</ul>':'')+'</div>').join('');
+ const overview=data.overview?'<div class="kr-overview" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.overview)+'</h3><p>'+citationHtml(data.overview)+'</p></div>':'';
+ const topics=(Array.isArray(data.sections)?data.sections:[]).map((x,i)=>'<div class="kr-topic '+((data.sections.length%2===1&&i===data.sections.length-1)?'full':'')+'" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(x.heading||'')+'</h3><p>'+citationHtml(x.body||'')+'</p>'+((Array.isArray(x.bullets)&&x.bullets.length)?'<ul>'+x.bullets.map(b=>'<li>'+esc(b)+'</li>').join('')+'</ul>':'')+'</div>').join('');
  const topicWrap=topics?'<div class="kr-sections">'+topics+'</div>':'';
  const notes=Array.isArray(data.important_notes)&&data.important_notes.length?'<div class="kr-notes" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.notes)+'</h3><ul>'+data.important_notes.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>':'';
  const faqs=Array.isArray(data.faqs)&&data.faqs.length?'<div class="kr-faqs" dir="'+(rtl?'rtl':'auto')+'"><h3 class="kr-section-title">'+esc(L.faqs)+'</h3>'+data.faqs.map(x=>'<div class="kr-faq"><b>'+esc(x.q||'')+'</b><p>'+esc(x.a||'')+'</p></div>').join('')+'</div>':'';
  sections.innerHTML=summary+facts+overview+topicWrap+notes+faqs;
+ const deep=meta.researchMode==='deep',strip=document.getElementById('krResearchStrip');if(strip)strip.classList.toggle('show',deep);if(deep){document.getElementById('krResearchMode').textContent='Deep Web Research';document.getElementById('krSourceCount').textContent=(data.sources||[]).length;document.getElementById('krQueryCount').textContent=(meta.researchQueries||[]).length;document.getElementById('krDiagramCount').textContent=(data.diagrams||[]).length}renderResearchDiagrams(data,rtl);renderResearchSources(data,rtl);
  const rel=document.getElementById('exploreRelated');rel.dir=rtl?'rtl':'auto';rel.innerHTML='<b>'+esc(L.related)+'</b>'+((data.related_questions||[]).map(q=>'<button data-q="'+esc(q)+'">→ '+esc(q)+'</button>').join('')||'<div style="margin-top:5px">—</div>');
  rel.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.getElementById('exploreQuestion').value=b.dataset.q;document.getElementById('exploreMode').scrollIntoView({behavior:'smooth',block:'start'})});
  const src=document.getElementById('exploreSourceNote');src.dir=rtl?'rtl':'auto';src.innerHTML='<b>'+esc(L.sources)+'</b>'+esc(data.source_note||(meta.langCode==='te'?'ఈ Explore సమాధానం స్వతంత్రంగా ధృవీకరించబడలేదు.':'This Explore answer has not been independently verified.'));
@@ -1107,13 +1225,23 @@ function explorePlainText(){
  if(d.faqs?.length)arr.push(L.faqs+'\n'+d.faqs.map(x=>x.q+'\n'+x.a).join('\n\n'));
  if(d.related_questions?.length)arr.push(L.related+'\n- '+d.related_questions.join('\n- '));
  if(d.source_note)arr.push(L.sources+'\n'+d.source_note);
+ if(d.sources?.length)arr.push(L.sources+'\n'+d.sources.map((s,i)=>'[S'+(i+1)+'] '+(s.title||s.url)+'\n'+s.url).join('\n\n'));
  return arr.filter(Boolean).join('\n\n');
 }
 document.getElementById('askExplore').onclick=async()=>{
  syncProviders();const q=document.getElementById('exploreQuestion').value.trim(),code=document.getElementById('exploreLang').value,depth=document.getElementById('exploreDepth').value,p=providers.find(x=>x.id===document.getElementById('exploreProvider').value),st=document.getElementById('exploreStatus'),load=document.getElementById('exploreLoading');const lang=(languageData.find(x=>x[1]===code)||[code,code])[0];
  if(!q)return st.textContent='Enter a question.';if(!p)return st.textContent='Select and configure a real AI provider first.';if(!p.model)return st.textContent='The selected provider needs a model ID.';
  document.getElementById('askExplore').disabled=true;load.classList.add('on');st.textContent='Getting a real '+lang+' answer from '+p.name+'…';
- try{const ctrl=new AbortController(),res=await getExploreAnswer(p,q,lang,depth,ctrl.signal);currentExplore={question:q,langCode:code,langName:lang,depth,providerName:p.name,model:p.model,at:new Date().toISOString(),data:res.data,raw:res.out.raw,latencyMs:res.out.latencyMs,usage:res.out.usage};renderExplore(res.data,currentExplore);saveExploreHistory(currentExplore);st.textContent='Real answer received in '+lang+'.';document.getElementById('exploreAnswer').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){st.textContent=e.message}finally{document.getElementById('askExplore').disabled=false;load.classList.remove('on')}
+ try{const ctrl=new AbortController(),researchMode=document.getElementById('exploreResearchMode').value;let res=null,research=null;
+ if(researchMode==='deep'){
+   research=await performDeepResearch(p,q,lang,depth,ctrl.signal);
+   setResearchProgress(72,'Cross-checking and structuring the source-backed report…');
+   const sys=deepResearchSchemaPrompt(lang,depth),dossier=research.rawResearch+'\n\nSOURCE INDEX:\n'+research.sources.map((s,i)=>'[S'+(i+1)+'] '+s.title+' — '+s.url).join('\n');
+   const out=await callProvider(p,[{role:'system',content:sys},{role:'user',content:'RESEARCH QUESTION:\n'+q+'\n\nSOURCE DOSSIER:\n'+dossier}],ctrl.signal);let data=null;try{data=parseJsonLoose(out.text)}catch{};if(!data)throw new Error('Deep research synthesis did not return structured report JSON.');
+   data.sources=research.sources;data.source_note=data.source_note||('This report was synthesized from '+research.sources.length+' collected web sources. Citations [S#] refer to the bibliography below.');
+   res={data,out};setResearchProgress(100,'Deep research report complete.');
+ }else{res=await getExploreAnswer(p,q,lang,depth,ctrl.signal)}
+ currentExplore={question:q,langCode:code,langName:lang,depth,researchMode,providerName:p.name,model:p.model,at:new Date().toISOString(),data:res.data,raw:res.out.raw,latencyMs:res.out.latencyMs,usage:res.out.usage,researchQueries:research?.queries||[],researchSource:research?.sourceType||null};renderExplore(res.data,currentExplore);saveExploreHistory(currentExplore);st.textContent=researchMode==='deep'?('Deep web research complete • '+(res.data.sources||[]).length+' sources • '+lang):('Real answer received in '+lang+'.');document.getElementById('exploreAnswer').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){st.textContent=e.message}finally{document.getElementById('askExplore').disabled=false;load.classList.remove('on')}
 };
 document.getElementById('copyExplore').onclick=async()=>{const t=explorePlainText();if(!t)return;try{await navigator.clipboard.writeText(t);document.getElementById('exploreStatus').textContent='Answer copied.'}catch{document.getElementById('exploreStatus').textContent='Copy was blocked by the browser.'}};
 document.getElementById('speakExplore').onclick=()=>{if(!currentExplore)return;if(!('speechSynthesis'in window))return document.getElementById('exploreStatus').textContent='Speech synthesis unavailable in this browser.';speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(explorePlainText());u.lang=currentExplore.langCode;u.onstart=()=>document.getElementById('exploreStatus').textContent='Speaking answer…';u.onend=()=>document.getElementById('exploreStatus').textContent='Speech playback complete.';speechSynthesis.speak(u)};
@@ -1202,6 +1330,15 @@ document.getElementById('answers')?.addEventListener('change',updateCard2Counts)
 const __card2RenderLangs=renderLangs;renderLangs=function(){__card2RenderLangs();updateCard2Counts()};
 const __card2RefreshSelects=refreshSelects;refreshSelects=function(){__card2RefreshSelects();updateCard2Counts()};
 setTimeout(updateCard2Counts,0);
+
+
+function updateDeepResearchUi(){
+ const deep=document.getElementById('exploreResearchMode').value==='deep',box=document.getElementById('deepResearchConfig'),src=document.getElementById('deepResearchSource').value,g=document.getElementById('deepGoogleExtra');
+ box?.classList.toggle('show',deep);g?.classList.toggle('show',src==='google');
+}
+document.getElementById('exploreResearchMode').addEventListener('change',updateDeepResearchUi);
+document.getElementById('deepResearchSource').addEventListener('change',updateDeepResearchUi);
+updateDeepResearchUi();
 
 </script>
 </body></html>
