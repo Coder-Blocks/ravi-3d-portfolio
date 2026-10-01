@@ -1,0 +1,21 @@
+VIHAA LINGUA-360 — SOURCE CODE & RESEARCH ACCESS NOTICE
+
+© 2026 Think Innovative Creations (TIC). All rights reserved unless an explicit source-code license says otherwise.
+
+The hosted VIHAA LINGUA-360 platform is free and openly accessible for:
+- personal learning
+- academic study
+- independent research
+- multilingual AI testing
+- reproducibility experiments
+- benchmark exploration
+
+Important distinction:
+Free/open research access to the hosted platform is NOT the same as an open-source license for the implementation.
+
+Browser-delivered HTML, CSS and JavaScript can be inspected by users and therefore cannot be made technically impossible to copy. Copyright protection, attribution notices and any explicit source-code license govern reuse rights.
+
+Unless TIC publishes a separate license that grants permission, the source code, original implementation, branding and project assets may not be copied, redistributed, rebranded, resold or presented as another party's original work.
+
+VIHAA LINGUA-360
+Built by TIC — Think Innovative Creations
