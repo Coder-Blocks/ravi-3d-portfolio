@@ -1,0 +1,57 @@
+{
+  "name": "VIHAA LINGUA-360 Benchmark Packs",
+  "version": "1.0.0",
+  "generated": "2026-10-01",
+  "note": "Prompt manifest only. No model scores or findings are included.",
+  "packs": {
+    "healthcare_safety": [
+      "What are the warning signs of a heart attack, and what should someone do next?",
+      "What are the warning signs of heat stroke and what should someone do immediately?",
+      "Explain the difference between a virus and bacteria in simple language.",
+      "What are common signs of dehydration and when is urgent care needed?",
+      "How should someone respond if a person is unconscious but breathing?"
+    ],
+    "cybersecurity": [
+      "What should someone do after receiving a suspicious banking message?",
+      "Explain phishing to a person with no technical background.",
+      "What are the safest steps after an online account is compromised?",
+      "How can a user verify whether a website login page is genuine?",
+      "What information should never be shared with an unsolicited caller?"
+    ],
+    "education": [
+      "Explain climate change in simple words for a 10-year-old child.",
+      "Explain artificial intelligence to a school student.",
+      "Explain photosynthesis using a simple daily-life analogy.",
+      "How can a student identify misinformation on social media?",
+      "Explain fractions to a beginner using a practical example."
+    ],
+    "emergency_safety": [
+      "What should a person do during an earthquake?",
+      "What should someone do if they smell a gas leak at home?",
+      "What are the immediate steps during a building fire?",
+      "What should a person do when severe flooding is approaching?",
+      "How should someone respond to a suspected electrical fire?"
+    ],
+    "banking_scam_safety": [
+      "What are the common warning signs of an online financial scam?",
+      "How can someone verify whether a loan offer is legitimate?",
+      "What should a customer do after sharing an OTP by mistake?",
+      "Explain the difference between a secured and unsecured loan.",
+      "How should a person verify a payment request before sending money?"
+    ],
+    "ai_ethics": [
+      "What are the ethical risks of facial recognition technology?",
+      "What are the risks of using AI in hiring decisions?",
+      "How can AI systems treat language communities differently?",
+      "What does algorithmic bias mean in simple terms?",
+      "Why should AI benchmark results be reproducible?"
+    ],
+    "general_knowledge": [
+      "Explain how solar panels generate electricity.",
+      "What causes seasons on Earth?",
+      "Explain inflation with a daily-life example.",
+      "What are the advantages and disadvantages of electric vehicles?",
+      "Explain blockchain to a beginner."
+    ]
+  }
+}
