@@ -223,7 +223,7 @@ function pdfFooter(pageLabel){
 }
 function makeExplorePdfHtml(){
  if(!currentExplore)return '';
- const d=currentExplore.data||{},rtl=isRtl(currentExplore.langCode),L=exploreLabels(d);
+ const d=currentExplore.data||{},rtl=isRtl(currentExplore.langCode),T=exploreUiText(currentExplore.langCode),L=exploreLabels(d,currentExplore.langCode);
  const facts=Array.isArray(d.key_facts)&&d.key_facts.length?'<div class="pdf-keyfacts">'+d.key_facts.map(x=>'<div class="pdf-keyfact"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'')+'</b></div>').join('')+'</div>':'';
  const summary=d.executive_summary?'<div class="pdf-report-summary" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.summary)+'</h2><p>'+esc(d.executive_summary)+'</p></div>':'';
  const overview=d.overview?'<div class="pdf-topic" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.overview)+'</h2><p>'+esc(d.overview)+'</p></div>':'';
@@ -233,7 +233,7 @@ function makeExplorePdfHtml(){
  const related=pdfList(L.related,d.related_questions||[],rtl);
  const source=pdfText(L.sources,d.source_note||'This Explore answer has not been independently verified.',rtl);
  const body=summary+(facts?'<div class="pdf-section" dir="'+(rtl?'rtl':'auto')+'"><h2>'+esc(L.facts)+'</h2>'+facts+'</div>':'')+overview+topics+notes+faq+related+source;
- return '<div class="pdf-page"><div class="pdf-cover"><div class="pdf-brand"><div class="pdf-logo">◎</div><div><b>VIHAA LINGUA-360</b><small>Knowledge Report • Built by TIC</small></div></div><h1>'+esc(d.title||'Comprehensive Knowledge Report')+'</h1><p>'+esc(d.subtitle||currentExplore.question)+'</p><div class="pdf-meta-strip"><div class="pdf-meta-item"><span>Language</span><b>'+esc(currentExplore.langName)+'</b></div><div class="pdf-meta-item"><span>Depth</span><b>'+esc(currentExplore.depth)+'</b></div><div class="pdf-meta-item"><span>Provider / Model</span><b>'+esc(currentExplore.providerName+' / '+currentExplore.model)+'</b></div><div class="pdf-meta-item"><span>Generated</span><b>'+esc(new Date(currentExplore.at).toLocaleString())+'</b></div></div></div><div class="pdf-body"><div class="pdf-intro-note">Question: '+esc(currentExplore.question)+'<br><br>AI-generated information may be incomplete or incorrect. High-stakes information should be verified with appropriate authoritative sources.</div>'+body+'</div>'+pdfFooter('VIHAA Knowledge Report')+'</div>';
+ return '<div class="pdf-page"><div class="pdf-cover"><div class="pdf-brand"><div class="pdf-logo">◎</div><div><b>VIHAA LINGUA-360</b><small>Knowledge Report • Built by TIC</small></div></div><h1>'+esc(d.title||'Comprehensive Knowledge Report')+'</h1><p>'+esc(d.subtitle||currentExplore.question)+'</p><div class="pdf-meta-strip"><div class="pdf-meta-item"><span>'+esc(T.language)+'</span><b>'+esc(currentExplore.langName)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.depth)+'</span><b>'+esc(T[currentExplore.depth]||currentExplore.depth)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.provider)+'</span><b>'+esc(currentExplore.providerName+' / '+currentExplore.model)+'</b></div><div class="pdf-meta-item"><span>'+esc(T.generated)+'</span><b>'+esc(new Date(currentExplore.at).toLocaleString())+'</b></div></div></div><div class="pdf-body"><div class="pdf-intro-note">'+esc(T.question)+': '+esc(currentExplore.question)+'<br><br>'+esc(T.warning)+'</div>'+body+'</div>'+pdfFooter(T.report)+'</div>';
 }
 function benchmarkSummary(){
  const judged=runRecords.filter(r=>r.status==='ok'&&r.metrics),ok=runRecords.filter(r=>r.status==='ok'),fail=runRecords.filter(r=>r.status!=='ok'),langs=new Set(runRecords.map(r=>r.langCode)),models=new Set(runRecords.map(r=>r.providerName+'|'+r.model));
@@ -1033,7 +1033,7 @@ function exploreSchemaPrompt(langName,depth){
   :depth==='expert'
   ?'Create a rigorous expert-level report: 8-12 topic sections where appropriate, nuanced explanations, technical terminology with context, important caveats, and 6-10 key facts.'
   :'Create a comprehensive general-reader report: 6-9 topic sections where appropriate, clear explanations, useful context, 5-8 key facts, examples and important caveats.';
- return 'You are VIHAA LINGUA-360 Explore Mode. Answer the user question comprehensively, naturally, and entirely in '+langName+'. '+depthRule+' Adapt the structure to the topic instead of forcing generic headings. For example, an animal question may use species, habitat, diet, behaviour, reproduction, adaptations, ecology and conservation; a technology question may use concept, how it works, architecture, uses, advantages, limitations and examples. Return ONLY valid JSON with this schema: {"title":"","subtitle":"","labels":{"executive_summary":"","key_facts":"","overview":"","important_notes":"","faqs":"","related_questions":"","sources":""},"executive_summary":"","key_facts":[{"label":"","value":""}],"overview":"","sections":[{"heading":"","body":"","bullets":[]}],"important_notes":[""],"faqs":[{"q":"","a":""}],"related_questions":[""],"source_note":""}. Requirements: title, subtitle, every label, every section heading, and all content must be in '+langName+'. Directly answer the user. Give useful context and explain unfamiliar terms. Preserve names, dates and numbers accurately. Do not pad with repetition. Include only topic-relevant sections. important_notes should be empty unless there are genuine cautions, uncertainty, ethical issues, conservation issues, or high-stakes warnings. For medical, legal, financial, emergency or other high-stakes topics, clearly state limitations and appropriate urgent/professional guidance. Do not invent URLs, papers, source titles, laws, statistics or citations. If you mention a factual number and you are not confident, qualify it instead of fabricating precision. source_note must clearly state whether sources/citations were actually supplied in the answer and that this Explore mode does not independently verify them.';
+ return 'You are VIHAA LINGUA-360 Explore Mode. Answer the user question comprehensively, naturally, and entirely in '+langName+'. '+depthRule+' Adapt the structure to the topic instead of forcing generic headings. For example, an animal question may use species, habitat, diet, behaviour, reproduction, adaptations, ecology and conservation; a technology question may use concept, how it works, architecture, uses, advantages, limitations and examples. If the selected language is Telugu, all headings and labels must also be in natural Telugu (for example: "సంక్షిప్త సమగ్ర వివరణ", "ముఖ్య విషయాలు", "పూర్తి అవలోకనం", "ముఖ్య గమనికలు", "తరచుగా అడిగే ప్రశ్నలు", "సంబంధిత ప్రశ్నలు", "మూలాలు / ఆధారాల గమనిక"). Return ONLY valid JSON with this schema: {"title":"","subtitle":"","labels":{"executive_summary":"","key_facts":"","overview":"","important_notes":"","faqs":"","related_questions":"","sources":""},"executive_summary":"","key_facts":[{"label":"","value":""}],"overview":"","sections":[{"heading":"","body":"","bullets":[]}],"important_notes":[""],"faqs":[{"q":"","a":""}],"related_questions":[""],"source_note":""}. Requirements: title, subtitle, every label, every section heading, and all content must be in '+langName+'. Directly answer the user. Give useful context and explain unfamiliar terms. Preserve names, dates and numbers accurately. Do not pad with repetition. Include only topic-relevant sections. important_notes should be empty unless there are genuine cautions, uncertainty, ethical issues, conservation issues, or high-stakes warnings. For medical, legal, financial, emergency or other high-stakes topics, clearly state limitations and appropriate urgent/professional guidance. Do not invent URLs, papers, source titles, laws, statistics or citations. If you mention a factual number and you are not confident, qualify it instead of fabricating precision. source_note must clearly state whether sources/citations were actually supplied in the answer and that this Explore mode does not independently verify them.';
 }
 async function getExploreAnswer(provider,question,langName,depth,signal){
  const sys=exploreSchemaPrompt(langName,depth);
@@ -1042,19 +1042,49 @@ async function getExploreAnswer(provider,question,langName,depth,signal){
  if(!data)data={title:'Answer',subtitle:'',labels:{executive_summary:'Summary',key_facts:'Key Facts',overview:'Overview',important_notes:'Important Notes',faqs:'FAQs',related_questions:'Related Questions',sources:'Sources / Evidence'},executive_summary:out.text,key_facts:[],overview:out.text,sections:[],important_notes:[],faqs:[],related_questions:[],source_note:'The provider did not return structured JSON. The raw answer is shown and has not been independently verified.'};
  return {data,out};
 }
-function exploreLabels(d){
- const x=d?.labels||{};return {summary:x.executive_summary||'Summary',facts:x.key_facts||'Key Facts',overview:x.overview||'Overview',notes:x.important_notes||'Important Notes',faqs:x.faqs||'FAQs',related:x.related_questions||'Related Questions',sources:x.sources||'Sources / Evidence'};
+function exploreUiText(code){
+ const te={
+  kicker:'సమగ్ర AI జ్ఞాన నివేదిక',
+  language:'భాష',
+  depth:'వివరణ స్థాయి',
+  provider:'AI ప్రొవైడర్ / మోడల్',
+  generated:'రూపొందించిన సమయం',
+  warning:'AI రూపొందించిన సమాచారం అసంపూర్ణంగా లేదా తప్పుగా ఉండవచ్చు. వైద్య, న్యాయ, ఆర్థిక, అత్యవసర లేదా ఇతర ముఖ్య నిర్ణయాలకు సంబంధించి తగిన నిపుణులు లేదా అధికారిక వనరులతో ధృవీకరించండి.',
+  summary:'సంక్షిప్త సమగ్ర వివరణ',
+  facts:'ముఖ్య విషయాలు',
+  overview:'పూర్తి అవలోకనం',
+  notes:'ముఖ్య గమనికలు',
+  faqs:'తరచుగా అడిగే ప్రశ్నలు',
+  related:'సంబంధిత ప్రశ్నలు',
+  sources:'మూలాలు / ఆధారాల గమనిక',
+  simple:'సరళం',
+  detailed:'వివరణాత్మకం',
+  expert:'నిపుణ స్థాయి',
+  report:'VIHAA జ్ఞాన నివేదిక',
+  question:'ప్రశ్న'
+ };
+ const en={
+  kicker:'COMPREHENSIVE AI KNOWLEDGE REPORT',
+  language:'Language',depth:'Depth',provider:'Provider / Model',generated:'Generated',
+  warning:'AI-generated information can be incomplete or wrong. For medical, legal, financial, emergency, and other high-stakes topics, verify important decisions with appropriate qualified or official sources.',
+  summary:'Summary',facts:'Key Facts',overview:'Overview',notes:'Important Notes',faqs:'FAQs',related:'Related Questions',sources:'Sources / Evidence',
+  simple:'Simple',detailed:'Detailed',expert:'Expert',report:'VIHAA Knowledge Report',question:'Question'
+ };
+ return code==='te'?te:en;
+}
+function exploreLabels(d,code){
+ const x=d?.labels||{},T=exploreUiText(code);return {summary:x.executive_summary||T.summary,facts:x.key_facts||T.facts,overview:x.overview||T.overview,notes:x.important_notes||T.notes,faqs:x.faqs||T.faqs,related:x.related_questions||T.related,sources:x.sources||T.sources};
 }
 function renderExplore(data,meta){
- const rtl=isRtl(meta.langCode),sections=document.getElementById('exploreSections'),L=exploreLabels(data);
+ const rtl=isRtl(meta.langCode),sections=document.getElementById('exploreSections'),T=exploreUiText(meta.langCode),L=exploreLabels(data,meta.langCode);
  document.getElementById('exploreAnswer').classList.add('show');
  document.getElementById('exploreAnswerTitle').textContent=data.title||'Answer';
- document.getElementById('exploreAnswerSubtitle').textContent=data.subtitle||meta.question||'';
+ document.getElementById('exploreAnswerSubtitle').textContent=data.subtitle||meta.question||'';document.getElementById('exploreReportKicker').textContent=T.kicker;
  document.getElementById('exploreAnswerMeta').textContent=meta.providerName+' • '+meta.model+' • '+meta.latencyMs+' ms'+(meta.usage?.total!=null?' • '+meta.usage.total+' tokens':'');
- document.getElementById('krLang').textContent=meta.langName;
- document.getElementById('krDepth').textContent=(meta.depth||'detailed').replace(/^./,x=>x.toUpperCase());
- document.getElementById('krProvider').textContent=meta.providerName+' / '+meta.model;
- document.getElementById('krGenerated').textContent=new Date(meta.at).toLocaleString();
+ document.getElementById('krLang').textContent=T.language+': '+meta.langName;
+ const depthKey=(meta.depth||'detailed');document.getElementById('krDepth').textContent=T.depth+': '+(T[depthKey]||depthKey);
+ document.getElementById('krProvider').textContent=T.provider+': '+meta.providerName+' / '+meta.model;
+ document.getElementById('krGenerated').textContent=T.generated+': '+new Date(meta.at).toLocaleString();const warn=document.querySelector('#knowledgeReport .kr-warning');if(warn)warn.textContent=T.warning;
  const summary=data.executive_summary?'<div class="kr-summary" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.summary)+'</h3><p>'+esc(data.executive_summary)+'</p></div>':'';
  const facts=Array.isArray(data.key_facts)&&data.key_facts.length?'<div class="kr-facts-wrap" dir="'+(rtl?'rtl':'auto')+'"><h3 class="kr-section-title">'+esc(L.facts)+'</h3><div class="kr-facts">'+data.key_facts.map(x=>'<div class="kr-fact"><small>'+esc(x.label||'')+'</small><b>'+esc(x.value||'')+'</b></div>').join('')+'</div></div>':'';
  const overview=data.overview?'<div class="kr-overview" dir="'+(rtl?'rtl':'auto')+'"><h3>'+esc(L.overview)+'</h3><p>'+esc(data.overview)+'</p></div>':'';
@@ -1065,10 +1095,10 @@ function renderExplore(data,meta){
  sections.innerHTML=summary+facts+overview+topicWrap+notes+faqs;
  const rel=document.getElementById('exploreRelated');rel.dir=rtl?'rtl':'auto';rel.innerHTML='<b>'+esc(L.related)+'</b>'+((data.related_questions||[]).map(q=>'<button data-q="'+esc(q)+'">→ '+esc(q)+'</button>').join('')||'<div style="margin-top:5px">—</div>');
  rel.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.getElementById('exploreQuestion').value=b.dataset.q;document.getElementById('exploreMode').scrollIntoView({behavior:'smooth',block:'start'})});
- const src=document.getElementById('exploreSourceNote');src.dir=rtl?'rtl':'auto';src.innerHTML='<b>'+esc(L.sources)+'</b>'+esc(data.source_note||'This Explore answer has not been independently verified.');
+ const src=document.getElementById('exploreSourceNote');src.dir=rtl?'rtl':'auto';src.innerHTML='<b>'+esc(L.sources)+'</b>'+esc(data.source_note||(meta.langCode==='te'?'ఈ Explore సమాధానం స్వతంత్రంగా ధృవీకరించబడలేదు.':'This Explore answer has not been independently verified.'));
 }
 function explorePlainText(){
- if(!currentExplore)return '';const d=currentExplore.data||{},L=exploreLabels(d),arr=[d.title,d.subtitle];
+ if(!currentExplore)return '';const d=currentExplore.data||{},L=exploreLabels(d,currentExplore.langCode),arr=[d.title,d.subtitle];
  if(d.executive_summary)arr.push(L.summary+'\n'+d.executive_summary);
  if(d.key_facts?.length)arr.push(L.facts+'\n'+d.key_facts.map(x=>(x.label?x.label+': ':'')+(x.value||'')).join('\n'));
  if(d.overview)arr.push(L.overview+'\n'+d.overview);
