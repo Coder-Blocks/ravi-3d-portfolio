@@ -4,7 +4,18 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>VIHAA LINGUA-360 — Real Global AI Language Benchmark</title>
-<meta name="description" content="Run real multilingual AI benchmark calls against local Ollama, Gemini, or OpenAI-compatible model endpoints. No demo scores."/>
+<meta name="description" content="VIHAA LINGUA-360 is a global AI language behavior observatory for real-provider multilingual benchmarking, dialect analysis, refusal consistency, model disagreement, regression tracking, voice, and multilingual exploration."/>
+<link rel="canonical" href="https://vihaa-lingua-360.onrender.com/">
+<meta property="og:title" content="VIHAA LINGUA-360 — Global AI Language Intelligence Observatory">
+<meta property="og:description" content="Test how real AI models behave across languages, dialects, providers, voice, safety, and time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vihaa-lingua-360.onrender.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VIHAA LINGUA-360">
+<meta name="twitter:description" content="A real-provider global AI language behavior observatory.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"VIHAA LINGUA-360","applicationCategory":"DeveloperApplication","operatingSystem":"Web","url":"https://vihaa-lingua-360.onrender.com/","description":"Global AI language behavior observatory for multilingual benchmarking, dialect analysis, refusal consistency, disagreement detection, regression tracking, voice interaction and multilingual exploration.","creator":{"@type":"Organization","name":"Think Innovative Creations (TIC)"}}
+</script>
 <style>
 :root{--navy:#07162f;--navy2:#0b2347;--blue:#2563eb;--vio:#6d4dff;--cyan:#19b9f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--ink:#10203b;--muted:#64748b;--line:#d9e5f4;--soft:#f6f9fe;--card:#fff;--shadow:0 12px 32px rgba(24,57,103,.12)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#f7f9fd;color:var(--ink)}button,input,select,textarea{font:inherit}
@@ -96,6 +107,12 @@ main{max-width:1560px;margin:auto;padding:14px 12px 40px}.flow-top{display:grid;
 .api-box{margin:0 16px 16px;border:1px solid #dce6f3;border-radius:12px;padding:14px;background:#0a1932;color:#dbeaff}.api-box h4{margin:0 0 5px;color:#fff}.api-box p{font-size:8px;color:#a9bdd8}.api-code{margin-top:8px;border:1px solid #294a72;border-radius:8px;background:#061226;padding:9px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;white-space:pre-wrap;color:#8fd7ff}.api-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.api-actions .btn{background:#12345f;color:#ddecff;border-color:#31557e}
 .certificate-preview{margin:0 16px 16px;border:1px solid #dce6f3;border-radius:12px;padding:14px;background:linear-gradient(135deg,#fff,#f4f8ff)}.cert-inner{border:2px solid #244f86;border-radius:10px;padding:16px;text-align:center}.cert-inner h3{margin:2px 0;color:#173f79}.cert-inner p{font-size:8px;color:#647b99}.cert-seal{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;margin:10px auto;border:2px solid #2a66b7;color:#2a66b7;font-weight:900}
 @media(max-width:1100px){.pricing{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr 1fr}.sales-panel{grid-template-columns:1fr}.commercial-info{border-left:0;border-top:1px solid #dce6f3;padding-left:0;padding-top:12px}}@media(max-width:650px){.commercial-hero{display:block}.commercial-badge{display:inline-block;margin-top:10px}.pricing,.services-grid{grid-template-columns:1fr}.sales-form{grid-template-columns:1fr}.sales-form .wide{grid-column:auto}}
+
+.research-portal{margin-top:12px;background:linear-gradient(135deg,#06162f,#0b2d61);color:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(8,31,65,.18)}
+.research-portal-head{padding:20px 22px 12px}.research-portal-head small{color:#68d8ff;font-size:8px;letter-spacing:1.3px}.research-portal-head h2{margin:5px 0 5px;font-size:20px}.research-portal-head p{margin:0;color:#c6d8ec;font-size:9px;max-width:850px;line-height:1.6}
+.research-links{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:12px 22px 22px}.research-link-card{display:block;text-decoration:none;color:#fff;border:1px solid #315883;background:#0a2852;border-radius:11px;padding:13px;transition:.18s}.research-link-card:hover{transform:translateY(-2px);border-color:#4aaeff}.research-link-card b{display:block;font-size:11px;margin-bottom:4px}.research-link-card span{font-size:8px;line-height:1.45;color:#bcd3e8}.research-link-card i{font-style:normal;font-size:18px;display:block;margin-bottom:6px}
+.top-research{color:#d8e8ff;text-decoration:none}.top-research:hover{color:#69d5ff}
+@media(max-width:1000px){.research-links{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.research-links{grid-template-columns:1fr}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -184,7 +201,7 @@ document.getElementById('copyApiExample').onclick=async()=>{
 <header class="top"><div class="topin">
   <div class="brand"><div class="logo">◎</div><div><b>VIHAA <em>LINGUA-360</em></b><small>The Global AI Language Intelligence Observatory</small></div></div>
   <div class="top-title"><b>Does AI treat every language equally?</b><span>Test • Compare • Analyze • Explore • Real provider calls only</span></div>
-  <div class="top-badges"><div class="top-badge"><i>🌐</i>100+ Languages</div><div class="top-badge"><i>🧠</i>Multiple AI Models</div><div class="top-badge"><i>🔒</i>Real Calls Only</div><div class="top-badge"><i>🌍</i>Global Insights</div></div>
+  <div class="top-badges"><div class="top-badge"><i>🌐</i>123 Languages</div><div class="top-badge"><i>🧠</i>Multiple AI Models</div><div class="top-badge"><i>🔒</i>Real Calls Only</div><div class="top-badge"><a class="top-research" href="/research.html"><i>📄</i>Research</a></div></div>
 </div></header>
 
 <main>
@@ -507,6 +524,17 @@ Authorization: Bearer YOUR_VIHAA_API_KEY
 
   <div class="certificate-preview">
     <div class="cert-inner"><div style="font-size:8px;color:#6e84a1">THINK INNOVATIVE CREATIONS</div><h3>VIHAA LINGUA-360</h3><div style="font-size:11px;font-weight:800;color:#244e83">AI Language Benchmark Verification Certificate</div><div class="cert-seal">TIC</div><p>Issued only after manual verification of a submitted benchmark Run ID. Preview shown for the commercial certificate service; it is not a certificate by itself.</p><button class="btn primary serviceRequest" data-offer="Verification Certificate ₹999+">Request Verification</button></div>
+  </div>
+</section>
+
+
+<section class="research-portal" id="researchPortal">
+  <div class="research-portal-head"><small>RESEARCH • REPRODUCIBILITY • PUBLIC METHODOLOGY</small><h2>VIHAA LINGUA-360 Research Portal</h2><p>Inspect the methodology, reproduce benchmark packs, read the technical whitepaper, and use the launch kit. Empirical scores are generated only from real provider runs — no fabricated findings are published here.</p></div>
+  <div class="research-links">
+    <a class="research-link-card" href="/research.html"><i>🔬</i><b>Research & Methodology</b><span>Evaluation dimensions, protocol, limitations, privacy and reproducibility.</span></a>
+    <a class="research-link-card" href="/whitepaper.html"><i>📘</i><b>Technical Whitepaper</b><span>Detailed system design with a one-click designed PDF download.</span></a>
+    <a class="research-link-card" href="/benchmark-packs.json"><i>🧪</i><b>Benchmark Packs</b><span>Versioned public prompt manifest for repeatable experiments.</span></a>
+    <a class="research-link-card" href="/launch-kit.html"><i>🚀</i><b>Launch Kit</b><span>Technical abstract, positioning, citation and share-ready project copy.</span></a>
   </div>
 </section>
 
