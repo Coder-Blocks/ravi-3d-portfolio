@@ -134,7 +134,7 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 .flow-top{grid-template-columns:1.08fr .92fr .72fr;gap:14px}.hero-inside{min-height:390px;padding:28px}.hero-copy h1{font-size:32px}.hero-copy p{font-size:12px}.selection{padding:16px}.selection-grid{grid-template-columns:1fr 1fr;gap:14px}.langs{max-height:310px;gap:7px}.lang{padding:8px 9px;font-size:10px}.processing-body{min-height:390px;padding:22px}.processing-body h3{font-size:18px}
 .provider-mini{display:none}.provider-launch{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #cfe0f4;background:linear-gradient(135deg,#f8fbff,#eef5ff);border-radius:12px;padding:12px;margin-bottom:10px}.provider-launch-copy b{display:block;color:#193f70;font-size:11px}.provider-launch-copy span{display:block;color:#7086a3;font-size:8px;margin-top:3px}.provider-launch button{border:0;border-radius:9px;background:linear-gradient(135deg,#168cff,#6d4eff);color:#fff;padding:9px 11px;font-size:9px;font-weight:800;cursor:pointer}
 .provider-config{grid-template-columns:1fr 1fr;gap:8px}.provider-config label span{font-size:8px}.provider-config select,.provider-config input{padding:8px;font-size:9px}
-.provider-backdrop{position:fixed;inset:0;background:rgba(3,13,31,.68);backdrop-filter:blur(6px);z-index:140;display:none}.provider-backdrop.show{display:block}
+.provider-backdrop{position:fixed;inset:0;background:rgba(3,13,31,.58);z-index:140;display:none}.provider-backdrop.show{display:block}
 .provider-mini.hub-open{display:block!important;position:fixed;z-index:150;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1120px,94vw);max-height:88vh;overflow:auto;background:#f8fbff;border:1px solid #a9c8ed;border-radius:20px;padding:20px;box-shadow:0 30px 90px rgba(0,18,52,.35)}
 .provider-hub-title{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #dbe6f3}.provider-hub-title h2{margin:0;color:#153d70;font-size:20px}.provider-hub-title p{margin:4px 0 0;color:#7186a1;font-size:9px}.provider-hub-close{border:0;background:#e9f1fb;color:#274b76;border-radius:9px;padding:8px 10px;cursor:pointer;font-weight:800}
 .provider-mini.hub-open .provider-list{max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.provider-mini.hub-open .provider{padding:12px;border-radius:11px}.provider-mini.hub-open .provider-head strong{font-size:11px}.provider-mini.hub-open .provider .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.provider-mini.hub-open .catalog-meta{margin-top:2px}.provider-mini.hub-open .provider-catalog-row{grid-template-columns:1fr auto}.provider-mini.hub-open .provider-actions{margin:8px 0}
@@ -172,6 +172,9 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 .answer-sections{display:block}.answer-head,.answer-warning{display:none}
 .pdf-keyfacts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0 12px}.pdf-keyfact{border:1px solid #dfe8f3;border-radius:8px;padding:9px;background:#f8fbff;break-inside:avoid}.pdf-keyfact small{display:block;color:#7e91a8;font-size:6.5px;text-transform:uppercase;letter-spacing:.4px}.pdf-keyfact b{display:block;margin-top:4px;color:#244a73;font-size:8.5px;line-height:1.35}.pdf-topic{border:1px solid #dfe8f3;border-radius:9px;padding:12px;margin-bottom:9px;background:#fbfdff;break-inside:avoid}.pdf-topic h2{font-size:11px;color:#174474;margin:0 0 6px}.pdf-topic p{font-size:9px;line-height:1.6;color:#344d68;white-space:pre-wrap;margin:0}.pdf-topic ul{margin:7px 0 0;padding-left:17px}.pdf-topic li{font-size:8.7px;line-height:1.5;color:#3a526d;margin:3px 0}.pdf-report-summary{border-left:4px solid #2d7ef4;background:#f0f6ff;border-radius:8px;padding:11px 12px;margin-bottom:10px;break-inside:avoid}.pdf-report-summary h2{font-size:11px;margin:0 0 5px;color:#174b83}.pdf-report-summary p{font-size:9px;line-height:1.6;color:#304d6d;margin:0;white-space:pre-wrap}
 @media(max-width:900px){.kr-facts{grid-template-columns:repeat(2,1fr)}.kr-sections,.kr-footer-grid{grid-template-columns:1fr}.kr-topic.full{grid-column:auto}.kr-cover{padding:26px 22px}.kr-cover h2{font-size:25px}.kr-body{padding:18px}.kr-toolbar{align-items:flex-start;flex-direction:column}}
+
+.provider-mini.hub-open{display:block!important;visibility:visible!important;opacity:1!important}
+.provider-mini.hub-open *{visibility:visible}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -1074,23 +1077,37 @@ function vihaaSetView(view,scroll=true){
 }
 function setupProviderHub(){
  const mini=document.querySelector('.provider-mini');if(!mini)return;
+ const originalParent=mini.parentElement;
  if(!mini.querySelector('.provider-hub-title')){
    const h=document.createElement('div');h.className='provider-hub-title';h.innerHTML='<div><h2>Universal AI Provider Hub</h2><p>Connect a preset, discover supported models, or use a custom OpenAI / Anthropic / Cohere-compatible endpoint.</p></div><button class="provider-hub-close" id="closeProviderHub">Close ✕</button>';mini.prepend(h);
  }
- const parent=mini.parentElement;
- if(parent&&!parent.querySelector('.provider-launch')){
-   const launch=document.createElement('div');launch.className='provider-launch';launch.innerHTML='<div class="provider-launch-copy"><b>AI Providers</b><span id="providerLaunchSummary">Manage API keys, endpoints and models in a full-size workspace.</span></div><button type="button" class="open-provider-local">Open Provider Hub</button>';parent.insertBefore(launch,mini);
+ if(originalParent&&!originalParent.querySelector('.provider-launch')){
+   const launch=document.createElement('div');launch.className='provider-launch';launch.innerHTML='<div class="provider-launch-copy"><b>AI Providers</b><span id="providerLaunchSummary">Manage API keys, endpoints and models in a full-size workspace.</span></div><button type="button" class="open-provider-local">Open Provider Hub</button>';originalParent.insertBefore(launch,mini);
  }
+ // Critical fix: mount the hub directly under <body> so it remains visible
+ // even when the Benchmark tab/ancestor is hidden.
+ if(mini.parentElement!==document.body)document.body.appendChild(mini);
  const backdrop=document.getElementById('providerBackdrop');
- const open=()=>{mini.classList.add('hub-open');backdrop?.classList.add('show');document.body.style.overflow='hidden'};
- const close=()=>{mini.classList.remove('hub-open');backdrop?.classList.remove('show');document.body.style.overflow='';updateProviderSummary()};
+ const open=()=>{
+   mini.classList.add('hub-open');
+   backdrop?.classList.add('show');
+   document.body.style.overflow='hidden';
+   requestAnimationFrame(()=>mini.querySelector('.provider-hub-title')?.scrollIntoView({block:'start'}));
+ };
+ const close=()=>{
+   mini.classList.remove('hub-open');
+   backdrop?.classList.remove('show');
+   document.body.style.overflow='';
+   updateProviderSummary();
+ };
  document.getElementById('openProviderHubGlobal')?.addEventListener('click',open);
  document.getElementById('openProviderHubBenchmark')?.addEventListener('click',open);
  document.querySelector('.open-provider-local')?.addEventListener('click',open);
  mini.querySelector('#closeProviderHub')?.addEventListener('click',close);
  backdrop?.addEventListener('click',close);
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mini.classList.contains('hub-open'))close()});
- window.__openVihaaProviderHub=open;window.__closeVihaaProviderHub=close;updateProviderSummary();
+ window.__openVihaaProviderHub=open;window.__closeVihaaProviderHub=close;
+ updateProviderSummary();
 }
 function updateProviderSummary(){
  const e=document.getElementById('providerLaunchSummary');if(!e)return;
