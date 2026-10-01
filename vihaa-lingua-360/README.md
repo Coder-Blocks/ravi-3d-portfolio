@@ -21,6 +21,14 @@ VIHAA LINGUA-360 is a real-provider multilingual AI evaluation and exploration p
 - Latency, provider-reported token usage and optional user-supplied cost estimates
 - Reproducible Run IDs and designed PDF reports
 
+## Free & Open Research Access
+
+The hosted VIHAA LINGUA-360 platform is free to use for personal learning, academic study, independent research, multilingual AI testing, reproducibility experiments, and benchmark exploration. There are no VIHAA platform fees or feature gates for these hosted research capabilities.
+
+**Source-code distinction:** free/open research access is not the same as an open-source license. Browser-delivered code can be inspected, but reuse rights are governed by the published source-code notice and any explicit license.
+
+See: `SOURCE-CODE-NOTICE.txt`
+
 ## Important research rule
 
 The project does **not** fabricate benchmark scores. If a provider fails, the failure remains visible. AI-judge metrics are explicitly presented as model judgments, not independent factual verification.
