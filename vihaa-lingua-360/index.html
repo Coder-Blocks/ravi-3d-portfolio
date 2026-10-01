@@ -228,6 +228,31 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 .pdf-diagram{border:1px solid #dfe8f3;border-radius:9px;padding:11px;margin-bottom:9px;background:#fbfdff;break-inside:avoid}.pdf-diagram h2{font-size:11px;color:#174474;margin:0 0 7px}.pdf-diagram-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.pdf-diagram-node{border:1px solid #cfe0f2;border-radius:7px;background:#fff;padding:7px;min-width:100px;max-width:150px;text-align:center;font-size:7.8px;color:#315272}.pdf-diagram-arrow{font-size:12px;color:#2f6fc5;font-weight:bold}.pdf-source-list{border:1px solid #dfe8f3;border-radius:9px;padding:10px;background:#fff;break-inside:auto}.pdf-source-item{font-size:7.5px;line-height:1.45;color:#3a526d;padding:5px 0;border-bottom:1px solid #edf1f5;word-break:break-word}.pdf-source-item:last-child{border-bottom:0}.pdf-source-item b{color:#214d7b}
 @media(max-width:1050px){.explore-controls{grid-template-columns:1fr 1fr}.deep-research-grid{grid-template-columns:1fr 1fr}.kr-research-strip{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.explore-controls,.deep-research-grid{grid-template-columns:1fr}.kr-research-strip{grid-template-columns:1fr 1fr}.kr-diagram-concept{grid-template-columns:1fr}.kr-diagram-center{max-width:120px}}
+
+/* ===== EXPLORE RESEARCH STUDIO REDESIGN ===== */
+.explore{background:transparent;border:0;box-shadow:none;overflow:visible}
+.explore-hero{display:grid;grid-template-columns:minmax(330px,.78fr) minmax(620px,1.42fr);gap:16px;background:transparent;color:inherit;min-height:0}
+.explore-copy{min-height:620px;padding:36px;border-radius:20px;background:radial-gradient(circle at 82% 18%,rgba(61,199,255,.25),transparent 28%),linear-gradient(145deg,#06162f,#0b2d61);color:#fff;box-shadow:0 18px 50px rgba(8,36,76,.17);position:relative}
+.explore-copy:after{display:none}.explore-copy h1{font-size:38px;line-height:1.07;margin:18px 0 12px;max-width:520px}.explore-copy p{font-size:12px;line-height:1.7;color:#c4d8ee;max-width:520px}
+.explore-points{grid-template-columns:1fr;gap:8px;margin-top:22px}.explore-points div{background:rgba(10,39,80,.75);border:1px solid #285486;padding:11px 12px;border-radius:10px;font-size:9px}
+.explore-form{padding:0;background:transparent}
+.research-studio{background:#fff;border:1px solid #dce6f2;border-radius:20px;box-shadow:0 18px 50px rgba(30,67,112,.11);overflow:hidden;min-height:620px}
+.rs-head{padding:20px 22px 16px;border-bottom:1px solid #e1e9f3;background:linear-gradient(180deg,#fff,#f9fbfe);display:flex;justify-content:space-between;gap:16px;align-items:center}
+.rs-head-copy small{display:block;font-size:7px;letter-spacing:1.2px;font-weight:800;color:#4776b5;margin-bottom:4px}.rs-head-copy h3{margin:0;font-size:19px;color:#153d6d}.rs-head-copy p{margin:5px 0 0;font-size:8.5px;color:#7286a2;line-height:1.45}
+.rs-provider-state{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.rs-provider-pill{border:1px solid #d6e3f2;background:#f6f9fe;color:#5b7390;border-radius:999px;padding:6px 9px;font-size:7.5px}.rs-provider-btn{border:0;background:#071b3b;color:#fff;border-radius:9px;padding:8px 10px;font-size:8px;font-weight:800;cursor:pointer}
+.rs-body{padding:18px 20px 20px}
+.rs-setup-grid{display:grid;grid-template-columns:1fr .85fr 1.25fr;gap:10px}.rs-field{border:1px solid #dbe6f2;background:#fbfdff;border-radius:12px;padding:10px 11px}.rs-field label{display:block}.rs-field label>span{display:block;font-size:7.5px;color:#70849f;font-weight:800;margin-bottom:5px;text-transform:uppercase;letter-spacing:.35px}.rs-field select,.rs-field input{width:100%;height:38px;border:1px solid #d5e1ef;background:#fff;border-radius:9px;padding:0 10px;font-size:9px;color:#203c60;outline:none}.rs-field select:focus,.rs-field input:focus,.composer textarea:focus{border-color:#6fa7ed;box-shadow:0 0 0 3px rgba(73,137,224,.10)}
+.rs-mode-row{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.rs-mode-card{border:1px solid #dbe6f2;background:#fff;border-radius:12px;padding:11px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:.15s}.rs-mode-card:hover{border-color:#9abdec;background:#f8fbff}.rs-mode-card.active{border-color:#528eea;background:linear-gradient(135deg,#eef5ff,#f7f3ff);box-shadow:inset 0 0 0 1px rgba(82,142,234,.18)}.rs-mode-icon{width:34px;height:34px;border-radius:10px;background:#edf4ff;display:grid;place-items:center;font-size:16px;flex:0 0 auto}.rs-mode-card.active .rs-mode-icon{background:linear-gradient(135deg,#168cff,#6d4eff);color:#fff}.rs-mode-copy b{display:block;font-size:9px;color:#1d4775}.rs-mode-copy span{display:block;font-size:7.5px;line-height:1.4;color:#7a8da5;margin-top:2px}
+#exploreResearchMode{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.deep-research-config{display:none;margin:11px 0 0;border:1px solid #d7e4f2;background:linear-gradient(180deg,#f8fbff,#f2f7fd);border-radius:14px;padding:13px}.deep-research-config.show{display:block}
+.deep-research-head{margin:0 0 10px;padding:0 0 9px;border-bottom:1px solid #dfe8f3}.deep-research-head b{display:block;font-size:10px;color:#174474}.deep-research-head span{display:block;font-size:7.5px;color:#7286a0;line-height:1.45;margin-top:3px;max-width:none}
+.deep-research-grid{grid-template-columns:1.25fr 1fr .9fr;gap:8px}.deep-research-grid label{margin:0}.deep-research-grid label>span{font-size:7px;color:#6f839f;font-weight:800;text-transform:uppercase;letter-spacing:.3px}.deep-research-grid select,.deep-research-grid input{height:37px;border-radius:9px;border:1px solid #d4e1ef;background:#fff;font-size:8.5px;padding:0 9px}.deep-google-extra{grid-column:1/-1}.deep-research-note{margin-top:9px;border:1px dashed #c6d8ed;background:#fff;border-radius:9px;padding:8px 9px;font-size:7px;color:#6b809c;line-height:1.45}
+.composer{margin-top:12px;border:1px solid #cddced;background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 8px 24px rgba(37,73,118,.06)}.composer-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px 7px}.composer-head b{font-size:9px;color:#1c4778}.composer-head span{font-size:7px;color:#8294aa}.composer textarea{display:block;width:100%;min-height:160px;resize:vertical;border:0!important;box-shadow:none!important;padding:8px 14px 14px;font-size:13px;line-height:1.55;color:#183653;background:#fff;outline:none}.composer-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid #e5ecf4;background:#fbfdff}.composer-left,.composer-right{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.composer .askbtn{padding:11px 16px;border-radius:10px;font-size:10px}.composer .btn{padding:9px 10px;border-radius:9px;font-size:8px}.explore-status{font-size:7.5px;color:#6e829d;max-width:280px;line-height:1.35}
+.rs-examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.rs-example{border:1px solid #d9e5f2;background:#fff;border-radius:999px;padding:6px 8px;font-size:7.5px;color:#4b6788;cursor:pointer}.rs-example:hover{border-color:#8fb5e7;background:#f5f9ff}
+.explore-history{margin-top:9px}.history-chip{font-size:7px;padding:5px 8px}
+.answer-loading{margin-top:9px}
+@media(max-width:1180px){.explore-hero{grid-template-columns:1fr}.explore-copy{min-height:0;padding:28px}.explore-points{grid-template-columns:repeat(3,1fr)}.research-studio{min-height:0}}
+@media(max-width:760px){.explore-points{grid-template-columns:1fr 1fr}.rs-head{align-items:flex-start;flex-direction:column}.rs-provider-state{justify-content:flex-start}.rs-setup-grid{grid-template-columns:1fr}.rs-mode-row{grid-template-columns:1fr}.deep-research-grid{grid-template-columns:1fr}.composer textarea{min-height:180px}.composer-foot{align-items:flex-start;flex-direction:column}.explore-status{max-width:none}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -315,29 +340,50 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
       <div class="explore-points"><div>🌐 100+ language choices</div><div>🧠 Simple / Detailed / Expert depth</div><div>🔊 Browser speech playback</div><div>⚖ High-stakes safety guidance</div><div>📋 Copy / Print / Share</div><div>🔬 One-click benchmark handoff</div></div>
     </div>
     <div class="explore-form">
-      <h3>Ask VIHAA</h3><div class="sub">The answer comes from the provider you select below. No provider = no fabricated answer.</div>
-      <div class="explore-controls">
-        <label><span>Answer language</span><select id="exploreLang"></select></label>
-        <label><span>Answer depth</span><select id="exploreDepth"><option value="simple">Simple</option><option value="detailed" selected>Detailed</option><option value="expert">Expert</option></select></label>
-        <label><span>Real AI provider</span><select id="exploreProvider"></select></label>
-        <label><span>Research mode</span><select id="exploreResearchMode"><option value="standard">Knowledge Report</option><option value="deep">Deep Web Research</option></select></label>
-      </div>
-      <div class="deep-research-config" id="deepResearchConfig">
-        <div class="deep-research-head"><div><b>Deep Research Sources</b><span>Use a web-enabled AI provider or a search API. The app will generate multiple queries, collect sources, deduplicate them, synthesize only from the research dossier, and preserve citations.</span></div></div>
-        <div class="deep-research-grid">
-          <label><span>Research source</span><select id="deepResearchSource"><option value="webprovider">Web-enabled AI provider (Perplexity/Sonar etc.)</option><option value="tavily">Tavily Advanced Search</option><option value="google">Google Programmable Search</option><option value="serper">Serper Google Search</option></select></label>
-          <label><span>Research API key (only for search APIs)</span><input id="deepResearchKey" type="password" autocomplete="off" placeholder="Not saved"></label>
-          <label class="deep-google-extra" id="deepGoogleExtra"><span>Google Search Engine ID (cx)</span><input id="deepResearchCx" placeholder="Programmable Search Engine ID"></label>
-          <label><span>Research breadth</span><select id="deepResearchBreadth"><option value="4">Focused • 4 queries</option><option value="6" selected>Deep • 6 queries</option><option value="8">Exhaustive • 8 queries</option></select></label>
+      <div class="research-studio">
+        <div class="rs-head">
+          <div class="rs-head-copy"><small>VIHAA RESEARCH STUDIO</small><h3>Ask, research, understand.</h3><p>Choose your language and depth, connect a real AI provider, then create either a knowledge report or a source-backed deep research report.</p></div>
+          <div class="rs-provider-state"><span class="rs-provider-pill" id="exploreProviderState">No provider ready</span><button class="rs-provider-btn" id="openProviderHubExplore" type="button">⚙ Manage Providers</button></div>
         </div>
-        <div class="deep-research-note">For the strongest web-grounded result, use Perplexity Sonar Deep Research or Tavily Advanced Search. Google/Serper modes provide search-result evidence; depth depends on what their API returns. No source = no claim of completed deep web research.</div>
-        <div class="research-progress" id="researchProgress"><div class="research-progress-title"><span id="researchProgressText">Preparing research…</span><span id="researchProgressPct">0%</span></div><div class="research-progress-bar"><i id="researchProgressBar"></i></div></div>
+        <div class="rs-body">
+          <div class="rs-setup-grid">
+            <div class="rs-field"><label><span>Answer language</span><select id="exploreLang"></select></label></div>
+            <div class="rs-field"><label><span>Answer depth</span><select id="exploreDepth"><option value="simple">Simple</option><option value="detailed" selected>Detailed</option><option value="expert">Expert</option></select></label></div>
+            <div class="rs-field"><label><span>Real AI provider</span><select id="exploreProvider"></select></label></div>
+          </div>
+
+          <select id="exploreResearchMode" aria-label="Research mode"><option value="standard">Knowledge Report</option><option value="deep">Deep Web Research</option></select>
+          <div class="rs-mode-row">
+            <div class="rs-mode-card active" data-research-mode="standard"><div class="rs-mode-icon">✦</div><div class="rs-mode-copy"><b>Knowledge Report</b><span>Fast, comprehensive answer from your selected real AI provider.</span></div></div>
+            <div class="rs-mode-card" data-research-mode="deep"><div class="rs-mode-icon">🔬</div><div class="rs-mode-copy"><b>Deep Web Research</b><span>Multi-query research with sources, citations, diagrams and research PDF.</span></div></div>
+          </div>
+
+          <div class="deep-research-config" id="deepResearchConfig">
+            <div class="deep-research-head"><div><b>Research Engine</b><span>Choose how VIHAA should gather source material before synthesizing the report.</span></div></div>
+            <div class="deep-research-grid">
+              <label><span>Research source</span><select id="deepResearchSource"><option value="webprovider">Web-enabled AI provider</option><option value="tavily">Tavily Advanced Search</option><option value="google">Google Programmable Search</option><option value="serper">Serper Google Search</option></select></label>
+              <label id="deepResearchKeyWrap"><span>Search API key</span><input id="deepResearchKey" type="password" autocomplete="off" placeholder="Only needed for search APIs"></label>
+              <label><span>Research breadth</span><select id="deepResearchBreadth"><option value="4">Focused • 4 queries</option><option value="6" selected>Deep • 6 queries</option><option value="8">Exhaustive • 8 queries</option></select></label>
+              <label class="deep-google-extra" id="deepGoogleExtra"><span>Google Search Engine ID (cx)</span><input id="deepResearchCx" placeholder="Programmable Search Engine ID"></label>
+            </div>
+            <div class="deep-research-note">Web-enabled provider mode does not need a separate search key. Tavily, Google and Serper require their own search API key. A deep report is only marked complete when usable source material is returned.</div>
+            <div class="research-progress" id="researchProgress"><div class="research-progress-title"><span id="researchProgressText">Preparing research…</span><span id="researchProgressPct">0%</span></div><div class="research-progress-bar"><i id="researchProgressBar"></i></div></div>
+          </div>
+
+          <div class="composer">
+            <div class="composer-head"><b>Your question</b><span>Ask naturally — VIHAA will structure the report for the topic.</span></div>
+            <textarea id="exploreQuestion" placeholder="Example: Research Telugu actor Chiranjeevi from A–Z with sources and diagrams.">Explain artificial intelligence and how it can affect everyday life.</textarea>
+            <div class="composer-foot">
+              <div class="composer-left"><button class="askbtn" id="askExplore">Create Report →</button><button class="btn" id="exploreVoice">🎙 Voice Input</button></div>
+              <div class="composer-right"><span class="explore-status" id="exploreStatus">Connect a real AI provider to begin.</span></div>
+            </div>
+          </div>
+          <div class="rs-examples"><button class="rs-example" data-q="Research Telugu actor Chiranjeevi from A–Z with sources and diagrams.">Chiranjeevi research</button><button class="rs-example" data-q="Explain Australian kangaroos in depth, including species, habitat, biology, behaviour and conservation.">Australian kangaroos</button><button class="rs-example" data-q="Explain artificial intelligence from basics to current applications, risks and future directions.">Artificial intelligence</button></div>
+          <div class="answer-loading" id="exploreLoading"><i></i></div>
+          <div class="explore-history" id="exploreHistory"></div>
+        </div>
       </div>
-      <div class="explore-q"><label><span>Your question</span><textarea id="exploreQuestion" placeholder="Ask anything…">Explain artificial intelligence and how it can affect everyday life.</textarea></label></div>
-      <div class="explore-actions"><button class="askbtn" id="askExplore">Ask in Selected Language →</button><button class="btn" id="exploreVoice">🎙 Voice Input</button><span class="explore-status" id="exploreStatus">Waiting for a connected provider.</span></div>
-      <div class="answer-loading" id="exploreLoading"><i></i></div>
-      <div class="explore-history" id="exploreHistory"></div>
-    </div>
+    </div></div>
   </div>
   <div class="explore-answer" id="exploreAnswer">
     <div class="knowledge-report" id="knowledgeReport">
@@ -1339,6 +1385,25 @@ function updateDeepResearchUi(){
 document.getElementById('exploreResearchMode').addEventListener('change',updateDeepResearchUi);
 document.getElementById('deepResearchSource').addEventListener('change',updateDeepResearchUi);
 updateDeepResearchUi();
+
+
+function syncResearchStudio(){
+ const mode=document.getElementById('exploreResearchMode')?.value||'standard';
+ document.querySelectorAll('.rs-mode-card').forEach(x=>x.classList.toggle('active',x.dataset.researchMode===mode));
+ const cfg=document.getElementById('deepResearchConfig');if(cfg)cfg.classList.toggle('show',mode==='deep');
+ const src=document.getElementById('deepResearchSource')?.value||'webprovider';
+ const keyWrap=document.getElementById('deepResearchKeyWrap');if(keyWrap)keyWrap.style.display=src==='webprovider'?'none':'block';
+ const gx=document.getElementById('deepGoogleExtra');if(gx)gx.classList.toggle('show',src==='google');
+ const p=providers.find(x=>x.id===document.getElementById('exploreProvider')?.value),state=document.getElementById('exploreProviderState');
+ if(state){if(p&&p.model){state.textContent='✓ '+p.name+' • '+p.model;state.style.color='#15704a';state.style.background='#eef9f3';state.style.borderColor='#c9ead8'}else{state.textContent='No provider ready';state.style.color='#6d809b';state.style.background='#f6f9fe';state.style.borderColor='#d6e3f2'}}
+}
+document.querySelectorAll('.rs-mode-card').forEach(card=>card.addEventListener('click',()=>{const sel=document.getElementById('exploreResearchMode');sel.value=card.dataset.researchMode;sel.dispatchEvent(new Event('change',{bubbles:true}));syncResearchStudio()}));
+document.getElementById('deepResearchSource')?.addEventListener('change',syncResearchStudio);
+document.getElementById('exploreProvider')?.addEventListener('change',syncResearchStudio);
+document.querySelectorAll('.rs-example').forEach(b=>b.addEventListener('click',()=>{document.getElementById('exploreQuestion').value=b.dataset.q||'';document.getElementById('exploreQuestion').focus()}));
+document.getElementById('openProviderHubExplore')?.addEventListener('click',()=>window.__openVihaaProviderHub?.());
+const __rsRefreshExploreProviders=refreshExploreProviders;refreshExploreProviders=function(){__rsRefreshExploreProviders();syncResearchStudio()};
+setTimeout(syncResearchStudio,0);
 
 </script>
 </body></html>
