@@ -175,6 +175,38 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 
 .provider-mini.hub-open{display:block!important;visibility:visible!important;opacity:1!important}
 .provider-mini.hub-open *{visibility:visible}
+
+/* ===== CARD 2 UX REDESIGN ===== */
+.flow-top{grid-template-columns:.95fr 1.34fr .78fr}
+.selection{padding:18px}
+.selection-grid{grid-template-columns:minmax(0,1.22fr) minmax(300px,.78fr);gap:18px;align-items:start}
+.language-pane,.model-pane{min-width:0}
+.pane-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.pane-title-row .label-title{margin:0;font-size:13px;color:#173f70}
+.selection-count{border:1px solid #d7e4f2;background:#f1f7ff;color:#3e6491;border-radius:999px;padding:4px 7px;font-size:8px;font-weight:800;white-space:nowrap}
+.lang-tools input{height:38px;padding:0 11px;font-size:10px;border-radius:10px}
+.quick{gap:6px;margin:9px 0 11px}.quick button{padding:7px 10px;border-radius:9px;font-size:9px}
+.langs{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:360px;padding-right:4px}
+.lang{min-height:38px;padding:8px 10px;border-radius:9px;font-size:9px;transition:.16s}.lang:hover{border-color:#8db6ec;background:#f4f9ff}.lang input{width:15px;height:15px}
+.model-pane{border:1px solid #dce7f4;background:linear-gradient(180deg,#fbfdff,#f6f9fe);border-radius:13px;padding:13px}
+.model-pane .provider-launch{margin:0 0 12px;padding:13px;background:linear-gradient(135deg,#eef6ff,#f8fbff)}
+.provider-launch-copy b{font-size:12px}.provider-launch-copy span{font-size:8px;line-height:1.4}
+.provider-launch button{padding:9px 12px;min-width:104px}
+.run-config{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.run-config label span{font-size:8px;color:#6f829d;font-weight:700;margin-bottom:4px}
+.run-config select,.run-config input{height:38px;border-radius:9px;font-size:9px;padding:7px 9px;background:#fff}
+.run-config .answer-models-field{grid-column:1/-1}
+.run-config #answers{height:104px;min-height:104px;padding:7px;line-height:1.45}
+.run-config .max-lang-field{grid-column:1/-1}
+.config-hint{font-size:7.5px;line-height:1.45;color:#7a8ca5;margin-top:4px}
+.config-toggles{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.config-toggle{display:flex!important;align-items:center;gap:7px;border:1px solid #dbe6f2;background:#fff;border-radius:9px;padding:9px 10px;font-size:8.5px!important;color:#425f81;cursor:pointer}
+.config-toggle input{width:15px!important;height:15px;margin:0}
+.config-toggle span{display:inline!important;margin:0!important;color:#425f81!important;font-size:8.5px!important}
+.setup-note{margin-top:10px;border:1px solid #d8e5f3;background:#fff;border-radius:9px;padding:9px;font-size:7.5px;line-height:1.45;color:#6e829d}
+@media(max-width:1380px){.flow-top{grid-template-columns:1fr}.selection-grid{grid-template-columns:1.15fr .85fr}.langs{max-height:300px}}
+@media(max-width:850px){.selection-grid{grid-template-columns:1fr}.model-pane{padding:12px}.run-config{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.run-config{grid-template-columns:1fr}.run-config .answer-models-field,.run-config .max-lang-field{grid-column:auto}.langs{grid-template-columns:1fr}.config-toggles{grid-template-columns:1fr}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -314,14 +346,14 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
     <div class="step-head"><span class="step-num">2</span>Select Languages & AI Models</div>
     <div class="selection">
       <div class="selection-grid">
-        <div>
-          <div class="label-title">Choose Languages</div>
-          <div class="lang-tools"><input id="langSearch" placeholder="Search languages…"></div>
+        <div class="language-pane">
+          <div class="pane-title-row"><div class="label-title">Choose Languages</div><span class="selection-count" id="selectedLangCount">0 selected</span></div>
+          <div class="lang-tools"><input id="langSearch" placeholder="Search from 123 languages…"></div>
           <div class="quick"><button id="top10">Top 10</button><button id="top20">Top 20</button><button id="top50">Top 50</button><button id="top100">Top 100</button><button id="allLang">All</button><button id="clearLang">Clear</button></div>
           <div id="langs" class="langs"></div>
         </div>
-        <div>
-          <div class="label-title">Connect Real AI Models</div>
+        <div class="model-pane">
+          <div class="pane-title-row"><div class="label-title">AI Run Setup</div><span class="selection-count" id="selectedModelCount">0 models</span></div>
           <div class="provider-mini">
             <div id="providers" class="provider-list"></div>
             <div class="catalog-meta"><span class="catalog-chip" id="catalogCount">Universal Provider Hub</span><span class="catalog-chip">Major cloud APIs</span><span class="catalog-chip">Local models</span><span class="catalog-chip">Custom endpoint fallback</span></div>
@@ -330,16 +362,20 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
             <div class="provider-catalog-note">Use your own API key/token. If your provider is not listed, choose <b>Custom OpenAI-compatible</b>, <b>Custom Anthropic-compatible</b>, or paste any compatible endpoint manually. Keys stay in this browser tab and are not stored in run history or share links.</div>
             <div class="secure">Direct browser API calls can expose a key to the local browser session. For organization-wide or long-lived production credentials, use a secure backend proxy.</div>
           </div>
-          <div class="provider-config">
+          <div class="run-config">
             <label><span>Translator</span><select id="translator"></select></label>
             <label><span>Judge</span><select id="judge"></select></label>
-            <label><span>Answer Models</span><select id="answers" multiple size="3"></select></label>
-            <label><span>Max Languages</span><input id="maxLang" type="number" min="1" max="120" value="5"></label>
+            <label class="answer-models-field"><span>Answer Models</span><select id="answers" multiple size="4"></select><div class="config-hint">Select one or more real models. Use Ctrl / Cmd for multiple selection.</div></label>
+            <label class="max-lang-field"><span>Maximum Languages per Run</span><input id="maxLang" type="number" min="1" max="120" value="5"></label>
           </div>
-          <div style="display:flex;gap:8px;margin-top:7px"><label style="font-size:9px"><input type="checkbox" id="judgeOn" checked style="width:auto"> Judge evaluation</label><label style="font-size:9px"><input type="checkbox" id="stopOnError" style="width:auto"> Stop on error</label></div>
+          <div class="config-toggles">
+            <label class="config-toggle"><input type="checkbox" id="judgeOn" checked><span>Judge evaluation</span></label>
+            <label class="config-toggle"><input type="checkbox" id="stopOnError"><span>Stop on first error</span></label>
+          </div>
+          <div class="setup-note">Provider credentials are managed in the full-size Provider Hub. This panel only controls which connected models take part in the current benchmark.</div>
         </div>
       </div>
-    </div>
+    </div></div>
   </div>
 
   <div class="step-card">
@@ -1122,5 +1158,20 @@ const __shellRenderProviders=renderProviders;renderProviders=function(){__shellR
 const __shellRenderResults=renderResults;renderResults=function(){__shellRenderResults();const b=document.getElementById('resultsBadge');if(b)b.textContent=runRecords.length};
 setupProviderHub();
 const __savedView=localStorage.getItem('vihaa_lingua_ui_view');vihaaSetView(['explore','benchmark','results','observatory','labs','research'].includes(__savedView)?__savedView:'explore',false);
+
+function updateCard2Counts(){
+ const langCount=[...document.querySelectorAll('#langs input[type="checkbox"]')].filter(x=>x.checked).length;
+ const modelCount=[...document.querySelectorAll('#answers option:checked')].length;
+ const a=document.getElementById('selectedLangCount'),b=document.getElementById('selectedModelCount');
+ if(a)a.textContent=langCount+' selected';
+ if(b)b.textContent=modelCount+' model'+(modelCount===1?'':'s');
+}
+document.getElementById('langs')?.addEventListener('change',updateCard2Counts);
+document.getElementById('answers')?.addEventListener('change',updateCard2Counts);
+['top10','top20','top50','top100','allLang','clearLang'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>setTimeout(updateCard2Counts,0)));
+const __card2RenderLangs=renderLangs;renderLangs=function(){__card2RenderLangs();updateCard2Counts()};
+const __card2RefreshSelects=refreshSelects;refreshSelects=function(){__card2RefreshSelects();updateCard2Counts()};
+setTimeout(updateCard2Counts,0);
+
 </script>
 </body></html>
