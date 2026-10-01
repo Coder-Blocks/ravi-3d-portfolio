@@ -4,7 +4,7 @@
 
 Live app: https://vihaa-lingua-360.onrender.com  
 Research & methodology: https://vihaa-lingua-360.onrender.com/research.html  
-Technical whitepaper: https://vihaa-lingua-360.onrender.com/VIHAA-LINGUA-360-Technical-Whitepaper.pdf
+Technical whitepaper: https://vihaa-lingua-360.onrender.com/whitepaper.html
 
 VIHAA LINGUA-360 is a real-provider multilingual AI evaluation and exploration platform built by **Think Innovative Creations (TIC)**.
 
