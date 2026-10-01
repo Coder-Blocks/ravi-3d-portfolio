@@ -1,0 +1,41 @@
+{
+  "project": "VIHAA LINGUA-360",
+  "methodology_version": "1.0",
+  "principle": "No fabricated benchmark scores. Empirical claims should come from real provider runs.",
+  "run_metadata": [
+    "run_id",
+    "timestamp",
+    "prompt",
+    "language",
+    "provider",
+    "model_id",
+    "temperature",
+    "latency_ms",
+    "provider_reported_tokens",
+    "optional_cost_estimate",
+    "status",
+    "error"
+  ],
+  "judge_metrics": [
+    "meaning_consistency",
+    "completeness",
+    "safety_consistency",
+    "unsupported_claim_risk"
+  ],
+  "warnings": [
+    "AI judge metrics are model judgments, not objective truth.",
+    "Cross-language consistency is not the same as factual accuracy.",
+    "Translation can introduce confounds.",
+    "Provider failures should remain visible.",
+    "Native-speaker review is recommended for dialect research."
+  ],
+  "reproducibility": [
+    "fix prompt set",
+    "record exact model IDs",
+    "hold temperature constant when supported",
+    "repeat trials",
+    "publish failures",
+    "preserve run IDs",
+    "document judge prompts"
+  ]
+}
