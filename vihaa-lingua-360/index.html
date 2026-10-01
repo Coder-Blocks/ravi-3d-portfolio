@@ -86,6 +86,16 @@ main{max-width:1560px;margin:auto;padding:14px 12px 40px}.flow-top{display:grid;
 .pdf-subpage{break-before:page;padding:32px 44px 48px;min-height:1123px;position:relative}.pdf-subpage .pdf-footer{left:44px;right:44px}
 .pdf-summary-box{border:1px solid #dfe8f4;border-radius:10px;padding:12px;background:#fbfdff;margin-bottom:10px}.pdf-summary-box h3{margin:0 0 6px;color:#1b487a;font-size:11px}.pdf-summary-box p{margin:0;font-size:9px;line-height:1.55;color:#3a526d}
 @media print{body>*:not(.pdf-export-root){display:none!important}.pdf-export-root{position:static!important;left:auto!important;width:794px!important}}
+
+.commercial{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px rgba(31,73,125,.10);overflow:hidden}
+.commercial-hero{background:linear-gradient(135deg,#06162f,#0a2d62);color:#fff;padding:28px 30px;display:flex;justify-content:space-between;gap:18px;align-items:center}
+.commercial-hero h2{margin:0;font-size:25px}.commercial-hero p{margin:6px 0 0;color:#c7d9ee;font-size:11px;max-width:700px;line-height:1.55}.commercial-badge{border:1px solid #315b8c;background:#0a2854;border-radius:999px;padding:7px 10px;font-size:9px;color:#bde6ff;white-space:nowrap}
+.pricing{padding:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.price-card{border:1px solid #dce6f3;border-radius:12px;padding:14px;background:#fbfdff;position:relative}.price-card.popular{border-color:#5b7dff;box-shadow:0 10px 24px rgba(66,87,220,.14)}.price-card .tag{position:absolute;right:10px;top:10px;font-size:7px;background:#eef1ff;color:#4b54d8;padding:3px 6px;border-radius:99px}.price-card h3{margin:0;font-size:14px;color:#193e6b}.price{font-size:24px;font-weight:900;color:#173f79;margin:8px 0 2px}.price small{font-size:9px;font-weight:600;color:#7186a5}.price-note{font-size:8px;color:#7b8ea8;min-height:24px}.plan-features{margin:10px 0;padding:0;list-style:none;display:grid;gap:6px}.plan-features li{font-size:9px;color:#405873}.plan-features li:before{content:"✓";color:#1fa866;font-weight:900;margin-right:6px}.plan-cta{width:100%;border:0;border-radius:8px;padding:9px;font-size:9px;font-weight:800;cursor:pointer;background:#173f79;color:#fff}.plan-cta.secondary{background:#eef4fb;color:#234b78;border:1px solid #d8e3f1}
+.services-grid{padding:0 16px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.service-card{border:1px solid #dce6f3;border-radius:11px;padding:13px;background:#fff}.service-card h4{margin:0 0 5px;font-size:12px;color:#1e4876}.service-card .service-price{font-size:15px;font-weight:900;color:#1f5aa2}.service-card p{font-size:8px;line-height:1.5;color:#6d819d;min-height:42px}.service-card button{width:100%}
+.sales-panel{margin:0 16px 16px;border:1px solid #dce6f3;border-radius:12px;background:#f8fbff;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.sales-form{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sales-form .wide{grid-column:1/-1}.sales-form textarea{min-height:78px}.sales-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.sales-status{font-size:8px;color:#6d819d;margin-top:6px}.commercial-info{border-left:1px solid #dce6f3;padding-left:14px}.commercial-info h4{margin:0 0 6px;font-size:12px;color:#1d4776}.commercial-info p{font-size:9px;color:#5f7593;line-height:1.55}.commercial-info .rule{border:1px solid #ead79e;background:#fff9eb;border-radius:8px;padding:8px;font-size:8px;color:#765f2f;margin-top:8px}
+.api-box{margin:0 16px 16px;border:1px solid #dce6f3;border-radius:12px;padding:14px;background:#0a1932;color:#dbeaff}.api-box h4{margin:0 0 5px;color:#fff}.api-box p{font-size:8px;color:#a9bdd8}.api-code{margin-top:8px;border:1px solid #294a72;border-radius:8px;background:#061226;padding:9px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;white-space:pre-wrap;color:#8fd7ff}.api-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.api-actions .btn{background:#12345f;color:#ddecff;border-color:#31557e}
+.certificate-preview{margin:0 16px 16px;border:1px solid #dce6f3;border-radius:12px;padding:14px;background:linear-gradient(135deg,#fff,#f4f8ff)}.cert-inner{border:2px solid #244f86;border-radius:10px;padding:16px;text-align:center}.cert-inner h3{margin:2px 0;color:#173f79}.cert-inner p{font-size:8px;color:#647b99}.cert-seal{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;margin:10px auto;border:2px solid #2a66b7;color:#2a66b7;font-weight:900}
+@media(max-width:1100px){.pricing{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr 1fr}.sales-panel{grid-template-columns:1fr}.commercial-info{border-left:0;border-top:1px solid #dce6f3;padding-left:0;padding-top:12px}}@media(max-width:650px){.commercial-hero{display:block}.commercial-badge{display:inline-block;margin-top:10px}.pricing,.services-grid{grid-template-columns:1fr}.sales-form{grid-template-columns:1fr}.sales-form .wide{grid-column:auto}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
 function pdfSafe(v){return String(v??'')}
@@ -133,6 +143,40 @@ async function downloadStyledPdf(kind){
 }
 document.getElementById('downloadExplorePdf').onclick=()=>downloadStyledPdf('explore');
 document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('benchmark');
+
+
+const SALES_EMAIL='ravigarimella9@gmail.com';
+function commercialRequestText(){
+ const name=document.getElementById('salesName').value.trim(),company=document.getElementById('salesCompany').value.trim(),email=document.getElementById('salesEmail').value.trim(),offer=document.getElementById('salesOffer').value.trim(),req=document.getElementById('salesRequirement').value.trim();
+ return 'VIHAA LINGUA-360 COMMERCIAL REQUEST\n\nOffer: '+offer+'\nName: '+name+'\nCompany: '+company+'\nEmail: '+email+'\nRequirement: '+req+'\n\nSubmitted from: '+location.origin+location.pathname;
+}
+function chooseOffer(offer){
+ document.getElementById('salesOffer').value=offer;
+ document.getElementById('commercial').scrollIntoView({behavior:'smooth',block:'start'});
+ setTimeout(()=>document.getElementById('salesName').focus(),500);
+}
+document.querySelectorAll('[data-offer]').forEach(b=>b.addEventListener('click',()=>{
+ const offer=b.dataset.offer||'Commercial Request';
+ if(offer==='Free Plan'){
+   localStorage.setItem('vihaa_lingua_360_plan','free');
+   document.getElementById('salesStatus').textContent='Free plan selected on this device. Connect your own provider and start using VIHAA LINGUA-360.';
+   document.getElementById('exploreMode').scrollIntoView({behavior:'smooth',block:'start'});
+   return;
+ }
+ chooseOffer(offer);
+}));
+document.getElementById('emailSales').onclick=()=>{
+ const text=commercialRequestText(),offer=document.getElementById('salesOffer').value.trim()||'Commercial Request';
+ location.href='mailto:'+encodeURIComponent(SALES_EMAIL)+'?subject='+encodeURIComponent('VIHAA LINGUA-360 — '+offer)+'&body='+encodeURIComponent(text);
+ document.getElementById('salesStatus').textContent='Opening your email app with the commercial request.';
+};
+document.getElementById('copySalesRequest').onclick=async()=>{
+ const t=commercialRequestText();try{await navigator.clipboard.writeText(t);document.getElementById('salesStatus').textContent='Commercial request copied.'}catch{document.getElementById('salesStatus').textContent='Copy was blocked by the browser.'}
+};
+document.getElementById('copyApiExample').onclick=async()=>{
+ const t='POST /v1/benchmarks\nAuthorization: Bearer YOUR_VIHAA_API_KEY\n\n{\n  "prompt": "Your benchmark prompt",\n  "languages": ["en","te","hi"],\n  "models": ["your-approved-models"]\n}';
+ try{await navigator.clipboard.writeText(t);document.getElementById('salesStatus').textContent='API example copied.'}catch{}
+};
 
 </script>
 </head>
@@ -386,6 +430,83 @@ document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('b
       </div>
       <div class="lab-note">Anyone with the link can load the challenge configuration and run it with their own real provider credentials. This static edition does not publish a searchable public leaderboard.</div>
     </div>
+  </div>
+</section>
+
+
+<section class="commercial" id="commercial">
+  <div class="commercial-hero">
+    <div><h2>Commercial Access & AI Language Audit Services</h2><p>Use VIHAA LINGUA-360 free for personal testing, or request higher limits, professional audit reports, business access, white-label deployment, API access, verification certificates, and sponsored benchmark studies.</p></div>
+    <div class="commercial-badge">VIHAA LINGUA-360 • BUILT BY TIC</div>
+  </div>
+
+  <div class="pricing">
+    <div class="price-card">
+      <h3>Free</h3><div class="price">₹0 <small>/ forever</small></div><div class="price-note">For trying the platform with your own provider.</div>
+      <ul class="plan-features"><li>Up to 3 languages per run</li><li>1 answer model</li><li>Explore Mode</li><li>Basic benchmark results</li><li>Designed PDF export</li></ul>
+      <button class="plan-cta secondary" data-offer="Free Plan">Start Free</button>
+    </div>
+    <div class="price-card popular">
+      <span class="tag">POPULAR</span><h3>Individual Pro</h3><div class="price">₹499 <small>/ month</small></div><div class="price-note">For creators, students, and independent professionals.</div>
+      <ul class="plan-features"><li>Up to 20 languages</li><li>Multiple model comparison</li><li>Voice + Explore Mode</li><li>Run history</li><li>Designed reports</li></ul>
+      <button class="plan-cta" data-offer="Individual Pro ₹499/month">Request Pro</button>
+    </div>
+    <div class="price-card">
+      <h3>Researcher</h3><div class="price">₹1,499 <small>/ month</small></div><div class="price-note">For deeper multilingual evaluation and research work.</div>
+      <ul class="plan-features"><li>50–100+ language testing</li><li>Regression Observatory</li><li>Dialect Intelligence</li><li>Disagreement + refusal analysis</li><li>Advanced exports</li></ul>
+      <button class="plan-cta" data-offer="Researcher ₹1,499/month">Request Researcher</button>
+    </div>
+    <div class="price-card">
+      <h3>Business</h3><div class="price">₹4,999 <small>/ month</small></div><div class="price-note">For teams evaluating customer-facing AI systems.</div>
+      <ul class="plan-features"><li>Business usage</li><li>Branded audit reports</li><li>Higher run limits</li><li>Failure analytics</li><li>Priority benchmark packs</li></ul>
+      <button class="plan-cta" data-offer="Business ₹4,999/month">Request Business</button>
+    </div>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card"><h4>One-Time AI Language Audit</h4><div class="service-price">₹4,999</div><p>Professional multilingual test of a chatbot, AI workflow, or customer-facing assistant with a designed audit report.</p><button class="btn primary serviceRequest" data-offer="One-Time AI Language Audit ₹4,999">Request Audit</button></div>
+    <div class="service-card"><h4>Enterprise AI Fairness Audit</h4><div class="service-price">₹25,000+</div><p>Custom 20–100+ language evaluation, dialect and safety testing, model comparison, regression evidence, and executive reporting.</p><button class="btn primary serviceRequest" data-offer="Enterprise AI Fairness Audit ₹25,000+">Contact Enterprise</button></div>
+    <div class="service-card"><h4>White-Label Deployment</h4><div class="service-price">₹75,000+</div><p>Custom company branding and deployment scope for organizations that want their own language-evaluation portal.</p><button class="btn primary serviceRequest" data-offer="White-Label Deployment ₹75,000+">Request White-Label</button></div>
+    <div class="service-card"><h4>Developer / API Access</h4><div class="service-price">Usage-based</div><p>Request API access for automated multilingual benchmark workflows and developer integrations. Commercial API is provisioned separately.</p><button class="btn primary serviceRequest" data-offer="Developer / API Access">Request API Access</button></div>
+    <div class="service-card"><h4>Verification Certificate</h4><div class="service-price">₹999+</div><p>Request a reviewed VIHAA benchmark certificate tied to a specific Run ID. Certificate issuance requires manual verification.</p><button class="btn primary serviceRequest" data-offer="Verification Certificate ₹999+">Request Certificate</button></div>
+    <div class="service-card"><h4>Sponsored Benchmark Study</h4><div class="service-price">Custom Quote</div><p>Commission a disclosed benchmark study for a model or AI product. Sponsorship is clearly identified in the final report.</p><button class="btn primary serviceRequest" data-offer="Sponsored Benchmark Study">Request Study</button></div>
+  </div>
+
+  <div class="sales-panel">
+    <div>
+      <h3 style="margin:0 0 8px;font-size:14px;color:#193f70">Send a Commercial Request</h3>
+      <div class="sales-form">
+        <label><span>Name</span><input id="salesName" placeholder="Your name"></label>
+        <label><span>Company / Organization</span><input id="salesCompany" placeholder="Company name"></label>
+        <label><span>Email</span><input id="salesEmail" type="email" placeholder="you@example.com"></label>
+        <label><span>Selected offer</span><input id="salesOffer" value="One-Time AI Language Audit ₹4,999"></label>
+        <label class="wide"><span>Requirement</span><textarea id="salesRequirement" placeholder="Languages, AI product, models, report requirement, expected timeline…"></textarea></label>
+      </div>
+      <div class="sales-actions"><button class="btn primary" id="emailSales">Open Email Request</button><button class="btn" id="copySalesRequest">Copy Request</button></div>
+      <div class="sales-status" id="salesStatus">Paid access is activated only after commercial confirmation. This page does not fake a subscription or payment.</div>
+    </div>
+    <div class="commercial-info">
+      <h4>Commercial launch policy</h4>
+      <p>Free testing remains BYOK: users connect their own AI provider. Paid plans and services are handled as commercial requests until secure payment, account authentication, usage metering, and server-side key handling are configured.</p>
+      <div class="rule"><b>Important:</b> API keys and paid entitlements should never be trusted only to client-side JavaScript. Production subscriptions need secure backend billing and account controls.</div>
+    </div>
+  </div>
+
+  <div class="api-box">
+    <h4>Developer API / Credit Access</h4><p>Commercial API access can be provisioned for approved integrations. The public static app does not expose a fake API endpoint.</p>
+    <div class="api-code">POST /v1/benchmarks
+Authorization: Bearer YOUR_VIHAA_API_KEY
+
+{
+  "prompt": "Your benchmark prompt",
+  "languages": ["en","te","hi"],
+  "models": ["your-approved-models"]
+}</div>
+    <div class="api-actions"><button class="btn serviceRequest" data-offer="Developer / API Access">Request Developer Access</button><button class="btn" id="copyApiExample">Copy API Example</button></div>
+  </div>
+
+  <div class="certificate-preview">
+    <div class="cert-inner"><div style="font-size:8px;color:#6e84a1">THINK INNOVATIVE CREATIONS</div><h3>VIHAA LINGUA-360</h3><div style="font-size:11px;font-weight:800;color:#244e83">AI Language Benchmark Verification Certificate</div><div class="cert-seal">TIC</div><p>Issued only after manual verification of a submitted benchmark Run ID. Preview shown for the commercial certificate service; it is not a certificate by itself.</p><button class="btn primary serviceRequest" data-offer="Verification Certificate ₹999+">Request Verification</button></div>
   </div>
 </section>
 
