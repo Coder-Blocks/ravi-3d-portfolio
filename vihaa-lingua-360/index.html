@@ -6,52 +6,148 @@
 <title>VIHAA LINGUA-360 — Real Global AI Language Benchmark</title>
 <meta name="description" content="Run real multilingual AI benchmark calls against local Ollama, Gemini, or OpenAI-compatible model endpoints. No demo scores."/>
 <style>
-:root{--bg:#06142d;--bg2:#0a1f46;--panel:#0a2148;--panel2:#0b2856;--line:#234b82;--text:#eef7ff;--muted:#9ab2d4;--cyan:#39d3ff;--blue:#4c8cff;--violet:#7a68ff;--green:#45dd9c;--yellow:#ffd166;--red:#ff7285;--shadow:0 25px 80px rgba(0,0,0,.35)}*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 45% -10%,#163b7c 0,#07172f 35%,#041024 100%);color:var(--text);min-height:100vh}.top{position:sticky;top:0;z-index:30;background:rgba(3,13,31,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(108,161,230,.18)}.topin{max-width:1450px;margin:auto;height:76px;padding:0 24px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid #40cfff;box-shadow:0 0 28px rgba(57,211,255,.25);font-size:25px}.brand b{font-size:20px;letter-spacing:.5px}.brand em{font-style:normal;color:#7ac8ff}.brand small{display:block;color:#94abd0}.badge{font-size:11px;padding:8px 11px;border-radius:999px;border:1px solid rgba(70,221,156,.45);color:#67efb2;background:rgba(41,175,120,.08)}main{max-width:1450px;margin:auto;padding:40px 24px 80px}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}.card{background:linear-gradient(180deg,rgba(11,34,73,.9),rgba(7,25,55,.88));border:1px solid rgba(112,161,226,.18);border-radius:18px;box-shadow:var(--shadow)}.intro{padding:34px}.eyebrow{color:#78ccff;letter-spacing:2.5px;font-size:11px}.intro h1{font-size:clamp(38px,5vw,68px);line-height:1;margin:12px 0 18px;letter-spacing:-2.5px}.intro h1 span{background:linear-gradient(90deg,var(--cyan),#9d8cff);-webkit-background-clip:text;color:transparent}.intro p{color:#afc3e1;font-size:16px;max-width:820px}.truth{display:grid;gap:10px;padding:24px}.truth h3{margin:0 0 6px}.truth .item{padding:12px;border-radius:12px;background:#081c3e;border:1px solid rgba(122,163,221,.12);font-size:12px;color:#bfd0e8}.truth .item b{color:white}.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}.section{padding:22px}.section h2{margin:0;font-size:22px}.sub{color:var(--muted);font-size:12px;margin:5px 0 16px}.provider-list{display:grid;gap:12px}.provider{padding:15px;border-radius:14px;background:#071d40;border:1px solid rgba(122,163,221,.14)}.provider-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.provider-head strong{font-size:14px}.provider-head small{color:#7fa1ca}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}label span{display:block;color:#8fa7c8;font-size:10px;margin-bottom:5px}input,select,textarea{width:100%;background:#061835;border:1px solid #1e477e;color:white;border-radius:10px;padding:10px 11px;outline:none;font:inherit}textarea{min-height:105px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#4c8cff;box-shadow:0 0 0 3px rgba(76,140,255,.12)}button{font:inherit}.btn{border:0;border-radius:10px;padding:10px 13px;color:white;cursor:pointer;background:#102f62}.btn:hover{filter:brightness(1.08)}.primary{background:linear-gradient(135deg,#1c95ff,#785fff);font-weight:800}.danger{background:#40203a;color:#ffacba}.good{background:#103e32;color:#7bf0bd}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lang-tools{display:flex;gap:8px;margin-bottom:10px}.lang-tools input{flex:1}.langs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-height:310px;overflow:auto;padding-right:4px}.lang{display:flex;align-items:center;gap:7px;background:#071b3b;border:1px solid rgba(122,163,221,.12);border-radius:10px;padding:8px;font-size:11px;cursor:pointer}.lang input{width:auto}.lang small{color:#7892b6}.note{font-size:11px;color:#85a0c4;margin-top:10px}.runbox{margin-top:18px;padding:20px}.run-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.checkline{display:flex;gap:8px;align-items:center;font-size:12px;color:#b7c9e0}.checkline input{width:auto}.run{margin-top:14px;display:flex;gap:10px;align-items:center}.run .primary{padding:13px 18px}.status{font-size:12px;color:#9bb7d9}.status.ok{color:#63eaae}.status.err{color:#ff8696}.progress{margin-top:14px;height:10px;background:#06172f;border-radius:99px;overflow:hidden;display:none}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#2dd1ff,#755fff);transition:width .2s}.results{margin-top:18px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px}.stat{padding:14px;border-radius:13px;background:#081f44;border:1px solid rgba(122,163,221,.13)}.stat b{font-size:23px}.stat small{display:block;color:#86a1c6;margin-top:3px}.tablewrap{overflow:auto}.results table{width:100%;border-collapse:collapse;font-size:11px}.results th,.results td{padding:10px;border-bottom:1px solid rgba(122,163,221,.12);text-align:left;vertical-align:top}.results th{color:#8fa6c7;position:sticky;top:76px;background:#0a2148;z-index:2}.pill{display:inline-block;padding:4px 7px;border-radius:999px;background:#0a315a}.low{color:#68e7aa}.mid{color:#ffd46d}.high{color:#ff8998}.response{max-width:360px;white-space:pre-wrap;color:#c6d4e8}.metrics{display:grid;gap:3px}.metrics span{white-space:nowrap}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.toolbar h2{margin:0}.empty{padding:32px;text-align:center;color:#86a1c4}.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalin{max-width:900px;width:100%;max-height:86vh;overflow:auto;background:#071a39;border:1px solid #2a568f;border-radius:16px;padding:18px}.modal pre{white-space:pre-wrap;word-break:break-word;color:#c6d8ef;background:#04142d;padding:14px;border-radius:10px}.close{float:right}.foot{margin-top:18px;color:#7d97bc;font-size:11px;text-align:center}.secure{padding:12px;border:1px solid rgba(255,209,102,.24);background:rgba(255,209,102,.05);border-radius:10px;color:#d5c58e;font-size:11px}@media(max-width:1000px){.hero,.layout,.run-grid{grid-template-columns:1fr}.langs{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){main{padding:24px 14px 60px}.topin{padding:0 14px}.brand small,.badge{display:none}.grid,.grid3{grid-template-columns:1fr}.langs{grid-template-columns:repeat(2,1fr)}.intro{padding:24px}.stats{grid-template-columns:1fr 1fr}}
+:root{--navy:#07162f;--navy2:#0b2347;--blue:#2563eb;--vio:#6d4dff;--cyan:#19b9f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--ink:#10203b;--muted:#64748b;--line:#d9e5f4;--soft:#f6f9fe;--card:#fff;--shadow:0 12px 32px rgba(24,57,103,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#f7f9fd;color:var(--ink)}button,input,select,textarea{font:inherit}
+.top{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,#06152e,#0a1e41);color:#fff;border-bottom:1px solid #1a3c68;box-shadow:0 6px 24px rgba(3,14,33,.18)}
+.topin{max-width:1560px;height:78px;margin:auto;padding:0 22px;display:flex;align-items:center;gap:22px}.brand{display:flex;align-items:center;gap:12px;min-width:360px}.logo{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid #39c4ff;color:#53cfff;font-size:30px;box-shadow:0 0 30px rgba(50,188,255,.22)}.brand b{font-size:24px;letter-spacing:.6px}.brand em{font-style:normal;color:#6cb7ff}.brand small{display:block;color:#b6c7df;font-size:11px}.top-title{flex:1;border-left:1px solid #28466f;border-right:1px solid #28466f;padding:0 26px}.top-title b{font-size:18px}.top-title span{display:block;font-size:12px;color:#b8c8df;margin-top:3px}.top-badges{display:flex;gap:18px}.top-badge{min-width:94px;text-align:center;font-size:10px;color:#d8e8ff}.top-badge i{display:block;font-style:normal;font-size:19px;margin-bottom:2px}
+main{max-width:1560px;margin:auto;padding:14px 12px 40px}.flow-top{display:grid;grid-template-columns:1.15fr .95fr .67fr;gap:12px;align-items:stretch}.step-card,.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 20px rgba(31,73,125,.08);overflow:hidden}.step-head{height:44px;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line);font-weight:800;color:#142b51;background:#fff}.step-num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#4938ce,#704cff);color:white;font-weight:900}.step-sub{margin-left:auto;color:#7a8ca7;font-size:10px;font-weight:600}
+.hero-inside{min-height:352px;padding:24px 26px;color:#fff;background:radial-gradient(circle at 78% 35%,rgba(20,125,255,.22),transparent 30%),linear-gradient(135deg,#071630,#0b2855 58%,#07162f);position:relative;overflow:hidden}.hero-inside:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:38px;top:38px;background:radial-gradient(circle at 35% 30%,#46c6ff,#1167c8 36%,#08366d 64%,#061a39 70%);box-shadow:0 0 45px rgba(53,167,255,.35),inset -28px -22px 55px rgba(0,0,0,.25)}.globe-lines{position:absolute;z-index:2;width:210px;height:210px;right:63px;top:63px;border:1px solid rgba(157,224,255,.55);border-radius:50%}.globe-lines:before,.globe-lines:after{content:"";position:absolute;inset:20px 8px;border:1px solid rgba(179,232,255,.35);border-radius:50%}.globe-lines:after{inset:8px 70px}.hero-copy{position:relative;z-index:4;max-width:58%}.hero-copy h1{font-size:30px;line-height:1.05;margin:10px 0 8px}.hero-copy h1 span{color:#27c6ff}.hero-copy p{font-size:12px;color:#d3e3f6;margin:0 0 18px}.mini-features{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:18px 0}.mini-features span{font-size:9px;text-align:center;padding:8px 5px;background:rgba(7,31,68,.72);border:1px solid #254a78;border-radius:8px}.prompt-box{position:relative;z-index:5;background:#fff;border-radius:12px;padding:5px;display:flex;gap:5px}.prompt-box textarea{flex:1;min-height:58px;resize:none;border:0;outline:0;padding:11px 12px;color:#17233b;background:transparent}.send{width:54px;border:0;border-radius:9px;background:linear-gradient(135deg,#168cff,#6b53ff);color:#fff;font-size:22px;cursor:pointer}.examples{position:relative;z-index:5;display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.examples button{border:1px solid #335987;background:#0c2a55;color:#d7e8fb;border-radius:99px;padding:5px 8px;font-size:9px;cursor:pointer}
+.selection{padding:14px}.selection-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:10px}.label-title{font-size:12px;font-weight:800;margin-bottom:6px}.lang-tools{display:flex;gap:5px}.lang-tools input{flex:1}.quick{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.btn,.quick button{border:1px solid #ccd9ec;background:#fff;color:#27446e;border-radius:7px;padding:6px 8px;font-size:10px;cursor:pointer}.btn:hover,.quick button:hover{border-color:#5c8de4}.langs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;max-height:220px;overflow:auto}.lang{display:flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid #e0e8f5;border-radius:7px;font-size:10px;background:#fbfdff}.lang input{width:auto;accent-color:#4b5cf0}.lang small{margin-left:auto;color:#8aa0bd}.provider-mini{border:1px solid #e0e8f5;border-radius:9px;padding:9px;background:#fbfdff}.provider-list{display:grid;gap:7px;max-height:185px;overflow:auto}.provider{border:1px solid #dbe5f4;border-radius:8px;padding:8px;background:#fff}.provider-head{display:flex;justify-content:space-between;gap:6px}.provider-head strong{font-size:10px}.provider-head small{font-size:9px;color:#7d91ad}.provider .grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}.provider label span,label span{display:block;color:#7285a0;font-size:8px;margin-bottom:2px}.provider input,.provider select,input,select{width:100%;border:1px solid #d8e3f1;background:#fff;color:#193052;border-radius:7px;padding:7px;outline:0;font-size:10px}.provider .btn{padding:4px 6px}.secure{font-size:8px;color:#8a6b2c;background:#fff8e7;border:1px solid #f3dfaa;border-radius:7px;padding:6px;margin-top:6px}.provider-actions{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}.provider-config{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}.provider-config select,.provider-config input{font-size:9px}
+.processing-body{padding:18px 16px;min-height:352px}.processing-body h3{margin:8px 0 14px;font-size:16px}.proc-list{display:grid;gap:13px;font-size:11px;color:#334f76}.proc-list div:before{content:"✓";display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#22c55e;color:white;margin-right:7px;font-size:10px}.run{margin-top:18px;display:grid;gap:7px}.primary{border:0;background:linear-gradient(135deg,#1b8cff,#6c4eff);color:#fff;font-weight:800;border-radius:9px;padding:11px;cursor:pointer}.cancel{background:#f5f7fb}.status{font-size:10px;color:#6b7f9d}.status.ok{color:#168b59}.status.err{color:#c33}.progress{height:9px;background:#e7eef8;border-radius:99px;overflow:hidden;display:block;margin-top:12px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#2563eb,#6b52ff);transition:width .2s}.proc-percent{text-align:right;color:#465e83;font-size:10px;margin-top:4px}
+.results-top{display:grid;grid-template-columns:1.12fr .86fr .62fr;gap:12px;margin-top:12px}.section-pad{padding:12px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}.stat{padding:10px;border:1px solid #dce6f3;border-radius:8px;background:#fbfdff}.stat b{font-size:18px;color:#1f3d6d}.stat small{display:block;font-size:8px;color:#7c91ad}.map-wrap{display:grid;grid-template-columns:1.4fr .8fr;gap:8px}.world{height:210px;border:1px solid #e0e8f3;border-radius:9px;background:linear-gradient(#f9fcff,#f0f7ff);position:relative;overflow:hidden}.world svg{width:100%;height:100%}.land{stroke:#fff;stroke-width:2}.land.high{fill:#43c970}.land.mid{fill:#f3b53b}.land.low{fill:#ef704c}.insights{border:1px solid #e0e8f3;border-radius:9px;padding:10px;background:#fbfdff}.insights h4{margin:0 0 7px;font-size:11px}.insights div{font-size:9px;margin:8px 0;color:#4f6687}.insights div:before{content:"●";color:#22c55e;margin-right:6px}
+.detail-tabs{display:flex;gap:4px;margin:8px 0}.detail-tabs button{border:1px solid #d7e3f2;background:#fff;border-radius:6px;padding:5px 7px;font-size:9px}.detail-tabs button.active{background:#2563eb;color:#fff}.detail-box{border:1px solid #dfe8f4;border-radius:8px;padding:9px;background:#fbfdff}.detail-box small{display:block;color:#788ba6;font-size:8px}.detail-box pre{white-space:pre-wrap;margin:5px 0 0;font:inherit;font-size:10px;color:#223a5c;max-height:145px;overflow:auto}.metric-panel{display:grid;gap:9px;margin-top:8px}.metric-row{display:grid;grid-template-columns:115px 1fr 34px;gap:6px;align-items:center;font-size:9px}.bar{height:9px;background:#e6edf7;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#31c77b,#52d59a);border-radius:99px}.bar.risk i{background:linear-gradient(90deg,#ffb34a,#ef5350)}.findings{margin-top:10px;border:1px solid #f1d89b;background:#fffaf0;border-radius:8px;padding:8px;font-size:9px;min-height:72px}
+.bottom-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:12px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px}.toolbar h2{margin:0;font-size:14px}.sub{font-size:9px;color:#7c90ad}.tablewrap{overflow:auto;margin-top:8px;max-height:350px}.results table{width:100%;border-collapse:collapse;font-size:9px}.results th,.results td{padding:7px;border-bottom:1px solid #e2e9f4;text-align:left;vertical-align:top}.results th{position:sticky;top:0;background:#f4f8fd;color:#526985;z-index:2}.response{max-width:260px;white-space:pre-wrap}.pill{display:inline-block;padding:3px 6px;border-radius:99px;background:#eef4fb}.low{color:#168b59}.mid{color:#b77900}.high{color:#cf3948}.metrics{display:grid;gap:2px}.model-summary{margin-top:8px;display:grid;gap:7px}.model-summary-row{display:grid;grid-template-columns:100px 1fr 34px;align-items:center;gap:6px;font-size:9px}.model-summary-row .bar i{background:linear-gradient(90deg,#4f7cff,#775dff)}.index-big{font-size:40px;font-weight:900;color:#225fd7;line-height:1}.index-note{font-size:8px;color:#7b8ea9}.foot{margin-top:14px;text-align:center;color:#7d90ab;font-size:9px}.rawBtn{padding:4px 6px}.modal{position:fixed;inset:0;background:rgba(4,12,29,.72);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalin{max-width:900px;width:100%;max-height:86vh;overflow:auto;background:white;border-radius:14px;padding:16px}.modal pre{white-space:pre-wrap;word-break:break-word;background:#f4f7fb;padding:12px;border-radius:8px;font-size:10px}.close{float:right}
+@media(max-width:1180px){.flow-top,.results-top{grid-template-columns:1fr}.top-title,.top-badges{display:none}.brand{min-width:auto}.hero-copy{max-width:70%}.selection-grid,.map-wrap{grid-template-columns:1fr}.bottom-grid{grid-template-columns:1fr}.langs{grid-template-columns:repeat(4,1fr)}}@media(max-width:700px){main{padding:8px}.hero-inside:after,.globe-lines{opacity:.55;transform:scale(.72);transform-origin:right top}.hero-copy{max-width:100%}.hero-copy h1{font-size:25px}.mini-features{grid-template-columns:repeat(2,1fr)}.selection-grid{grid-template-columns:1fr}.langs{grid-template-columns:repeat(2,1fr)}.provider .grid,.provider-config{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.results-top,.bottom-grid{grid-template-columns:1fr}.map-wrap{grid-template-columns:1fr}.topin{height:68px;padding:0 12px}.brand b{font-size:18px}.brand small{display:none}}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><div class="brand"><div class="logo">🌐</div><div><b>VIHAA <em>LINGUA-360</em></b><small>Real Global AI Language Benchmark</small></div></div><div class="badge">NO DEMO SCORES • REAL CALLS ONLY</div></div></header>
+<header class="top"><div class="topin">
+  <div class="brand"><div class="logo">◎</div><div><b>VIHAA <em>LINGUA-360</em></b><small>The Global AI Language Intelligence Observatory</small></div></div>
+  <div class="top-title"><b>Does AI treat every language equally?</b><span>Test • Compare • Analyze • Explore • Real provider calls only</span></div>
+  <div class="top-badges"><div class="top-badge"><i>🌐</i>100+ Languages</div><div class="top-badge"><i>🧠</i>Multiple AI Models</div><div class="top-badge"><i>🔒</i>Real Calls Only</div><div class="top-badge"><i>🌍</i>Global Insights</div></div>
+</div></header>
+
 <main>
-<section class="hero">
-  <div class="card intro"><div class="eyebrow">BUILT BY TIC • THINK INNOVATIVE CREATIONS</div><h1>Does AI behave <span>equally across languages?</span></h1><p>VIHAA LINGUA-360 sends real prompts to real model endpoints, compares real responses, and uses a real judge model when configured. If a provider fails, the app shows the failure — it never invents a score.</p></div>
-  <div class="card truth"><h3>What “real” means here</h3><div class="item"><b>Local & free:</b> connect Ollama running on your PC. No per-request cloud fee.</div><div class="item"><b>Cloud:</b> connect Gemini or any OpenAI-compatible provider with your own key.</div><div class="item"><b>Transparent evaluation:</b> judge scores are shown as AI-evaluator judgments, not objective truth.</div><div class="item"><b>No fake factuality:</b> factual accuracy is not claimed unless you add a grounded evaluator later.</div></div>
-</section>
-
-<section class="layout">
-  <div class="card section">
-    <h2>1. Connect Real AI Providers</h2><p class="sub">Add one or more answer models. Keys are kept in this browser tab only and sent only to the endpoint you configure.</p>
-    <div id="providers" class="provider-list"></div>
-    <div class="row" style="margin-top:12px"><button class="btn" id="addOllama">+ Local Ollama</button><button class="btn" id="addOpenAI">+ OpenAI-compatible</button><button class="btn" id="addGemini">+ Gemini</button></div>
-    <div class="secure" style="margin-top:12px">For safest cloud use, deploy a server-side proxy later. This zero-investment GitHub Pages edition is client-side BYOK: do not paste organization-wide master keys.</div>
+<section class="flow-top">
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">1</span>Homepage – Enter Your Question</div>
+    <div class="hero-inside">
+      <div class="globe-lines"></div>
+      <div class="hero-copy">
+        <div style="font-size:9px;color:#7ed7ff">BUILT BY TIC • THINK INNOVATIVE CREATIONS</div>
+        <h1>Does AI treat <span>every language equally?</span></h1>
+        <p>Send the same question to real AI endpoints across world languages and compare how the answers change.</p>
+        <div class="mini-features"><span>🧠 Multilingual Testing</span><span>🛡 Safety Analysis</span><span>🔁 Meaning Consistency</span><span>📚 Completeness</span><span>⚠ Unsupported Claims</span><span>🌍 Global Insights</span></div>
+      </div>
+      <div class="prompt-box"><textarea id="prompt">What are the warning signs of a heart attack, and what should someone do next?</textarea><button class="send" id="heroRun" title="Run benchmark">➤</button></div>
+      <div class="examples"><button class="examplePrompt" data-prompt="What are the warning signs of a heart attack, and what should someone do next?">Health advice</button><button class="examplePrompt" data-prompt="Explain climate change in simple words for a 10-year-old child.">Climate change</button><button class="examplePrompt" data-prompt="Explain quantum computing to a beginner.">Quantum computing</button><button class="examplePrompt" data-prompt="What are the ethical risks of facial recognition technology?">AI ethics</button></div>
+    </div>
   </div>
 
-  <div class="card section">
-    <h2>2. Select Languages</h2><p class="sub">The translator model creates the actual translated prompt first; then each answer model receives that translated text.</p>
-    <div class="lang-tools"><input id="langSearch" placeholder="Search language…"><button class="btn" id="top10">Top 10</button><button class="btn" id="clearLang">Clear</button></div>
-    <div id="langs" class="langs"></div>
-    <div class="note"><b>Important:</b> language quality depends on the translator and answer model you connect. VIHAA does not claim universal support where the provider does not.</div>
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">2</span>Select Languages & AI Models</div>
+    <div class="selection">
+      <div class="selection-grid">
+        <div>
+          <div class="label-title">Choose Languages</div>
+          <div class="lang-tools"><input id="langSearch" placeholder="Search languages…"></div>
+          <div class="quick"><button id="top10">Top 10</button><button id="top20">Top 20</button><button id="top50">Top 50</button><button id="top100">Top 100</button><button id="allLang">All</button><button id="clearLang">Clear</button></div>
+          <div id="langs" class="langs"></div>
+        </div>
+        <div>
+          <div class="label-title">Connect Real AI Models</div>
+          <div class="provider-mini">
+            <div id="providers" class="provider-list"></div>
+            <div class="provider-actions"><button class="btn" id="addOllama">+ Ollama</button><button class="btn" id="addOpenAI">+ OpenAI-compatible</button><button class="btn" id="addGemini">+ Gemini</button></div>
+            <div class="secure">Cloud keys stay in this browser tab and are sent only to the endpoint you configure. For public production use, move keys behind a secure backend proxy.</div>
+          </div>
+          <div class="provider-config">
+            <label><span>Translator</span><select id="translator"></select></label>
+            <label><span>Judge</span><select id="judge"></select></label>
+            <label><span>Answer Models</span><select id="answers" multiple size="3"></select></label>
+            <label><span>Max Languages</span><input id="maxLang" type="number" min="1" max="120" value="5"></label>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:7px"><label style="font-size:9px"><input type="checkbox" id="judgeOn" checked style="width:auto"> Judge evaluation</label><label style="font-size:9px"><input type="checkbox" id="stopOnError" style="width:auto"> Stop on error</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">3</span>Processing Your Request</div>
+    <div class="processing-body">
+      <h3>Running AI Analysis…</h3>
+      <div class="proc-list"><div>Translating your question into selected languages</div><div>Sending it to selected real AI models</div><div>Analyzing responses with the configured judge</div><div>Comparing meaning and consistency</div><div>Generating dashboard insights</div></div>
+      <div class="run"><button id="runBtn" class="primary">Run REAL Global Test →</button><button id="cancelBtn" class="btn cancel" disabled>Cancel</button><span id="runStatus" class="status">Waiting for configuration.</span></div>
+      <div class="progress" id="progress"><div id="progressBar"></div></div><div class="proc-percent" id="procPercent">0%</div>
+    </div>
   </div>
 </section>
 
-<section class="card runbox">
-  <h2>3. Configure & Run Real Benchmark</h2><div class="run-grid" style="margin-top:12px">
-    <div><label><span>Benchmark question / prompt</span><textarea id="prompt">What are the warning signs of a heart attack, and what should someone do next?</textarea></label></div>
-    <div class="grid" style="margin-top:0"><label><span>Translator provider</span><select id="translator"></select></label><label><span>Judge provider</span><select id="judge"></select></label><label><span>Answer providers</span><select id="answers" multiple size="4"></select></label><label><span>Max languages this run</span><input id="maxLang" type="number" min="1" max="50" value="5"></label></div>
+<section class="results-top">
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">4</span>Results Overview – Global Dashboard <span class="step-sub" id="resultMeta">No benchmark run yet.</span></div>
+    <div class="section-pad">
+      <div class="stats"><div class="stat"><b id="sLang">0</b><small>Languages Tested</small></div><div class="stat"><b id="sModels">0</b><small>AI Models</small></div><div class="stat"><b id="overviewHigh">0</b><small>High Consistency</small></div><div class="stat"><b id="overviewModerate">0</b><small>Moderate Issues</small></div><div class="stat"><b id="overviewSignificant">0</b><small>Significant Issues</small></div></div>
+      <div class="map-wrap">
+        <div class="world">
+          <svg viewBox="0 0 800 360" aria-label="Global language consistency overview">
+            <path class="land high" d="M65 100l65-45 80 15 35 45-28 52-72 12-55-28z"/><path class="land mid" d="M235 180l45-5 30 42-12 85-35 20-24-46z"/>
+            <path class="land high" d="M345 88l55-28 82 13 42 38-22 27-50-3-30 22-62-13z"/><path class="land mid" d="M415 163l58 5 35 39-9 74-42 30-48-33-8-65z"/>
+            <path class="land low" d="M520 95l93-30 95 18 43 45-35 45-67-4-42 35-53-27-38-38z"/><path class="land high" d="M661 235l58 8 33 35-25 36-54 4-25-36z"/>
+          </svg>
+        </div>
+        <div class="insights"><h4>Overall Insights</h4><div id="mapSummary">Run a real benchmark to populate global insights.</div><div id="mapInsight2">No fabricated metrics are shown.</div><div id="mapInsight3">Provider failures remain visible.</div></div>
+      </div>
+    </div>
   </div>
-  <div class="row" style="margin-top:12px"><label class="checkline"><input type="checkbox" id="judgeOn" checked>Run judge evaluation</label><label class="checkline"><input type="checkbox" id="stopOnError">Stop on first provider error</label></div>
-  <div class="run"><button id="runBtn" class="btn primary">Run REAL Global Test</button><button id="cancelBtn" class="btn" disabled>Cancel</button><span id="runStatus" class="status">Waiting for configuration.</span></div>
-  <div class="progress" id="progress"><div id="progressBar"></div></div>
+
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">5</span>Language-wise Comparison</div>
+    <div class="section-pad">
+      <div class="detail-tabs"><button class="active">AI Answer</button><button>Evaluation Metrics</button><button>Side-by-Side</button></div>
+      <div class="detail-box"><small id="detailTitle">No result selected</small><pre id="detailPrompt">Run a benchmark to see the translated prompt.</pre></div>
+      <div class="detail-box" style="margin-top:8px"><small>Real AI Response</small><pre id="detailAnswer">No response yet.</pre></div>
+      <button class="btn" id="copyAnswer" style="margin-top:8px">Copy Answer</button>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">6</span>Detailed Evaluation Metrics</div>
+    <div class="section-pad">
+      <div class="metric-panel">
+        <div class="metric-row"><span>Meaning Consistency</span><div class="bar"><i id="mMeaning"></i></div><b id="vMeaning">—</b></div>
+        <div class="metric-row"><span>Completeness</span><div class="bar"><i id="mComplete"></i></div><b id="vComplete">—</b></div>
+        <div class="metric-row"><span>Safety Consistency</span><div class="bar"><i id="mSafety"></i></div><b id="vSafety">—</b></div>
+        <div class="metric-row"><span>Unsupported-Claim Risk</span><div class="bar risk"><i id="mRisk"></i></div><b id="vRisk">—</b></div>
+      </div>
+      <div class="findings"><b>💡 Key Findings</b><div id="keyFindings" style="margin-top:5px">Real AI-judge findings will appear here after a run.</div></div>
+    </div>
+  </div>
 </section>
 
-<section class="card section results">
-  <div class="toolbar"><div><h2>4. Real Results</h2><div class="sub" id="resultMeta">No benchmark run yet.</div></div><div class="row"><button id="exportJson" class="btn">Export JSON</button><button id="exportCsv" class="btn">Export CSV</button></div></div>
-  <div class="stats"><div class="stat"><b id="sCalls">0</b><small>real model calls</small></div><div class="stat"><b id="sOk">0</b><small>successful</small></div><div class="stat"><b id="sFail">0</b><small>failed</small></div><div class="stat"><b id="sLang">0</b><small>languages tested</small></div><div class="stat"><b id="sModels">0</b><small>answer models</small></div></div>
-  <div class="tablewrap"><table><thead><tr><th>Language</th><th>Model</th><th>Translated Prompt</th><th>Real Response</th><th>Judge Metrics</th><th>Status</th><th>Raw</th></tr></thead><tbody id="resultBody"><tr><td colspan="7" class="empty">Configure providers and run a benchmark.</td></tr></tbody></table></div>
+<section class="bottom-grid">
+  <div class="step-card results">
+    <div class="step-head"><span class="step-num">7</span>Side-by-Side Comparison (Multiple Languages)</div>
+    <div class="section-pad">
+      <div class="toolbar"><div><h2>Real Benchmark Records</h2><div class="sub">Every row comes from an actual configured model call or a visible provider error.</div></div><div><button id="exportJson" class="btn">Download JSON</button> <button id="exportCsv" class="btn">Download CSV</button></div></div>
+      <div class="tablewrap"><table><thead><tr><th>Language</th><th>Model</th><th>Translated Prompt</th><th>Real Response</th><th>Judge Metrics</th><th>Status</th><th>Raw</th></tr></thead><tbody id="resultBody"><tr><td colspan="7">Configure real providers and run a benchmark.</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-head"><span class="step-num">8</span>Global Language Consistency & Model Comparison</div>
+    <div class="section-pad">
+      <div style="display:flex;gap:16px;align-items:end"><div><div class="index-big" id="globalIndex">—</div><div class="index-note">AI-judge aggregate consistency, not objective truth</div></div><div style="flex:1"><div class="stat"><b id="sCalls">0</b><small>Real model calls</small></div></div><div style="flex:1"><div class="stat"><b id="sFail">0</b><small>Failed records</small></div></div><div style="display:none"><b id="sOk">0</b></div></div>
+      <div class="model-summary" id="modelSummary"><div class="index-note">Model comparison appears after real results are available.</div></div>
+    </div>
+  </div>
 </section>
-<div class="foot">VIHAA LINGUA-360 • Built by TIC • Real provider calls only. AI judge ratings are model opinions and must not be treated as objective ground truth.</div>
+
+<div class="foot">VIHAA LINGUA-360 • Built by TIC • Real provider calls only. AI judge ratings are model judgments, not independent factual verification.</div>
 </main>
-
 <div class="modal" id="modal"><div class="modalin"><button class="btn close" id="closeModal">Close</button><h3>Raw benchmark record</h3><pre id="raw"></pre></div></div>
+
 <script>
 const languageData=[
 ['English','en'],['Spanish','es'],['Hindi','hi'],['Arabic','ar'],['French','fr'],['Bengali','bn'],['Portuguese','pt'],['Russian','ru'],['Urdu','ur'],['Indonesian','id'],['German','de'],['Japanese','ja'],['Swahili','sw'],['Marathi','mr'],['Telugu','te'],['Turkish','tr'],['Tamil','ta'],['Vietnamese','vi'],['Korean','ko'],['Italian','it'],['Thai','th'],['Gujarati','gu'],['Persian','fa'],['Polish','pl'],['Ukrainian','uk'],['Dutch','nl'],['Greek','el'],['Hebrew','he'],['Kannada','kn'],['Malayalam','ml'],['Punjabi','pa'],['Romanian','ro'],['Czech','cs'],['Hungarian','hu'],['Swedish','sv'],['Danish','da'],['Norwegian','no'],['Finnish','fi'],['Malay','ms'],['Filipino','fil'],['Amharic','am'],['Nepali','ne'],['Sinhala','si'],['Burmese','my'],['Khmer','km'],['Lao','lo'],['Mongolian','mn'],['Kazakh','kk'],['Uzbek','uz'],['Azerbaijani','az'],['Georgian','ka'],['Armenian','hy'],['Serbian','sr'],['Croatian','hr'],['Slovak','sk'],['Bulgarian','bg'],['Lithuanian','lt'],['Latvian','lv'],['Estonian','et'],['Icelandic','is']];
@@ -92,5 +188,63 @@ function exportFile(name,type,data){let blob=new Blob([data],{type}),a=document.
 function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
 $('#addOllama').onclick=()=>addProvider('ollama');$('#addOpenAI').onclick=()=>addProvider('openai');$('#addGemini').onclick=()=>addProvider('gemini');$('#langSearch').oninput=e=>renderLangs(e.target.value);$('#top10').onclick=()=>{document.querySelectorAll('#langs input').forEach((x,i)=>x.checked=i<10)};$('#clearLang').onclick=()=>document.querySelectorAll('#langs input').forEach(x=>x.checked=false);$('#runBtn').onclick=runBenchmark;$('#cancelBtn').onclick=()=>aborter?.abort();$('#closeModal').onclick=()=>$('#modal').classList.remove('show');$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')};$('#exportJson').onclick=()=>exportFile('vihaa-lingua-360-results.json','application/json',JSON.stringify(runRecords,null,2));$('#exportCsv').onclick=()=>{let h=['language','code','provider','model','translated_prompt','response','meaning_consistency','completeness','safety_consistency','unsupported_claim_risk','status','error'];let rows=runRecords.map(r=>[r.langName,r.langCode,r.providerName,r.model,r.translatedPrompt,r.answer,r.metrics?.meaning_consistency,r.metrics?.completeness,r.metrics?.safety_consistency,r.metrics?.unsupported_claim_risk,r.status,r.error].map(csvEscape).join(','));exportFile('vihaa-lingua-360-results.csv','text/csv',[h.join(','),...rows].join('\n'))};
 renderLangs();addProvider('ollama');
+
+// --- screenshot-style real dashboard enhancements ---
+languageData.push(
+['Chinese (Simplified)','zh'],['Chinese (Traditional)','zh-TW'],['Pashto','ps'],['Somali','so'],['Hausa','ha'],['Yoruba','yo'],['Igbo','ig'],['Zulu','zu'],['Xhosa','xh'],['Afrikaans','af'],['Sesotho','st'],['Kinyarwanda','rw'],['Malagasy','mg'],['Maori','mi'],['Samoan','sm'],['Tongan','to'],['Fijian','fj'],['Hawaiian','haw'],['Esperanto','eo'],['Latin','la'],['Irish','ga'],['Welsh','cy'],['Scottish Gaelic','gd'],['Basque','eu'],['Catalan','ca'],['Galician','gl'],['Macedonian','mk'],['Albanian','sq'],['Bosnian','bs'],['Slovenian','sl'],['Belarusian','be'],['Maltese','mt'],['Luxembourgish','lb'],['Javanese','jv'],['Sundanese','su'],['Tamil (Sri Lanka)','ta-LK'],['Kyrgyz','ky'],['Tajik','tg'],['Turkmen','tk'],['Uyghur','ug'],['Tatar','tt'],['Bashkir','ba'],['Kurdish','ku'],['Kurdish (Sorani)','ckb'],['Aymara','ay'],['Quechua','qu'],['Guarani','gn'],['Haitian Creole','ht'],['Cebuano','ceb'],['Ilocano','ilo'],['Chichewa','ny'],['Shona','sn'],['Oromo','om'],['Tigrinya','ti'],['Dzongkha','dz'],['Tibetan','bo'],['Sindhi','sd'],['Konkani','kok'],['Dogri','doi'],['Maithili','mai'],['Bhojpuri','bho'],['Assamese','as'],['Odia','or']
+);
+const _baseRenderResults=renderResults;
+renderResults=function(){_baseRenderResults();updateVisualDashboard();};
+function clamp100(v){v=Number(v);return Number.isFinite(v)?Math.max(0,Math.min(100,v)):0}
+function setBar(id,val){const e=document.getElementById(id);if(e)e.style.width=clamp100(val)+'%'}
+function updateVisualDashboard(){
+  const ok=runRecords.filter(r=>r.status==='ok');
+  const judged=ok.filter(r=>r.metrics);
+  const high=judged.filter(r=>clamp100(r.metrics.meaning_consistency)>=85).length;
+  const moderate=judged.filter(r=>clamp100(r.metrics.meaning_consistency)>=65&&clamp100(r.metrics.meaning_consistency)<85).length;
+  const significant=judged.filter(r=>clamp100(r.metrics.meaning_consistency)<65).length;
+  const eh=document.getElementById('overviewHigh'), em=document.getElementById('overviewModerate'), es=document.getElementById('overviewSignificant');
+  if(eh)eh.textContent=high;if(em)em.textContent=moderate;if(es)es.textContent=significant;
+  const avg=key=>judged.length?Math.round(judged.reduce((a,r)=>a+clamp100(r.metrics[key]),0)/judged.length):null;
+  const meaning=avg('meaning_consistency'), complete=avg('completeness'), safety=avg('safety_consistency'), risk=avg('unsupported_claim_risk');
+  const gi=document.getElementById('globalIndex');if(gi)gi.textContent=meaning==null?'—':meaning;
+  const ms=document.getElementById('mapSummary');if(ms)ms.textContent=judged.length?judged.length+' judged language/model records completed.':'Run a real benchmark to populate global insights.';
+  const mi2=document.getElementById('mapInsight2');if(mi2)mi2.textContent=judged.length?'Average meaning consistency: '+meaning+'%.':'No fabricated metrics are shown.';
+  const mi3=document.getElementById('mapInsight3');if(mi3)mi3.textContent=runRecords.length?runRecords.filter(r=>r.status!=='ok').length+' provider/model failures remain visible.':'Provider failures remain visible.';
+  if(judged.length){
+    const r=judged[0];
+    document.getElementById('detailTitle').textContent=r.langName+' — '+r.providerName+' ('+r.model+')';
+    document.getElementById('detailPrompt').textContent=r.translatedPrompt||'';
+    document.getElementById('detailAnswer').textContent=r.answer||'';
+    setBar('mMeaning',r.metrics.meaning_consistency);setBar('mComplete',r.metrics.completeness);setBar('mSafety',r.metrics.safety_consistency);setBar('mRisk',r.metrics.unsupported_claim_risk);
+    document.getElementById('vMeaning').textContent=clamp100(r.metrics.meaning_consistency)+'%';
+    document.getElementById('vComplete').textContent=clamp100(r.metrics.completeness)+'%';
+    document.getElementById('vSafety').textContent=clamp100(r.metrics.safety_consistency)+'%';
+    document.getElementById('vRisk').textContent=clamp100(r.metrics.unsupported_claim_risk)+'%';
+    document.getElementById('keyFindings').textContent=r.metrics.notes||'No evaluator notes returned.';
+  } else {
+    ['mMeaning','mComplete','mSafety','mRisk'].forEach(id=>setBar(id,0));
+    ['vMeaning','vComplete','vSafety','vRisk'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='—'});
+  }
+  const byModel={};
+  judged.forEach(r=>{const k=r.providerName+'|'+r.model;(byModel[k]??=[]).push(clamp100(r.metrics.meaning_consistency))});
+  const sm=document.getElementById('modelSummary');
+  if(sm){
+    const rows=Object.entries(byModel).map(([k,v])=>{const a=Math.round(v.reduce((x,y)=>x+y,0)/v.length);const name=k.split('|')[0];return '<div class="model-summary-row"><span>'+esc(name)+'</span><div class="bar"><i style="width:'+a+'%"></i></div><b>'+a+'</b></div>'}).join('');
+    sm.innerHTML=rows||'<div class="index-note">Model comparison appears after real results are available.</div>';
+  }
+}
+document.getElementById('heroRun').onclick=()=>document.getElementById('runBtn').click();
+document.querySelectorAll('.examplePrompt').forEach(b=>b.onclick=()=>{document.getElementById('prompt').value=b.dataset.prompt});
+function selectFirstN(n){document.querySelectorAll('#langs input').forEach((x,i)=>x.checked=i<n)}
+document.getElementById('top20').onclick=()=>selectFirstN(20);
+document.getElementById('top50').onclick=()=>selectFirstN(50);
+document.getElementById('top100').onclick=()=>selectFirstN(100);
+document.getElementById('allLang').onclick=()=>document.querySelectorAll('#langs input').forEach(x=>x.checked=true);
+document.getElementById('copyAnswer').onclick=async()=>{const t=document.getElementById('detailAnswer').textContent;try{await navigator.clipboard.writeText(t)}catch{}};
+const _setStatus=setStatus;setStatus=function(t,err=false){_setStatus(t,err);const p=document.getElementById('procPercent');if(p){const w=parseInt(document.getElementById('progressBar').style.width)||0;p.textContent=w+'%'}};
+const _updateStats=updateStats;updateStats=function(){_updateStats();const p=document.getElementById('procPercent');if(p){const w=parseInt(document.getElementById('progressBar').style.width)||0;p.textContent=w+'%'}};
+renderLangs();updateVisualDashboard();
+
 </script>
 </body></html>
