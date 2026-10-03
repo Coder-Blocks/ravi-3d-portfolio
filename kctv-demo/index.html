@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#071b3a" />
+  <title>KC TV Digital News Portal — Concept Demo</title>
+  <meta name="description" content="Unofficial KC TV digital news portal concept demo prepared for presentation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#071b3a; --blue:#0b4aa2; --red:#e71f2b; --yellow:#ffd447;
+      --ink:#111827; --muted:#667085; --line:#e5e7eb; --paper:#fff; --soft:#f4f7fb;
+      --shadow:0 14px 40px rgba(9,30,66,.10);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:"Noto Sans Telugu",Inter,system-ui,-apple-system,sans-serif;background:#eef3f8;color:var(--ink)}
+    a{text-decoration:none;color:inherit} button,input{font:inherit}
+    .shell{max-width:1320px;margin:auto;background:#fff;min-height:100vh;box-shadow:0 0 45px rgba(9,30,66,.08)}
+    .concept{background:#fff4d6;color:#6b4d00;border-bottom:1px solid #f5d27f;font:700 12px/1.4 Inter,sans-serif;padding:8px 18px;text-align:center;letter-spacing:.02em}
+    .utility{background:var(--navy);color:#dce8ff;display:flex;justify-content:space-between;gap:16px;padding:8px 28px;font:500 12px Inter,sans-serif}
+    .utility .right{display:flex;gap:18px;align-items:center}.utility a:hover{color:#fff}
+    .brandrow{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--line)}
+    .brand{display:flex;gap:12px;align-items:center;min-width:235px}
+    .mark{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:900 24px Inter;background:conic-gradient(from 210deg,#0c50b7,#22c55e,#ffd447,#ef4444,#0c50b7);padding:5px}
+    .mark b{width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#0b4aa2}
+    .brand h1{margin:0;font:900 34px/1 Inter;color:#0b4aa2}.brand h1 span{color:#e71f2b}
+    .brand small{font:700 10px Inter;color:#5d6b82;letter-spacing:.08em}
+    .search{display:flex;max-width:630px;width:100%;justify-self:center}
+    .search input{width:100%;border:1px solid #d5dce7;border-right:0;border-radius:12px 0 0 12px;padding:13px 16px;outline:none;background:#fbfcfe}
+    .search button{border:0;background:var(--red);color:#fff;padding:0 18px;border-radius:0 12px 12px 0;cursor:pointer;font-weight:800}
+    .livebtn{background:var(--red);color:#fff;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;font:800 13px Inter;box-shadow:0 8px 18px rgba(231,31,43,.22)}
+    .nav{background:linear-gradient(90deg,#082d67,#0c4eaa);color:#fff;display:flex;align-items:center;gap:4px;padding:0 18px;position:sticky;top:0;z-index:20}
+    .nav a{padding:14px 12px;font-weight:700;font-size:13px;border-bottom:3px solid transparent;white-space:nowrap}
+    .nav a:hover,.nav a.active{background:rgba(255,255,255,.07);border-bottom-color:#ffcf4a}
+    .hamb{display:none;margin-left:auto;background:none;border:0;color:#fff;font-size:24px;padding:12px}
+    .ticker{display:flex;align-items:center;background:#fff;border-bottom:1px solid var(--line);overflow:hidden}
+    .ticker strong{background:var(--red);color:#fff;padding:11px 18px;font:800 12px Inter;white-space:nowrap}
+    .tickertrack{overflow:hidden;white-space:nowrap;flex:1}
+    .tickertext{display:inline-block;padding-left:100%;animation:ticker 28s linear infinite;font-weight:700;font-size:13px}
+    @keyframes ticker{to{transform:translateX(-100%)}}
+    .main{padding:18px 22px 40px}
+    .topgrid{display:grid;grid-template-columns:1.45fr .92fr .72fr;gap:18px}
+    .lead{position:relative;border-radius:18px;overflow:hidden;min-height:500px;background:#111}
+    .lead img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;opacity:.92}
+    .lead:after{content:"";position:absolute;inset:25% 0 0;background:linear-gradient(transparent,rgba(3,12,28,.94))}
+    .leadcontent{position:absolute;z-index:2;left:24px;right:24px;bottom:24px;color:#fff}
+    .tag{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;padding:6px 10px;border-radius:999px;font:800 11px Inter;text-transform:uppercase}
+    .demo{background:#fff;color:#b01924}
+    .lead h2{font-size:34px;line-height:1.25;margin:12px 0 8px}.lead p{margin:0;color:#dfe8f5}
+    .stack{display:grid;gap:12px}
+    .story{display:grid;grid-template-columns:130px 1fr;gap:12px;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;transition:.2s}
+    .story:hover,.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .story img{width:130px;height:98px;object-fit:cover;border-radius:10px}
+    .story h3{font-size:15px;line-height:1.4;margin:5px 0}.meta{font:600 11px Inter;color:#8a94a6}.cat{color:var(--red);font-weight:800;font-size:11px}
+    .latest{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}
+    .latest h3,.sectionhead h2{margin:0;font-size:20px;color:#0a306b}
+    .latestitem{padding:13px 0;border-bottom:1px solid var(--line)}.latestitem:last-child{border-bottom:0}.latestitem b{display:block;font-size:13px;line-height:1.45;margin-bottom:4px}
+    .section{margin-top:26px}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;border-left:5px solid var(--red);padding-left:10px}
+    .sectionhead a{font-size:12px;font-weight:800;color:#0b4aa2}
+    .cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .card{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff;transition:.2s}
+    .card img{width:100%;height:145px;object-fit:cover}.cardbody{padding:12px}.card h3{margin:5px 0 8px;font-size:15px;line-height:1.45}
+    .twocol{display:grid;grid-template-columns:1.45fr .8fr;gap:18px}
+    .videohero{position:relative;border-radius:16px;overflow:hidden;min-height:330px;background:#061a39}
+    .videohero img{width:100%;height:330px;object-fit:cover;opacity:.78}
+    .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;border:2px solid #fff;background:rgba(231,31,43,.9);color:#fff;font-size:28px;cursor:pointer}
+    .videocap{position:absolute;left:18px;right:18px;bottom:18px;color:#fff;font-weight:800;font-size:20px;text-shadow:0 2px 8px #000}
+    .videolist{display:grid;gap:10px}.videomini{display:grid;grid-template-columns:120px 1fr;gap:10px;border:1px solid var(--line);padding:8px;border-radius:13px;background:#fff}
+    .videomini img{width:120px;height:78px;object-fit:cover;border-radius:9px}.videomini b{font-size:13px;line-height:1.4}
+    .adband{margin-top:28px;border-radius:20px;padding:24px;background:linear-gradient(120deg,#061a39,#0b4aa2 68%,#103f79);color:#fff;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;overflow:hidden;position:relative}
+    .adband:after{content:"";position:absolute;width:260px;height:260px;border:50px solid rgba(255,255,255,.04);border-radius:50%;right:13%;top:-100px}
+    .adband h2{margin:0;color:#ffd447;font:900 32px/1.05 Inter}.adband p{margin:8px 0 14px;color:#dbeafe}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);padding:7px 10px;border-radius:999px;font:700 11px Inter}
+    .cta{position:relative;z-index:2;background:#ffd447;color:#071b3a;padding:14px 18px;border:0;border-radius:12px;font-weight:900;cursor:pointer}
+    .careers{display:grid;grid-template-columns:1fr 1fr;gap:18px;background:#f7f9fc;border:1px solid #dfe6ef;border-radius:20px;padding:24px}
+    .careerintro h2{margin:0 0 6px;color:#071b3a}.careerintro p{color:#667085;line-height:1.7}
+    .roles{display:grid;grid-template-columns:1fr 1fr;gap:10px}.role{background:#fff;border:1px solid var(--line);padding:13px;border-radius:12px;font-weight:800;font-size:13px}
+    .outline{border:1px solid #0b4aa2;background:#fff;color:#0b4aa2;border-radius:10px;padding:11px 14px;font-weight:900;cursor:pointer}
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .contactbox,.pitchbox{border-radius:18px;padding:22px;border:1px solid var(--line);background:#fff}
+    .contactbox h2,.pitchbox h2{margin-top:0;color:#071b3a}.contactline{display:flex;gap:10px;margin:10px 0;color:#4b5563}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.action{padding:11px 14px;border-radius:10px;font:800 12px Inter;background:#0b4aa2;color:#fff}.action.red{background:var(--red)}
+    footer{background:#06152f;color:#d9e5f6;padding:26px 28px 18px}.footgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px}.footgrid h3{color:#fff;margin:0 0 10px}.footgrid p,.footgrid a{font-size:12px;line-height:1.8;color:#b7c7dc}.copyright{border-top:1px solid rgba(255,255,255,.12);margin-top:18px;padding-top:14px;font:500 11px Inter;color:#90a4bd;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    .wa{position:fixed;right:22px;bottom:22px;width:54px;height:54px;border-radius:50%;background:#1fbf63;color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 10px 25px rgba(0,0,0,.22);z-index:40}
+    .modal{position:fixed;inset:0;background:rgba(3,12,28,.72);display:none;place-items:center;z-index:100;padding:20px}.modal.open{display:grid}.modalbox{max-width:520px;width:100%;background:#fff;border-radius:18px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modalbox h3{margin-top:0}.close{float:right;border:0;background:#eef2f7;border-radius:8px;padding:6px 9px;cursor:pointer}
+    .empty{display:none;text-align:center;padding:28px;color:#667085}.hide{display:none!important}
+    @media(max-width:1050px){.topgrid{grid-template-columns:1.25fr .9fr}.latest{grid-column:1/-1}.cards4{grid-template-columns:repeat(2,1fr)}.twocol{grid-template-columns:1fr}.brandrow{grid-template-columns:auto 1fr}.livebtn{grid-column:1/-1;justify-self:end;margin-top:-72px}.utility .right{display:none}}
+    @media(max-width:760px){
+      .utility{padding:8px 14px}.brandrow{display:flex;flex-wrap:wrap;padding:14px}.brand{min-width:0}.mark{width:50px;height:50px}.mark b{width:42px;height:42px;font-size:18px}.brand h1{font-size:28px}.search{order:3;flex-basis:100%}.livebtn{margin:0;margin-left:auto}
+      .nav{padding:0 12px;flex-wrap:wrap}.hamb{display:block}.navlinks{display:none;flex-basis:100%;width:100%}.nav.open .navlinks{display:flex;flex-direction:column}.nav a{display:block}
+      .topgrid{grid-template-columns:1fr}.lead{min-height:430px}.lead h2{font-size:27px}.latest{grid-column:auto}.cards4{grid-template-columns:1fr 1fr}.adband{grid-template-columns:1fr}.careers,.contact{grid-template-columns:1fr}.footgrid{grid-template-columns:1fr}.roles{grid-template-columns:1fr}.main{padding:14px}.story{grid-template-columns:110px 1fr}.story img{width:110px;height:86px}
+    }
+    @media(max-width:520px){.cards4{grid-template-columns:1fr}.lead{min-height:400px}.lead h2{font-size:24px}.adband h2{font-size:27px}.videomini{grid-template-columns:100px 1fr}.videomini img{width:100px}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="concept">CONCEPT DEMO • Presentation prototype only — not an official KC TV news website</div>
+  <div class="utility">
+    <div>📍 Rajam · Vizianagaram District &nbsp; | &nbsp; Regional Telugu Digital News Concept</div>
+    <div class="right"><a href="#about">About</a><a href="#advertise">Advertise</a><a href="#careers">Careers</a><a href="#contact">Contact</a><span>● FB</span><span>◎ IG</span><span>▶ YT</span></div>
+  </div>
+
+  <header class="brandrow">
+    <a class="brand" href="#">
+      <div class="mark"><b>KC</b></div>
+      <div><h1>KC <span>TV</span></h1><small>KEMBURU COMMUNICATIONS · TV | WIFI | OTT</small></div>
+    </a>
+    <div class="search">
+      <input id="searchInput" placeholder="వార్తలు, వీడియోలు, అంశాలు వెతకండి..." aria-label="Search demo stories">
+      <button id="searchBtn">Search</button>
+    </div>
+    <button class="livebtn" data-modal="liveModal">▶ LIVE TV · DEMO</button>
+  </header>
+
+  <nav class="nav" id="nav">
+    <a class="active" href="#">హోమ్</a>
+    <button class="hamb" id="hamb">☰</button>
+    <div class="navlinks">
+      <a href="#latest">తాజా వార్తలు</a><a href="#ap">ఆంధ్రప్రదేశ్</a><a href="#district">జిల్లా వార్తలు</a>
+      <a href="#business">వ్యాపారం</a><a href="#sports">క్రీడలు</a><a href="#videos">వీడియోలు</a>
+      <a href="#careers">Careers</a><a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="ticker"><strong>⚡ BREAKING · DEMO</strong><div class="tickertrack"><div class="tickertext">విజయనగరం జిల్లాలో రహదారి అభివృద్ధి పనులపై సమీక్ష &nbsp; • &nbsp; రైతులకు వర్షపాతం, పంటలపై సూచనలు &nbsp; • &nbsp; విద్యార్థులకు పరీక్షల షెడ్యూల్‌పై సమాచారం &nbsp; • &nbsp; స్థానిక రవాణా మార్గాల్లో మార్పులు — ఇవన్నీ డెమో హెడ్‌లైన్లు మాత్రమే</div></div></div>
+
+  <main class="main">
+    <section class="topgrid" id="latest">
+      <article class="lead searchable" data-title="విజయనగరం జిల్లా అభివృద్ధి రహదారి ప్రజా సేవలు">
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="City and local development demo image">
+        <div class="leadcontent">
+          <span class="tag">జిల్లా వార్తలు</span> <span class="tag demo">DEMO</span>
+          <h2>విజయనగరం జిల్లాలో అభివృద్ధి పనులకు కొత్త వేగం — ప్రజా సేవలపై ప్రత్యేక దృష్టి</h2>
+          <p>స్థానిక అభివృద్ధి, రహదారులు, ప్రజా సౌకర్యాలపై రూపొందించిన నమూనా కథనం.</p>
+          <div class="meta" style="color:#c8d4e5;margin-top:10px">Concept story · Sample content</div>
+        </div>
+      </article>
+
+      <div class="stack">
+        <article class="story searchable" data-title="నీటి వనరులు సాగునీరు రైతులు">
+          <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=700&q=80" alt="">
+          <div><span class="cat">ప్రజా ఉపయోగం · DEMO</span><h3>నీటి వనరుల వినియోగంపై రైతులకు అవగాహన కార్యక్రమం</h3><span class="meta">Sample update</span></div>
+        </article>
+        <article class="story searchable" data-title="విద్య డిజిటల్ లెర్నింగ్ పాఠశాలలు">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=80" alt="">
+          <div><span class="cat">విద్య · DEMO</span><h3>జిల్లా పాఠశాలల్లో డిజిటల్ లెర్నింగ్‌పై ప్రత్యేక కార్యక్రమం</h3><span class="meta">Sample update</span></div>
+        </article>
+        <article class="story searchable" data-title="క్రీడలు యువత శిక్షణ">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=700&q=80" alt="">
+          <div><span class="cat">క్రీడలు · DEMO</span><h3>స్థానిక క్రీడాకారులకు శిక్షణ, ప్రోత్సాహక కార్యక్రమాలు</h3><span class="meta">Sample update</span></div>
+        </article>
+        <article class="story searchable" data-title="వాతావరణం వర్షం సూచనలు">
+          <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&w=700&q=80" alt="">
+          <div><span class="cat">వాతావరణం · DEMO</span><h3>వారాంతపు వాతావరణ మార్పులపై ప్రజలకు ఉపయోగకర సూచనలు</h3><span class="meta">Sample update</span></div>
+        </article>
+      </div>
+
+      <aside class="latest">
+        <h3>తాజా వార్తలు <span style="font:800 10px Inter;color:#e71f2b">DEMO FEED</span></h3>
+        <div class="latestitem searchable" data-title="రాజాం మార్కెట్ ధరలు"><b>రాజాం మార్కెట్‌లో వారాంతపు ధరల సమీక్ష</b><span class="meta">Sample · 10 min</span></div>
+        <div class="latestitem searchable" data-title="బస్ రూట్ రవాణా"><b>స్థానిక బస్ రూట్లపై ప్రయాణికులకు తాజా సమాచారం</b><span class="meta">Sample · 25 min</span></div>
+        <div class="latestitem searchable" data-title="పరీక్షలు విద్యార్థులు"><b>విద్యార్థుల కోసం పరీక్షల సమాచార కేంద్రం</b><span class="meta">Sample · 40 min</span></div>
+        <div class="latestitem searchable" data-title="రైతు పంట మార్కెట్"><b>పంటల కొనుగోలు, మార్కెట్ వివరాలపై ప్రత్యేక కథనం</b><span class="meta">Sample · 1 hr</span></div>
+        <div class="latestitem searchable" data-title="ఆరోగ్యం శిబిరం"><b>ప్రజా ఆరోగ్య అవగాహన శిబిరాలపై సమాచారం</b><span class="meta">Sample · 2 hr</span></div>
+      </aside>
+    </section>
+
+    <div id="empty" class="empty">మీ search కి demo stories కనిపించలేదు. మరో పదంతో ప్రయత్నించండి.</div>
+
+    <section class="section" id="ap">
+      <div class="sectionhead"><h2>ఆంధ్రప్రదేశ్</h2><a href="#ap">మరిన్ని →</a></div>
+      <div class="cards4">
+        <article class="card searchable" data-title="వ్యవసాయం రైతులు"><img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">వ్యవసాయం · DEMO</span><h3>రైతులకు సాంకేతిక వ్యవసాయ పద్ధతులపై అవగాహన</h3><span class="meta">Sample story</span></div></article>
+        <article class="card searchable" data-title="రోడ్లు మౌలిక వసతులు"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">ఇన్‌ఫ్రా · DEMO</span><h3>మౌలిక వసతులు, రహదారి పనుల పురోగతిపై ఫోకస్</h3><span class="meta">Sample story</span></div></article>
+        <article class="card searchable" data-title="చిన్న వ్యాపారాలు ఉపాధి"><img src="https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">వ్యాపారం · DEMO</span><h3>చిన్న వ్యాపారాలు, ఉపాధి అవకాశాలపై ప్రత్యేక కథనాలు</h3><span class="meta">Sample story</span></div></article>
+        <article class="card searchable" data-title="పర్యాటకం దేవాలయాలు"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">ప్రత్యేకం · DEMO</span><h3>స్థానిక పర్యాటక ప్రదేశాలపై విజువల్ స్టోరీ సిరీస్</h3><span class="meta">Sample story</span></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="district">
+      <div class="sectionhead"><h2>📍 విజయనగరం జిల్లా వార్తలు</h2><a href="#district">మరిన్ని →</a></div>
+      <div class="cards4">
+        <article class="card searchable" data-title="రాజాం పట్టణం సేవలు"><img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">రాజాం · DEMO</span><h3>పట్టణ ప్రజా సేవలపై స్థానిక ఫోకస్ రిపోర్ట్</h3><span class="meta">Sample local story</span></div></article>
+        <article class="card searchable" data-title="రోడ్డు రవాణా విజయనగరం"><img src="https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">రవాణా · DEMO</span><h3>విజయనగరం–రాజాం మార్గంలో ప్రయాణ సమాచారం</h3><span class="meta">Sample local story</span></div></article>
+        <article class="card searchable" data-title="సంత మార్కెట్ స్థానిక వ్యాపారం"><img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">మార్కెట్ · DEMO</span><h3>స్థానిక సంతలు, వ్యాపారాలపై వారాంతపు ప్రత్యేకం</h3><span class="meta">Sample local story</span></div></article>
+        <article class="card searchable" data-title="విద్య కళాశాలలు యువత"><img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" alt=""><div class="cardbody"><span class="cat">విద్య · DEMO</span><h3>విద్యార్థులు, కళాశాలలు, కెరీర్ అవకాశాలపై సమాచారం</h3><span class="meta">Sample local story</span></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="videos">
+      <div class="sectionhead"><h2>▶ KC TV వీడియోలు</h2><a href="#videos">అన్ని వీడియోలు →</a></div>
+      <div class="twocol">
+        <div class="videohero">
+          <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80" alt="Newsroom concept">
+          <button class="play" data-modal="videoModal">▶</button>
+          <div class="videocap">KC TV Digital Bulletin — Demo Video Experience</div>
+        </div>
+        <div class="videolist">
+          <div class="videomini"><img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=500&q=80" alt=""><div><b>Morning Headlines · Demo</b><div class="meta">2:18</div></div></div>
+          <div class="videomini"><img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=500&q=80" alt=""><div><b>District Focus · Demo</b><div class="meta">3:12</div></div></div>
+          <div class="videomini" id="sports"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&q=80" alt=""><div><b>Sports Roundup · Demo</b><div class="meta">1:45</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="business">
+      <div class="sectionhead"><h2>వ్యాపారం & స్థానిక ఆర్థిక వ్యవస్థ</h2><a href="#business">మరిన్ని →</a></div>
+      <div class="cards4">
+        <article class="card searchable" data-title="MSME చిన్న వ్యాపారాలు"><div class="cardbody"><span class="cat">MSME · DEMO</span><h3>చిన్న వ్యాపారాలకు డిజిటల్ మార్కెటింగ్ అవకాశాలు</h3><p class="meta">Local business concept coverage</p></div></article>
+        <article class="card searchable" data-title="ఉపాధి ఉద్యోగాలు"><div class="cardbody"><span class="cat">ఉపాధి · DEMO</span><h3>ప్రాంతీయ ఉద్యోగ సమాచారం కోసం ప్రత్యేక డిజిటల్ డెస్క్</h3><p class="meta">Employment concept coverage</p></div></article>
+        <article class="card searchable" data-title="వ్యవసాయ మార్కెట్ ధరలు"><div class="cardbody"><span class="cat">మార్కెట్ · DEMO</span><h3>వ్యవసాయ మార్కెట్ ధరలను సులభంగా చూపించే డేటా కార్డులు</h3><p class="meta">Market concept coverage</p></div></article>
+        <article class="card searchable" data-title="స్టార్టప్ స్థానిక వ్యాపారాలు"><div class="cardbody"><span class="cat">LOCAL BIZ · DEMO</span><h3>స్థానిక వ్యాపారుల విజయ కథల కోసం వీడియో ఫీచర్</h3><p class="meta">Business feature concept</p></div></article>
+      </div>
+    </section>
+
+    <section class="adband" id="advertise">
+      <div>
+        <h2>More Revenue for Your Business!</h2>
+        <p>Advertise with KC TV — Reach local audiences across TV, digital and social media.</p>
+        <div class="chips"><span class="chip">TV Ads</span><span class="chip">Digital Banners</span><span class="chip">Social Media Promotion</span><span class="chip">Sponsored Programs</span><span class="chip">Local Event Coverage</span></div>
+      </div>
+      <button class="cta" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Contact for Advertisements →</button>
+    </section>
+
+    <section class="section careers" id="careers">
+      <div class="careerintro">
+        <span class="tag">CAREERS CONCEPT</span>
+        <h2>KC TV Digital Growth Team</h2>
+        <p>Traditional news operationsకి digital-first capabilities జోడించే recruitment concept. Actual vacancies and responsibilities are subject to KC TV management.</p>
+        <button class="outline" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Join Our Team</button>
+      </div>
+      <div class="roles">
+        <div class="role">🎬 Digital Content Producer</div>
+        <div class="role">✍️ Script & AI Support</div>
+        <div class="role">💻 Website & Technical Support</div>
+        <div class="role">📈 Business Development</div>
+        <div class="role">🎞 Video Editing / Social Media</div>
+        <div class="role">📡 Digital News Operations</div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="contactbox">
+        <h2>Contact KC TV</h2>
+        <div class="contactline">📞 <span><b>Call / WhatsApp</b><br>7419 399 399</span></div>
+        <div class="contactline">✉️ <span><b>Email</b><br>kemburucommunications@gmail.com</span></div>
+        <div class="contactline">📍 <span><b>Address</b><br>Kemburu Communications, 2nd floor above Union Bank, Rajam, Vizianagaram district, Andhra Pradesh 532127</span></div>
+        <div class="actions"><a class="action" href="tel:+917419399399">Call</a><a class="action red" href="https://wa.me/917419399399" target="_blank" rel="noopener">WhatsApp</a><a class="action" href="mailto:kemburucommunications@gmail.com">Email</a></div>
+      </div>
+      <div class="pitchbox" id="about">
+        <h2>Digital Newsroom Concept</h2>
+        <p style="color:#667085;line-height:1.8">Live TV ready UI, local-news sections, video publishing, advertising placements, careers, search, mobile navigation and WhatsApp conversion flow — all presented as a working front-end concept.</p>
+        <p style="font-weight:800;color:#0b4aa2">Concept prepared by Ravi Kumar Sarma Garimella</p>
+        <p class="meta">Digital Media · AI Support · Web & Technical Support · Business Development</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footgrid">
+      <div><h3>KC TV · Concept Demo</h3><p>Regional Telugu digital news portal presentation prototype. This page is not an official KC TV publication and does not publish current verified news.</p></div>
+      <div><h3>Quick Links</h3><p><a href="#latest">Latest Demo</a><br><a href="#district">District Demo</a><br><a href="#videos">Videos</a><br><a href="#careers">Careers</a></p></div>
+      <div><h3>Contact</h3><p>7419 399 399<br>kemburucommunications@gmail.com<br>Rajam, Vizianagaram District, AP</p></div>
+    </div>
+    <div class="copyright"><span>© Concept Presentation · KC TV Digital News Portal</span><span>Prepared by Ravi Kumar Sarma Garimella · Not an official KC TV website</span></div>
+  </footer>
+</div>
+
+<a class="wa" href="https://wa.me/917419399399" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+
+<div class="modal" id="liveModal"><div class="modalbox"><button class="close" data-close>✕</button><h3>LIVE TV · Demo</h3><p>This concept is ready for a real live-stream embed. For this presentation, no live broadcast is connected.</p><button class="outline" data-close>Close</button></div></div>
+<div class="modal" id="videoModal"><div class="modalbox"><button class="close" data-close>✕</button><h3>KC TV Video · Demo</h3><p>A real YouTube/live-video player can be connected here when KC TV provides the official channel or stream URL.</p><button class="outline" data-close>Close</button></div></div>
+
+<script>
+  const nav=document.getElementById('nav'), hamb=document.getElementById('hamb');
+  hamb.addEventListener('click',()=>nav.classList.toggle('open'));
+  document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+  document.querySelectorAll('[data-modal]').forEach(btn=>btn.addEventListener('click',()=>document.getElementById(btn.dataset.modal).classList.add('open')));
+  document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('.modal').classList.remove('open')));
+  document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'))});
+
+  const input=document.getElementById('searchInput'), searchBtn=document.getElementById('searchBtn'), items=[...document.querySelectorAll('.searchable')], empty=document.getElementById('empty');
+  function doSearch(){
+    const q=input.value.trim().toLowerCase();
+    let shown=0;
+    items.forEach(el=>{const ok=!q || (el.dataset.title||'').toLowerCase().includes(q) || el.innerText.toLowerCase().includes(q); el.classList.toggle('hide',!ok); if(ok)shown++;});
+    empty.style.display=shown?'none':'block';
+    if(q) document.getElementById('latest').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  searchBtn.addEventListener('click',doSearch);
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
+</script>
+</body>
+</html>
