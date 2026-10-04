@@ -327,11 +327,22 @@ function makeBenchmarkPdfHtml(){
  const notes='<div class="pdf-summary-box"><h3>Evaluation Note</h3><p>Judge metrics are AI evaluator judgments based on the supplied texts. They are not independent factual verification. Provider failures are preserved in this report instead of being replaced with synthetic scores.</p></div>';
  return '<div class="pdf-page"><div class="pdf-cover"><div class="pdf-brand"><div class="pdf-logo">◎</div><div><b>VIHAA LINGUA-360</b><small>Global Benchmark Report</small></div></div><h1>Multilingual AI Benchmark Report</h1><p>'+esc(prompt)+'</p><div class="pdf-meta-strip"><div class="pdf-meta-item"><span>Run ID</span><b>'+esc(runId)+'</b></div><div class="pdf-meta-item"><span>Started</span><b>'+esc(started?new Date(started).toLocaleString():'—')+'</b></div><div class="pdf-meta-item"><span>Records</span><b>'+runRecords.length+'</b></div><div class="pdf-meta-item"><span>Real Calls</span><b>'+esc(document.getElementById('sCalls')?.textContent||'—')+'</b></div></div></div><div class="pdf-body">'+summary+notes+'<div class="pdf-title-row"><h2>Benchmark Results</h2><span>Real provider responses</span></div><table class="pdf-table"><thead><tr><th>Language</th><th>Model</th><th>Judge Metrics</th><th>Performance</th><th>Status</th><th>Response Preview</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+pdfFooter('Benchmark Report')+'</div>';
 }
+async function ensureHtml2Pdf(){
+ if(typeof html2pdf!=='undefined')return true;
+ const urls=[
+  'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js',
+  'https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js'
+ ];
+ for(const src of urls){
+  try{await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>{s.remove();reject(new Error('load failed'))};document.head.appendChild(s)});if(typeof html2pdf!=='undefined')return true}catch{}
+ }
+ return false;
+}
 async function downloadStyledPdf(kind){
  const root=document.getElementById('pdfExportRoot'),st=kind==='explore'?document.getElementById('exploreStatus'):document.getElementById('runStatus');
  const html=kind==='explore'?makeExplorePdfHtml():makeBenchmarkPdfHtml();
  if(!html){if(st)st.textContent=kind==='explore'?'Generate an Explore answer first.':'Run a benchmark first.';return}
- if(typeof html2pdf==='undefined'){if(st)st.textContent='PDF engine could not load. Check internet access and try again.';return}
+ if(!(await ensureHtml2Pdf())){if(st)st.textContent='PDF engine could not load. Check internet access and try again.';return}
  root.innerHTML=html;root.style.display='block';if(st)st.textContent='Designing PDF…';
  const safeTopic=String(currentExplore?.data?.title||'Knowledge-Report').replace(/[^a-zA-Z0-9-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Knowledge-Report';const name=kind==='explore'?'VIHAA-'+safeTopic+'-'+(currentExplore?.langCode||'report')+'.pdf':'VIHAA-LINGUA-360-Benchmark-'+(currentRunId||'report')+'.pdf';
  const opt={margin:0,filename:name,image:{type:'jpeg',quality:.96},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'pt',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],avoid:['.pdf-section','.pdf-stat','.pdf-summary-box']}};
@@ -382,10 +393,10 @@ window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById
             <div class="rs-field"><label><span>Real AI provider</span><select id="exploreProvider"></select></label></div>
           </div>
 
-          <select id="exploreResearchMode" aria-label="Research mode"><option value="standard">Knowledge Report</option><option value="deep" selected>Full A–Z Deep Research</option></select>
+          <select id="exploreResearchMode" aria-label="Research mode"><option value="standard" selected>Knowledge Report</option><option value="deep">Full A–Z Deep Research</option></select>
           <div class="rs-mode-row">
-            <div class="rs-mode-card" data-research-mode="standard"><div class="rs-mode-icon">✦</div><div class="rs-mode-copy"><b>Knowledge Report</b><span>Fast, comprehensive answer from your selected real AI provider.</span></div></div>
-            <div class="rs-mode-card active" data-research-mode="deep"><div class="rs-mode-icon">🔬</div><div class="rs-mode-copy"><b>Full A–Z Deep Research</b><span>Multi-stage web research with evidence, citations, tables, charts, diagrams and a designed PDF.</span></div></div>
+            <div class="rs-mode-card active" data-research-mode="standard"><div class="rs-mode-icon">✦</div><div class="rs-mode-copy"><b>Knowledge Report</b><span>Fast, comprehensive answer from your selected real AI provider.</span></div></div>
+            <div class="rs-mode-card" data-research-mode="deep"><div class="rs-mode-icon">🔬</div><div class="rs-mode-copy"><b>Full A–Z Deep Research</b><span>Multi-stage web research with evidence, citations, tables, charts, diagrams and a designed PDF.</span></div></div>
           </div>
 
           <div class="deep-research-config" id="deepResearchConfig">
@@ -404,7 +415,7 @@ window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById
             <div class="composer-head"><b>Your question</b><span>Ask naturally — VIHAA will structure the report for the topic.</span></div>
             <textarea id="exploreQuestion" placeholder="Example: Research Telugu actor Chiranjeevi from A–Z with sources and diagrams.">Explain artificial intelligence and how it can affect everyday life.</textarea>
             <div class="composer-foot">
-              <div class="composer-left"><button class="askbtn" id="askExplore">Generate A–Z Research Report →</button><button class="btn" id="stopExplore" type="button" hidden>■ Stop Generation</button><button class="btn" id="exploreVoice">🎙 Voice Input</button></div>
+              <div class="composer-left"><button class="askbtn" id="askExplore" type="button">Generate Knowledge Report →</button><button class="btn" id="stopExplore" type="button" hidden>■ Stop Generation</button><button class="btn" id="exploreVoice" type="button">🎙 Voice Input</button></div>
               <div class="composer-right"><span class="explore-status" id="exploreStatus">Connect a real AI provider to begin.</span><span class="explore-status" id="exploreElapsed" hidden></span></div>
             </div>
           </div>
@@ -426,7 +437,7 @@ window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById
       </div>
       <div class="kr-toolbar">
         <div class="kr-toolbar-note" id="exploreAnswerMeta"></div>
-        <div class="answer-tools"><button class="btn" id="copyExplore">Copy</button><button class="btn" id="speakExplore">🔊 Listen</button><button class="btn primary" id="downloadExplorePdf">⬇ Download Designed PDF</button><button class="btn" id="printExplore">Print</button><button class="btn" id="shareExplore">Share</button><button class="btn" id="benchmarkExplore">Analyze Across AI Models →</button></div>
+        <div class="answer-tools"><button class="btn" id="copyExplore" type="button">Copy</button><button class="btn" id="speakExplore" type="button">🔊 Listen</button><button class="btn primary" id="downloadExplorePdf" type="button">⬇ Download Designed PDF</button><button class="btn" id="printExplore" type="button">Print</button><button class="btn" id="shareExplore" type="button">Share</button><button class="btn" id="benchmarkExplore" type="button">Analyze Across AI Models →</button></div>
       </div>
       <div class="kr-body">
         <div class="kr-warning">AI-generated information can be incomplete or wrong. For medical, legal, financial, emergency, and other high-stakes topics, verify important decisions with appropriate qualified or official sources.</div>
@@ -702,6 +713,28 @@ window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById
 const languageData=[
 ['English','en'],['Spanish','es'],['Hindi','hi'],['Arabic','ar'],['French','fr'],['Bengali','bn'],['Portuguese','pt'],['Russian','ru'],['Urdu','ur'],['Indonesian','id'],['German','de'],['Japanese','ja'],['Swahili','sw'],['Marathi','mr'],['Telugu','te'],['Turkish','tr'],['Tamil','ta'],['Vietnamese','vi'],['Korean','ko'],['Italian','it'],['Thai','th'],['Gujarati','gu'],['Persian','fa'],['Polish','pl'],['Ukrainian','uk'],['Dutch','nl'],['Greek','el'],['Hebrew','he'],['Kannada','kn'],['Malayalam','ml'],['Punjabi','pa'],['Romanian','ro'],['Czech','cs'],['Hungarian','hu'],['Swedish','sv'],['Danish','da'],['Norwegian','no'],['Finnish','fi'],['Malay','ms'],['Filipino','fil'],['Amharic','am'],['Nepali','ne'],['Sinhala','si'],['Burmese','my'],['Khmer','km'],['Lao','lo'],['Mongolian','mn'],['Kazakh','kk'],['Uzbek','uz'],['Azerbaijani','az'],['Georgian','ka'],['Armenian','hy'],['Serbian','sr'],['Croatian','hr'],['Slovak','sk'],['Bulgarian','bg'],['Lithuanian','lt'],['Latvian','lv'],['Estonian','et'],['Icelandic','is']];
 let providerSeq=0, providers=[], aborter=null, runRecords=[];
+const PROVIDER_CONFIG_KEY='vihaa_lingua_360_provider_config_v2';
+function persistProviderConfig(){
+  try{
+    const safe=providers.map(p=>({id:p.id,type:p.type,name:p.name,model:p.model,url:p.url,auth:p.auth,headerName:p.headerName||'',inPrice:p.inPrice||'',outPrice:p.outPrice||'',help:p.help||''}));
+    localStorage.setItem(PROVIDER_CONFIG_KEY,JSON.stringify(safe));
+  }catch{}
+}
+function loadSavedProviders(){
+  let saved=[];
+  try{saved=JSON.parse(localStorage.getItem(PROVIDER_CONFIG_KEY)||'[]')}catch{}
+  if(Array.isArray(saved)&&saved.length){
+    providers=saved.map((p,i)=>({...p,id:p.id||('p'+(i+1)),key:''}));
+    providerSeq=Math.max(providerSeq,...providers.map(p=>Number(String(p.id||'').replace(/\D/g,''))||0));
+  }else{
+    providers=[
+      {id:'p1',type:'ollama',name:'Local Ollama',model:'qwen3:8b',url:'http://localhost:11434',key:'',auth:'none',headerName:'',inPrice:'',outPrice:'',help:'Local Ollama server. No cloud API key required.'}
+    ];
+    providerSeq=1;
+    persistProviderConfig();
+  }
+  renderProviders();
+}
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 const providerPresets=[
@@ -734,7 +767,7 @@ const providerPresets=[
  {group:'Cloud',id:'azure',name:'Azure OpenAI / Microsoft Foundry',type:'openai',url:'https://YOUR_RESOURCE.openai.azure.com/openai/v1/chat/completions',auth:'apikey',model:'',help:'Replace YOUR_RESOURCE. Uses the api-key header.'},
  {group:'Cloud',id:'cloudflare',name:'Cloudflare Workers AI',type:'openai',url:'https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/v1/chat/completions',auth:'bearer',model:'',help:'Replace YOUR_ACCOUNT_ID. Workers AI exposes OpenAI-compatible chat completions.'},
  {group:'Cloud',id:'vertex',name:'Google Vertex / Gemini Enterprise (custom endpoint)',type:'openai',url:'',auth:'bearer',model:'',help:'Paste your account/project OpenAI-compatible endpoint and access token.'},
- {group:'Local / Gateway',id:'ollama',name:'Local Ollama',type:'ollama',url:'http://localhost:11434',auth:'none',model:'',help:'Local Ollama server. No cloud API key required.'},
+ {group:'Local / Gateway',id:'ollama',name:'Local Ollama',type:'ollama',url:'http://localhost:11434',auth:'none',model:'qwen3:8b',help:'Local Ollama server. No cloud API key required.'},
  {group:'Local / Gateway',id:'lmstudio',name:'LM Studio Local Server',type:'openai',url:'http://localhost:1234/v1/chat/completions',auth:'none',model:'',help:'LM Studio OpenAI-compatible local server.'},
  {group:'Local / Gateway',id:'vllm',name:'vLLM Local / Server',type:'openai',url:'http://localhost:8000/v1/chat/completions',auth:'none',model:'',help:'vLLM OpenAI-compatible server.'},
  {group:'Local / Gateway',id:'llamacpp',name:'llama.cpp Server',type:'openai',url:'http://localhost:8080/v1/chat/completions',auth:'none',model:'local-model',help:'llama.cpp OpenAI-compatible server.'},
@@ -751,13 +784,13 @@ function renderProviderCatalog(){
 }
 function addProviderPreset(presetId){
  const src=providerPresets.find(x=>x.id===presetId);if(!src)return;
- const id='p'+(++providerSeq);providers.push({id,type:src.type,name:src.name,model:src.model||'',url:src.url||'',key:'',auth:src.auth||'bearer',headerName:'',inPrice:'',outPrice:'',help:src.help||''});renderProviders();
+ const id='p'+(++providerSeq);providers.push({id,type:src.type,name:src.name,model:src.model||'',url:src.url||'',key:'',auth:src.auth||'bearer',headerName:'',inPrice:'',outPrice:'',help:src.help||''});persistProviderConfig();renderProviders();
 }
 
 function providerTemplate(p){return `<div class="provider" data-id="${p.id}"><div class="provider-head"><div><strong>${esc(p.name)}</strong><small> • ${esc(p.type)}</small></div><div class="row"><button class="btn good test">Test</button><button class="btn discover">Discover Models</button><button class="btn danger remove">Remove</button></div></div><div class="grid grid3"><label><span>Display name</span><input class="p-name" value="${esc(p.name)}"></label><label><span>Protocol</span><select class="p-type"><option value="ollama" ${p.type==='ollama'?'selected':''}>Ollama</option><option value="openai" ${p.type==='openai'?'selected':''}>OpenAI-compatible</option><option value="anthropic" ${p.type==='anthropic'?'selected':''}>Anthropic Messages</option><option value="cohere" ${p.type==='cohere'?'selected':''}>Cohere Chat</option><option value="gemini" ${p.type==='gemini'?'selected':''}>Gemini</option></select></label><label><span>Model ID</span><div class="provider-model-row"><input class="p-model" list="models-${p.id}" value="${esc(p.model||'')}" placeholder="model ID"><datalist id="models-${p.id}"></datalist></div></label><label><span>Base / endpoint URL</span><input class="p-url" value="${esc(p.url||'')}" placeholder="paste provider endpoint"></label><label><span>API key / access token</span><input class="p-key" type="password" value="${esc(p.key||'')}" autocomplete="off" placeholder="not stored in history"></label><label><span>Auth header</span><select class="p-auth"><option value="bearer" ${p.auth==='bearer'?'selected':''}>Authorization: Bearer</option><option value="apikey" ${p.auth==='apikey'?'selected':''}>api-key</option><option value="xapikey" ${p.auth==='xapikey'?'selected':''}>x-api-key</option><option value="custom" ${p.auth==='custom'?'selected':''}>Custom header</option><option value="none" ${p.auth==='none'?'selected':''}>No auth header</option></select></label><label><span>Custom auth header name</span><input class="p-header" value="${esc(p.headerName||'')}" placeholder="e.g. X-API-Key"></label><label><span>Input price USD / 1M tokens (optional)</span><input class="p-inprice" type="number" min="0" step="0.0001" value="${esc(p.inPrice??'')}" placeholder="leave blank"></label><label><span>Output price USD / 1M tokens (optional)</span><input class="p-outprice" type="number" min="0" step="0.0001" value="${esc(p.outPrice??'')}" placeholder="leave blank"></label></div><div class="provider-help">${esc(p.help||'')}</div><div class="status p-status">Not tested.</div></div>`}
-function addProvider(type){const id='p'+(++providerSeq);let p={id,type,name:'',model:'',url:'',key:'',auth:'bearer',headerName:'',inPrice:'',outPrice:'',help:''};if(type==='ollama')Object.assign(p,{name:'Local Ollama',url:'http://localhost:11434',model:'',auth:'none',help:'Local Ollama server.'});if(type==='openai')Object.assign(p,{name:'Custom OpenAI-compatible',url:'',model:'',auth:'bearer',help:'Paste any OpenAI-compatible chat-completions endpoint.'});if(type==='gemini')Object.assign(p,{name:'Google Gemini API',url:'https://generativelanguage.googleapis.com/v1beta',model:'',auth:'none',help:'Gemini generateContent API.'});providers.push(p);renderProviders()}
-function syncProviders(){[...document.querySelectorAll('.provider')].forEach(el=>{let p=providers.find(x=>x.id===el.dataset.id);if(!p)return;p.name=el.querySelector('.p-name').value.trim()||p.name;p.type=el.querySelector('.p-type').value;p.model=el.querySelector('.p-model').value.trim();p.url=el.querySelector('.p-url').value.trim();p.key=el.querySelector('.p-key').value.trim();p.auth=el.querySelector('.p-auth').value;p.headerName=el.querySelector('.p-header')?.value.trim()||'';p.inPrice=el.querySelector('.p-inprice')?.value.trim()||'';p.outPrice=el.querySelector('.p-outprice')?.value.trim()||'';});refreshSelects()}
-function renderProviders(){const wrap=$('#providers');wrap.innerHTML=providers.map(providerTemplate).join('');wrap.querySelectorAll('input,select').forEach(x=>x.addEventListener('change',syncProviders));wrap.querySelectorAll('.remove').forEach(b=>b.onclick=()=>{providers=providers.filter(p=>p.id!==b.closest('.provider').dataset.id);renderProviders()});wrap.querySelectorAll('.test').forEach(b=>b.onclick=()=>testProvider(b.closest('.provider').dataset.id));wrap.querySelectorAll('.discover').forEach(b=>b.onclick=()=>discoverProviderModels(b.closest('.provider').dataset.id));refreshSelects()}
+function addProvider(type){const id='p'+(++providerSeq);let p={id,type,name:'',model:'',url:'',key:'',auth:'bearer',headerName:'',inPrice:'',outPrice:'',help:''};if(type==='ollama')Object.assign(p,{name:'Local Ollama',url:'http://localhost:11434',model:'qwen3:8b',auth:'none',help:'Local Ollama server.'});if(type==='openai')Object.assign(p,{name:'Custom OpenAI-compatible',url:'',model:'',auth:'bearer',help:'Paste any OpenAI-compatible chat-completions endpoint.'});if(type==='gemini')Object.assign(p,{name:'Google Gemini API',url:'https://generativelanguage.googleapis.com/v1beta',model:'',auth:'none',help:'Gemini generateContent API.'});providers.push(p);persistProviderConfig();renderProviders()}
+function syncProviders(){[...document.querySelectorAll('.provider')].forEach(el=>{let p=providers.find(x=>x.id===el.dataset.id);if(!p)return;p.name=el.querySelector('.p-name').value.trim()||p.name;p.type=el.querySelector('.p-type').value;p.model=el.querySelector('.p-model').value.trim();p.url=el.querySelector('.p-url').value.trim();p.key=el.querySelector('.p-key').value.trim();p.auth=el.querySelector('.p-auth').value;p.headerName=el.querySelector('.p-header')?.value.trim()||'';p.inPrice=el.querySelector('.p-inprice')?.value.trim()||'';p.outPrice=el.querySelector('.p-outprice')?.value.trim()||'';});persistProviderConfig();refreshSelects()}
+function renderProviders(){const wrap=$('#providers');wrap.innerHTML=providers.map(providerTemplate).join('');wrap.querySelectorAll('input,select').forEach(x=>x.addEventListener('change',syncProviders));wrap.querySelectorAll('.remove').forEach(b=>b.onclick=()=>{providers=providers.filter(p=>p.id!==b.closest('.provider').dataset.id);persistProviderConfig();renderProviders()});wrap.querySelectorAll('.test').forEach(b=>b.onclick=()=>testProvider(b.closest('.provider').dataset.id));wrap.querySelectorAll('.discover').forEach(b=>b.onclick=()=>discoverProviderModels(b.closest('.provider').dataset.id));refreshSelects()}
 function refreshSelects(){const opts=providers.map(p=>`<option value="${p.id}">${esc(p.name)} — ${esc(p.model||'model not set')}</option>`).join('');['translator','judge','answers'].forEach(id=>{let el=$('#'+id), prev=[...el.selectedOptions].map(o=>o.value);el.innerHTML=opts;[...el.options].forEach((o,i)=>o.selected=prev.length?prev.includes(o.value):(id==='answers'?i===0:i===0));});}
 function renderLangs(filter=''){const f=filter.toLowerCase();$('#langs').innerHTML=languageData.filter(x=>!f||x[0].toLowerCase().includes(f)||x[1].includes(f)).map((x,i)=>`<label class="lang"><input type="checkbox" value="${x[1]}" data-name="${esc(x[0])}" ${['en','es','hi','ar','te'].includes(x[1])?'checked':''}><span>${esc(x[0])}</span><small>${x[1]}</small></label>`).join('')}
 function selectedLangs(){return [...document.querySelectorAll('#langs input:checked')].map(x=>({code:x.value,name:x.dataset.name}))}
@@ -777,9 +810,9 @@ function normalizedUsage(raw){
   return {input:input==null?null:Number(input),output:output==null?null:Number(output),total:total==null?null:Number(total)};
 }
 const __rawCallProvider=callProvider;
-callProvider=async function(p,messages,signal){
+callProvider=async function(p,messages,signal,requestOptions={}){
   const t=performance.now();
-  const out=await __rawCallProvider(p,messages,signal);
+  const out=await __rawCallProvider(p,messages,signal,requestOptions);
   out.latencyMs=Math.max(0,Math.round(performance.now()-t));
   out.usage=normalizedUsage(out.raw);
   return out;
@@ -850,7 +883,7 @@ function setStatus(t,err=false){let s=$('#runStatus');s.textContent=t;s.classNam
 function exportFile(name,type,data){let blob=new Blob([data],{type}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
 renderProviderCatalog();document.getElementById('addPresetProvider').onclick=()=>addProviderPreset(document.getElementById('providerCatalog').value);$('#addOllama').onclick=()=>addProvider('ollama');$('#addOpenAI').onclick=()=>addProvider('openai');$('#addGemini').onclick=()=>addProvider('gemini');$('#langSearch').oninput=e=>renderLangs(e.target.value);$('#top10').onclick=()=>{document.querySelectorAll('#langs input').forEach((x,i)=>x.checked=i<10)};$('#clearLang').onclick=()=>document.querySelectorAll('#langs input').forEach(x=>x.checked=false);$('#runBtn').onclick=runBenchmark;$('#cancelBtn').onclick=()=>aborter?.abort();$('#closeModal').onclick=()=>$('#modal').classList.remove('show');$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')};$('#exportJson').onclick=()=>exportFile('vihaa-lingua-360-results.json','application/json',JSON.stringify(runRecords,null,2));$('#exportCsv').onclick=()=>{let h=['language','code','provider','model','translated_prompt','response','meaning_consistency','completeness','safety_consistency','unsupported_claim_risk','status','error'];let rows=runRecords.map(r=>[r.langName,r.langCode,r.providerName,r.model,r.translatedPrompt,r.answer,r.metrics?.meaning_consistency,r.metrics?.completeness,r.metrics?.safety_consistency,r.metrics?.unsupported_claim_risk,r.status,r.error].map(csvEscape).join(','));exportFile('vihaa-lingua-360-results.csv','text/csv',[h.join(','),...rows].join('\n'))};
-renderLangs();renderProviderCatalog();addProviderPreset('gemini');
+renderLangs();renderProviderCatalog();loadSavedProviders();
 
 // --- screenshot-style real dashboard enhancements ---
 languageData.push(
@@ -1144,7 +1177,7 @@ function exploreHistory(){try{return JSON.parse(localStorage.getItem(EXPLORE_HIS
 function saveExploreHistory(x){const h=exploreHistory();h.unshift({q:x.question,lang:x.langCode,langName:x.langName,depth:x.depth,provider:x.providerName,at:x.at});localStorage.setItem(EXPLORE_HISTORY_KEY,JSON.stringify(h.slice(0,8)));renderExploreHistory()}
 function renderExploreHistory(){const box=document.getElementById('exploreHistory');if(!box)return;box.innerHTML=exploreHistory().map((x,i)=>'<button class="history-chip" data-i="'+i+'" title="'+esc(x.q)+'">'+esc(x.langName+': '+x.q)+'</button>').join('');box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const x=exploreHistory()[Number(b.dataset.i)];if(!x)return;document.getElementById('exploreQuestion').value=x.q;document.getElementById('exploreLang').value=x.lang;document.getElementById('exploreDepth').value=x.depth||'detailed'})}
 function populateExploreLanguages(){const el=document.getElementById('exploreLang');if(!el)return;const seen=new Set();el.innerHTML=languageData.filter(([n,c])=>{if(seen.has(c))return false;seen.add(c);return true}).map(([n,c])=>'<option value="'+esc(c)+'">'+esc(n)+'</option>').join('');el.value='en'}
-function refreshExploreProviders(){const el=document.getElementById('exploreProvider');if(!el)return;const prev=el.value;el.innerHTML='<option value="">Select connected provider</option>'+providers.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name+' — '+(p.model||'model not set'))+'</option>').join('');if([...el.options].some(o=>o.value===prev))el.value=prev}
+function refreshExploreProviders(){const el=document.getElementById('exploreProvider');if(!el)return;const prev=el.value;el.innerHTML='<option value="">Select connected provider</option>'+providers.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name+' — '+(p.model||'model not set'))+'</option>').join('');if(prev&&[...el.options].some(o=>o.value===prev))el.value=prev;else{const ready=providers.find(p=>p.type==='ollama'&&p.model)||providers.find(p=>p.model);if(ready)el.value=ready.id}}
 const __exploreRefresh=refreshSelects;refreshSelects=function(){__exploreRefresh();refreshExploreProviders();};
 function exploreSchemaPrompt(langName,depth){
  const depthRule=depth==='simple'
@@ -1399,7 +1432,7 @@ let exploreController=null,exploreTimer=null,exploreStartedAt=0;
 document.getElementById('stopExplore').onclick=()=>{if(exploreController){exploreController.abort();document.getElementById('exploreStatus').textContent='Stopping generation…'}};
 document.getElementById('askExplore').onclick=async()=>{
  syncProviders();const q=document.getElementById('exploreQuestion').value.trim(),code=document.getElementById('exploreLang').value,depth=document.getElementById('exploreDepth').value,p=providers.find(x=>x.id===document.getElementById('exploreProvider').value),st=document.getElementById('exploreStatus'),load=document.getElementById('exploreLoading');const lang=(languageData.find(x=>x[1]===code)||[code,code])[0];
- if(!q)return st.textContent='Enter a question.';if(!p)return st.textContent='Select and configure a real AI provider first.';if(!p.model)return st.textContent='The selected provider needs a model ID.';
+ if(!q){st.textContent='Enter a question.';document.getElementById('exploreQuestion').focus();return}if(!p){st.textContent='No AI provider is selected. Open Provider Hub and connect one.';window.__openVihaaProviderHub?.();return}if(!p.model){st.textContent='The selected provider needs a model ID.';window.__openVihaaProviderHub?.();return}
  const stopBtn=document.getElementById('stopExplore'),elapsed=document.getElementById('exploreElapsed');document.getElementById('askExplore').disabled=true;stopBtn.hidden=false;load.classList.add('on');st.textContent='Getting a real '+lang+' answer from '+p.name+'…';exploreController=new AbortController();exploreStartedAt=Date.now();elapsed.hidden=false;elapsed.textContent='Elapsed 0s';clearInterval(exploreTimer);exploreTimer=setInterval(()=>{elapsed.textContent='Elapsed '+Math.floor((Date.now()-exploreStartedAt)/1000)+'s'},1000);
  try{const ctrl=exploreController,researchMode=document.getElementById('exploreResearchMode').value;let res=null,research=null;
  if(researchMode==='deep'){
@@ -1446,7 +1479,7 @@ async function speakExploreReport(){
 document.getElementById('speakExplore').onclick=speakExploreReport;
 document.getElementById('printExplore').onclick=()=>{if(!currentExplore)return;window.print()};
 document.getElementById('shareExplore').onclick=async()=>{if(!currentExplore)return;const payload={q:currentExplore.question,lang:currentExplore.langCode,depth:currentExplore.depth};const u=location.origin+location.pathname+'#ask='+base64UrlEncode(JSON.stringify(payload));try{await navigator.clipboard.writeText(u);document.getElementById('exploreStatus').textContent='Ask link copied. It contains the question/settings, not the provider answer or API key.'}catch{document.getElementById('exploreStatus').textContent=u}};
-document.getElementById('benchmarkExplore').onclick=()=>{if(!currentExplore)return;document.getElementById('prompt').value=currentExplore.question;const target=currentExplore.langCode;document.querySelectorAll('#langs input').forEach(x=>x.checked=x.value==='en'||x.value===target);document.getElementById('maxLang').value=target==='en'?1:2;document.querySelector('.flow-top').scrollIntoView({behavior:'smooth',block:'start'});setStatus('Explore question loaded into Benchmark Mode. Select answer models and run the real global test.')};
+document.getElementById('benchmarkExplore').onclick=()=>{if(!currentExplore)return;document.getElementById('prompt').value=currentExplore.question;const target=currentExplore.langCode;document.querySelectorAll('#langs input').forEach(x=>x.checked=x.value==='en'||x.value===target);document.getElementById('maxLang').value=target==='en'?1:2;vihaaSetView('benchmark',false);setTimeout(()=>document.querySelector('.flow-top')?.scrollIntoView({behavior:'smooth',block:'start'}),40);setStatus('Explore question loaded into Benchmark Mode. Select answer models and run the real global test.')};
 const ExploreSR=window.SpeechRecognition||window.webkitSpeechRecognition;
 document.getElementById('exploreVoice').onclick=()=>{const st=document.getElementById('exploreStatus');if(!ExploreSR)return st.textContent='Voice recognition is not available in this browser.';try{exploreRecognizer=new ExploreSR();exploreRecognizer.lang=document.getElementById('exploreLang').value;exploreRecognizer.interimResults=false;exploreRecognizer.onstart=()=>st.textContent='Listening…';exploreRecognizer.onresult=e=>{const t=e.results?.[0]?.[0]?.transcript||'';document.getElementById('exploreQuestion').value=t;st.textContent=t?'Voice question captured.':'No speech captured.'};exploreRecognizer.onerror=e=>st.textContent='Voice error: '+e.error;exploreRecognizer.start()}catch(e){st.textContent=e.message}};
 function loadAskLink(){if(!location.hash.startsWith('#ask='))return;try{const d=JSON.parse(base64UrlDecode(location.hash.slice(5)));if(d.q)document.getElementById('exploreQuestion').value=d.q;if(d.lang)document.getElementById('exploreLang').value=d.lang;if(d.depth)document.getElementById('exploreDepth').value=d.depth;document.getElementById('exploreStatus').textContent='Shared Ask configuration loaded. Connect your own real provider to answer it.';document.getElementById('exploreMode').scrollIntoView({block:'start'})}catch{}}
