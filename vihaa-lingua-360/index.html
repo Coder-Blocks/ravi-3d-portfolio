@@ -81,7 +81,7 @@ main{max-width:1560px;margin:auto;padding:14px 12px 40px}.flow-top{display:grid;
 .answer-loading{display:none;margin-top:8px;height:5px;border-radius:99px;background:#e6edf7;overflow:hidden}.answer-loading.on{display:block}.answer-loading i{display:block;height:100%;width:40%;background:linear-gradient(90deg,#168cff,#6d4eff);animation:loadslide 1.1s linear infinite}@keyframes loadslide{0%{transform:translateX(-110%)}100%{transform:translateX(360%)}}
 @media(max-width:1000px){.explore-hero{grid-template-columns:1fr}.explore-copy{min-height:250px}.explore-controls{grid-template-columns:1fr 1fr}.answer-sections,.answer-footer{grid-template-columns:1fr}}@media(max-width:650px){.explore-copy{padding:22px}.explore-copy h1{font-size:27px}.explore-controls{grid-template-columns:1fr}.explore-points{grid-template-columns:1fr}.answer-section.full{grid-column:auto}}
 
-.pdf-export-root{position:fixed;left:-20000px;top:0;width:794px;background:#fff;color:#12213a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+.pdf-export-root{position:absolute;left:0;top:0;z-index:-1;pointer-events:none;width:794px;background:#fff;color:#12213a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
 .pdf-page{width:794px;min-height:1123px;background:#fff;padding:0 0 48px;position:relative}
 .pdf-cover{background:linear-gradient(135deg,#06162f,#0a2c61);color:#fff;padding:38px 44px 34px;min-height:245px;position:relative;overflow:hidden}
 .pdf-cover:after{content:"";position:absolute;width:310px;height:310px;border-radius:50%;right:-90px;top:-90px;background:radial-gradient(circle,#3bcaff55,transparent 68%)}
@@ -97,7 +97,7 @@ main{max-width:1560px;margin:auto;padding:14px 12px 40px}.flow-top{display:grid;
 .pdf-table{width:100%;border-collapse:collapse;font-size:7.2px}.pdf-table th{background:#edf4ff;color:#34506f;text-align:left;padding:6px;border:1px solid #dbe6f3}.pdf-table td{padding:6px;border:1px solid #e2eaf4;vertical-align:top;color:#334b67}.pdf-table .small-answer{max-height:80px;overflow:hidden;white-space:pre-wrap}.pdf-badge{display:inline-block;border-radius:99px;padding:2px 5px;background:#eaf6ef;color:#18834f;font-size:6.8px}.pdf-badge.bad{background:#feecee;color:#be3347}
 .pdf-subpage{break-before:page;padding:32px 44px 48px;min-height:1123px;position:relative}.pdf-subpage .pdf-footer{left:44px;right:44px}
 .pdf-summary-box{border:1px solid #dfe8f4;border-radius:10px;padding:12px;background:#fbfdff;margin-bottom:10px}.pdf-summary-box h3{margin:0 0 6px;color:#1b487a;font-size:11px}.pdf-summary-box p{margin:0;font-size:9px;line-height:1.55;color:#3a526d}
-@media print{body>*:not(.pdf-export-root){display:none!important}.pdf-export-root{position:static!important;left:auto!important;width:794px!important}}
+@media print{body>*:not(.pdf-export-root){display:none!important}.pdf-export-root{display:block!important;position:static!important;left:auto!important;top:auto!important;z-index:auto!important;width:794px!important}}
 
 .research-portal{margin-top:12px;background:linear-gradient(135deg,#06162f,#0b2d61);color:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(8,31,65,.18)}
 .research-portal-head{padding:20px 22px 12px}.research-portal-head small{color:#68d8ff;font-size:8px;letter-spacing:1.3px}.research-portal-head h2{margin:5px 0 5px;font-size:20px}.research-portal-head p{margin:0;color:#c6d8ec;font-size:9px;max-width:850px;line-height:1.6}
@@ -343,10 +343,49 @@ async function downloadStyledPdf(kind){
  const html=kind==='explore'?makeExplorePdfHtml():makeBenchmarkPdfHtml();
  if(!html){if(st)st.textContent=kind==='explore'?'Generate an Explore answer first.':'Run a benchmark first.';return}
  if(!(await ensureHtml2Pdf())){if(st)st.textContent='PDF engine could not load. Check internet access and try again.';return}
- root.innerHTML=html;root.style.display='block';if(st)st.textContent='Designing PDF…';
- const safeTopic=String(currentExplore?.data?.title||'Knowledge-Report').replace(/[^a-zA-Z0-9-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Knowledge-Report';const name=kind==='explore'?'VIHAA-'+safeTopic+'-'+(currentExplore?.langCode||'report')+'.pdf':'VIHAA-LINGUA-360-Benchmark-'+(currentRunId||'report')+'.pdf';
- const opt={margin:0,filename:name,image:{type:'jpeg',quality:.96},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'pt',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],avoid:['.pdf-section','.pdf-stat','.pdf-summary-box']}};
- try{await html2pdf().set(opt).from(root).save();if(st)st.textContent='Designed PDF downloaded.'}catch(e){if(st)st.textContent='PDF generation failed: '+e.message}finally{setTimeout(()=>{root.innerHTML='';root.style.display='none'},300)}
+ root.innerHTML=html;
+ root.style.display='block';
+ root.style.position='absolute';
+ root.style.left='0';
+ root.style.top='0';
+ root.style.zIndex='-1';
+ root.style.pointerEvents='none';
+ root.style.width='794px';
+ if(st)st.textContent='Preparing designed PDF…';
+ try{
+   if(document.fonts?.ready)await document.fonts.ready;
+   await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+   const page=root.querySelector('.pdf-page');
+   if(!page||root.scrollWidth<700||root.scrollHeight<500)throw new Error('PDF layout did not render before capture.');
+   // Probe the first page. This catches the exact blank-PDF failure seen in Chrome.
+   if(typeof html2canvas==='function'){
+     const probe=await html2canvas(page,{scale:.35,useCORS:true,backgroundColor:'#ffffff',logging:false,width:794,height:Math.min(1123,page.scrollHeight||1123),windowWidth:794,scrollX:0,scrollY:0});
+     const ctx=probe.getContext('2d',{willReadFrequently:true});
+     if(ctx){
+       const w=probe.width,h=probe.height,data=ctx.getImageData(0,0,w,h).data;
+       let nonWhite=0,samples=0,step=Math.max(4,Math.floor(Math.min(w,h)/90));
+       for(let y=0;y<h;y+=step){for(let x=0;x<w;x+=step){const i=(y*w+x)*4;samples++;if(data[i]<245||data[i+1]<245||data[i+2]<245)nonWhite++;}}
+       if(samples&&nonWhite/samples<.002)throw new Error('PDF capture was blank. Please refresh once and retry.');
+     }
+   }
+   if(st)st.textContent='Designing PDF pages…';
+   const safeTopic=String(currentExplore?.data?.title||'Knowledge-Report').replace(/[^a-zA-Z0-9-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Knowledge-Report';
+   const name=kind==='explore'?'VIHAA-'+safeTopic+'-'+(currentExplore?.langCode||'report')+'.pdf':'VIHAA-LINGUA-360-Benchmark-'+(currentRunId||'report')+'.pdf';
+   const opt={
+     margin:0,
+     filename:name,
+     image:{type:'jpeg',quality:.97},
+     html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,windowWidth:794,scrollX:0,scrollY:0},
+     jsPDF:{unit:'pt',format:'a4',orientation:'portrait',compress:true},
+     pagebreak:{mode:['css','legacy'],avoid:['.pdf-stat','.pdf-summary-box','.pdf-method-card','.pdf-findings']}
+   };
+   await html2pdf().set(opt).from(root).save();
+   if(st)st.textContent='Designed PDF downloaded successfully.';
+ }catch(e){
+   if(st)st.textContent='PDF generation failed: '+e.message;
+ }finally{
+   setTimeout(()=>{root.innerHTML='';root.style.display='none'},500);
+ }
 }
 window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById('downloadExplorePdf'),bm=document.getElementById('downloadBenchmarkPdf');if(ex)ex.onclick=()=>downloadStyledPdf('explore');if(bm)bm.onclick=()=>downloadStyledPdf('benchmark');});
 
@@ -1189,9 +1228,12 @@ function exploreSchemaPrompt(langName,depth){
 }
 async function getExploreAnswer(provider,question,langName,depth,signal){
  const sys=exploreSchemaPrompt(langName,depth);
- const outputLimit=depth==='expert'?3200:(depth==='detailed'?2400:1400);const out=await callProvider(provider,[{role:'system',content:sys},{role:'user',content:question}],signal,{num_ctx:8192,num_predict:outputLimit,temperature:.2,format:'json'});
+ const outputLimit=depth==='expert'?3800:(depth==='detailed'?2600:1600);const out=await callProvider(provider,[{role:'system',content:sys},{role:'user',content:question}],signal,{num_ctx:8192,num_predict:outputLimit,temperature:.2,format:'json'});
  let data=null;try{data=parseJsonLoose(out.text)}catch{}
- if(!data)data={title:'Answer',subtitle:'',labels:{executive_summary:'Summary',key_facts:'Key Facts',overview:'Overview',important_notes:'Important Notes',faqs:'FAQs',related_questions:'Related Questions',sources:'Sources / Evidence'},executive_summary:out.text,key_facts:[],overview:out.text,sections:[],important_notes:[],faqs:[],related_questions:[],source_note:'The provider did not return structured JSON. The raw answer is shown and has not been independently verified.'};
+ if(!data){
+   const looksJson=/^\s*[\[{]/.test(out.text||'');
+   data={title:langName==='Telugu'?'నివేదిక':'Answer',subtitle:'',labels:{executive_summary:langName==='Telugu'?'సంక్షిప్త సమగ్ర వివరణ':'Summary',key_facts:langName==='Telugu'?'ముఖ్య విషయాలు':'Key Facts',overview:langName==='Telugu'?'పూర్తి అవలోకనం':'Overview',important_notes:langName==='Telugu'?'ముఖ్య గమనికలు':'Important Notes',faqs:langName==='Telugu'?'తరచుగా అడిగే ప్రశ్నలు':'FAQs',related_questions:langName==='Telugu'?'సంబంధిత ప్రశ్నలు':'Related Questions',sources:langName==='Telugu'?'మూలాలు / ఆధారాల గమనిక':'Sources / Evidence'},executive_summary:looksJson?(langName==='Telugu'?'AI structured response పూర్తి JSONగా ముగియలేదు. అదే ప్రశ్నను మళ్లీ Generate చేస్తే clean report వస్తుంది.':'The AI structured response did not finish as valid JSON. Regenerate the same question for a clean report.'):out.text,key_facts:[],overview:looksJson?'':out.text,sections:[],important_notes:[],faqs:[],related_questions:[],source_note:'The provider response could not be parsed as the requested structured JSON and has not been independently verified.'};
+ }
  return {data,out};
 }
 
