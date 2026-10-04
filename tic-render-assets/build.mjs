@@ -98,11 +98,11 @@ await fs.writeFile(photoPath, Buffer.from(photoB64, 'base64'));
 // Runtime enhancement file is committed as plain JS.
 await fs.copyFile(path.resolve('tic-render-assets/overlay.js'), path.join(OUT, 'tic-overlay.js'));
 
-const fixedFounderSource = path.resolve('tic-render-assets/ravi-founder-fixed.jpg');
 try {
   const fixedFounderDest = path.join(OUT, 'assets', 'team', 'ravi_kumar_sarma_fixed.jpg');
+  const fixedFounderB64 = (await fs.readFile(path.resolve('tic-render-assets/ravi-founder-fixed.b64'), 'utf8')).trim();
   await fs.mkdir(path.dirname(fixedFounderDest), { recursive: true });
-  await fs.copyFile(fixedFounderSource, fixedFounderDest);
+  await fs.writeFile(fixedFounderDest, Buffer.from(fixedFounderB64, 'base64'));
   console.log('installed fixed founder portrait');
 } catch (err) {
   console.warn('fixed founder portrait unavailable:', err.message);
