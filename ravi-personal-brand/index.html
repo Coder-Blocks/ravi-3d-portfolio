@@ -38,6 +38,7 @@ h1,h2,h3{line-height:.98;letter-spacing:-.05em;margin:0;font-family:"Arial Black
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero:before,.cinema-stick:before,.cinema-stick:after{animation:none}.reveal{transform:none;transition:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://garimella-ravi-kumar-sarma.onrender.com/#person","name":"Garimella Ravi Kumar Sarma","url":"https://garimella-ravi-kumar-sarma.onrender.com/","image":"https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcLljZbbQ2Up01WOT9nbHnOtt/54fb2d7b-cad9-4731-84f9-19395efdc7cf.jpg","jobTitle":"AI Product Builder, Software and Web Developer","description":"AI Product Builder, Software and Web Developer, and Business Development Professional in India.","sameAs":["https://www.linkedin.com/in/ravikumarsarma","https://github.com/Coder-Blocks"]},{"@type":"WebSite","name":"Garimella Ravi Kumar Sarma","url":"https://garimella-ravi-kumar-sarma.onrender.com/","publisher":{"@id":"https://garimella-ravi-kumar-sarma.onrender.com/#person"}}]}</script>
+<link rel="stylesheet" href="assets/cinematic-motion.css">
 </head>
 <body>
 <nav class="nav"><a class="brand" href="#top"><b>GRKS</b><span>Product Builder</span></a><div class="navlinks"><a href="#about">About</a><a href="#work">Work</a><a href="featured-products/">Featured Products</a><a href="collaboration/">Collaboration</a><a href="#expertise">Expertise</a><a href="#contact">Contact</a></div></nav>
@@ -55,4 +56,5 @@ h1,h2,h3{line-height:.98;letter-spacing:-.05em;margin:0;font-family:"Arial Black
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const cp=document.querySelector('.cinema-portrait'),cin=document.querySelector('.cinema');addEventListener('scroll',()=>{if(!cp||!cin)return;const r=cin.getBoundingClientRect();const p=Math.max(0,Math.min(1,-r.top/(r.height-innerHeight)));cp.style.setProperty('--scroll-shift',((p-.5)*120).toFixed(1)+'px')},{passive:true});
 </script>
+<script src="assets/cinematic-motion.js" defer></script>
 </body></html>
