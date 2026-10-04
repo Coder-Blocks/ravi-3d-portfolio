@@ -1,14 +1,80 @@
 (() => {
   'use strict';
-  const CLEAN_PHOTO = '/assets/team/ravi_kumar_sarma_clean.webp?v=3';
+
+  const CLEAN_PHOTO = '/assets/team/ravi_kumar_sarma_fixed.jpg?v=5';
   const LINKEDIN = 'https://www.linkedin.com/in/ravikumarsarma';
+  const ROUTES = new Map([
+    ['Courses', '/courses/'],
+    ['Idea Forge', '/idea-forge/'],
+    ['Careers', '/careers/']
+  ]);
+  const SECTION_BY_LABEL = new Map([
+    ['Home','hero'],['Services','services'],['Team','team'],['Portfolio','portfolio'],['About','about'],['Contact','contact']
+  ]);
+
+  function normalizeLabel(el) {
+    return String(el?.textContent || '').replace(/\s+/g,' ').trim();
+  }
+
+  function ensureNavCss() {
+    if (document.getElementById('tic-nav-hotfix-style')) return;
+    const s = document.createElement('style');
+    s.id = 'tic-nav-hotfix-style';
+    s.textContent = `
+      #desktop-nav-links button > span { display:none !important; }
+      #desktop-nav-links button { box-shadow:none !important; }
+      #desktop-nav-links button.tic-active-nav-fixed {
+        color:#FF6600 !important;
+        box-shadow: inset 0 -2px 0 #FF6600 !important;
+      }
+      #desktop-nav-links button:not(.tic-active-nav-fixed) { color:#CBD5E1 !important; }
+      #desktop-nav-links button:not(.tic-active-nav-fixed):hover { color:#FF6600 !important; }
+    `;
+    document.head.appendChild(s);
+  }
+
+  function updateActiveNav() {
+    const nav = document.getElementById('desktop-nav-links');
+    if (!nav || location.pathname !== '/') return;
+    const buttons = [...nav.querySelectorAll('button')];
+    let activeLabel = 'Home';
+    const y = window.scrollY + 165;
+
+    for (const [label, sectionId] of SECTION_BY_LABEL.entries()) {
+      const el = document.getElementById(sectionId);
+      if (!el) continue;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      if (y >= top) activeLabel = label;
+    }
+
+    buttons.forEach((btn) => {
+      const label = normalizeLabel(btn);
+      btn.classList.toggle('tic-active-nav-fixed', label === activeLabel);
+    });
+  }
+
+  function installRouteGuard() {
+    if (window.__ticRouteGuardInstalled) return;
+    window.__ticRouteGuardInstalled = true;
+    document.addEventListener('click', (event) => {
+      const btn = event.target?.closest?.('#desktop-nav-links button, #mobile-navigation-dropdown button');
+      if (!btn) return;
+      const label = normalizeLabel(btn);
+      const route = ROUTES.get(label);
+      if (!route) return;
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+      window.location.assign(route);
+    }, true);
+  }
 
   function updateFounder() {
     document.querySelectorAll('img').forEach((img) => {
       const alt = (img.getAttribute('alt') || '').toLowerCase();
       const src = img.getAttribute('src') || '';
       if (alt.includes('ravi kumar sarma') || src.includes('ravi_kumar_sarma')) {
-        if (!src.includes('ravi_kumar_sarma_clean.webp')) img.setAttribute('src', CLEAN_PHOTO);
+        if (!src.includes('ravi_kumar_sarma_fixed.jpg')) img.setAttribute('src', CLEAN_PHOTO);
         img.setAttribute('alt', 'Ravi Kumar Sarma Garimella — Founder & CEO, Think Innovative Creations (TIC)');
         img.style.background = 'transparent';
       }
@@ -34,7 +100,7 @@
   function placeOfficialAttribution() {
     const block = document.getElementById('official-tic-attribution');
     const team = document.getElementById('team');
-    if (block && team && team.nextElementSibling !== block) {
+    if (block && team && team.nextElementSibling !== block && location.pathname === '/') {
       team.insertAdjacentElement('afterend', block);
     }
   }
@@ -51,20 +117,28 @@
   }
 
   function applyAll() {
+    ensureNavCss();
+    installRouteGuard();
     updateFounder();
     placeOfficialAttribution();
     updateFooter();
+    updateActiveNav();
   }
+
+  window.addEventListener('scroll', updateActiveNav, { passive:true });
+  window.addEventListener('resize', updateActiveNav, { passive:true });
 
   let cycles = 0;
   const observer = new MutationObserver(() => {
     applyAll();
-    if (++cycles > 80) observer.disconnect();
+    if (++cycles > 120) observer.disconnect();
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyAll, { once: true });
   applyAll();
-  setTimeout(applyAll, 500);
-  setTimeout(applyAll, 1500);
+  setTimeout(applyAll, 300);
+  setTimeout(applyAll, 900);
+  setTimeout(applyAll, 1800);
   setTimeout(applyAll, 3500);
 })();
