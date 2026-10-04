@@ -276,7 +276,8 @@ main{max-width:1680px;padding:18px 18px 44px}.ui-view-hidden{display:none!import
 .pdf-bars .kr-bar-row{grid-template-columns:100px 1fr 55px;font-size:7px;margin:5px 0}.pdf-bars .kr-bar-track{height:8px}
 @media(max-width:800px){.kr-method-grid,.kr-findings-grid,.kr-conclusion{grid-template-columns:1fr}}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
 function pdfSafe(v){return String(v??'')}
 function pdfList(title,items,rtl=false){
  if(!Array.isArray(items)||!items.length)return '';
@@ -336,8 +337,7 @@ async function downloadStyledPdf(kind){
  const opt={margin:0,filename:name,image:{type:'jpeg',quality:.96},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'pt',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],avoid:['.pdf-section','.pdf-stat','.pdf-summary-box']}};
  try{await html2pdf().set(opt).from(root).save();if(st)st.textContent='Designed PDF downloaded.'}catch(e){if(st)st.textContent='PDF generation failed: '+e.message}finally{setTimeout(()=>{root.innerHTML='';root.style.display='none'},300)}
 }
-document.getElementById('downloadExplorePdf').onclick=()=>downloadStyledPdf('explore');
-document.getElementById('downloadBenchmarkPdf').onclick=()=>downloadStyledPdf('benchmark');
+window.addEventListener('DOMContentLoaded',()=>{const ex=document.getElementById('downloadExplorePdf'),bm=document.getElementById('downloadBenchmarkPdf');if(ex)ex.onclick=()=>downloadStyledPdf('explore');if(bm)bm.onclick=()=>downloadStyledPdf('benchmark');});
 
 
 </script>
@@ -1413,14 +1413,47 @@ document.getElementById('askExplore').onclick=async()=>{
  currentExplore={question:q,langCode:code,langName:lang,depth,researchMode,providerName:p.name,model:p.model,at:new Date().toISOString(),data:res.data,raw:res.out.raw,latencyMs:res.out.latencyMs,usage:res.out.usage,researchQueries:research?.queries||[],researchSource:research?.sourceType||null};renderExplore(res.data,currentExplore);saveExploreHistory(currentExplore);st.textContent=researchMode==='deep'?('Deep web research complete • '+(res.data.sources||[]).length+' sources • '+lang):('Real answer received in '+lang+'.');document.getElementById('exploreAnswer').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){st.textContent=e?.name==='AbortError'?'Generation stopped by you.':e.message}finally{clearInterval(exploreTimer);exploreTimer=null;exploreController=null;document.getElementById('askExplore').disabled=false;document.getElementById('stopExplore').hidden=true;document.getElementById('exploreElapsed').hidden=true;load.classList.remove('on')}
 };
 document.getElementById('copyExplore').onclick=async()=>{const t=explorePlainText();if(!t)return;try{await navigator.clipboard.writeText(t);document.getElementById('exploreStatus').textContent='Answer copied.'}catch{document.getElementById('exploreStatus').textContent='Copy was blocked by the browser.'}};
-document.getElementById('speakExplore').onclick=()=>{if(!currentExplore)return;if(!('speechSynthesis'in window))return document.getElementById('exploreStatus').textContent='Speech synthesis unavailable in this browser.';speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(explorePlainText());u.lang=currentExplore.langCode;u.onstart=()=>document.getElementById('exploreStatus').textContent='Speaking answer…';u.onend=()=>document.getElementById('exploreStatus').textContent='Speech playback complete.';speechSynthesis.speak(u)};
+let exploreSpeechCancelled=false;
+function speechLocale(code){const m={te:'te-IN',hi:'hi-IN',en:'en-US',ta:'ta-IN',kn:'kn-IN',ml:'ml-IN',mr:'mr-IN',bn:'bn-IN',gu:'gu-IN',pa:'pa-IN',ur:'ur-IN'};return m[code]||code}
+function speechChunks(text,max=900){
+ const paras=String(text||'').replace(/\r/g,'').split(/\n+/).map(x=>x.trim()).filter(Boolean),out=[];
+ for(const p of paras){if(p.length<=max){out.push(p);continue}let rest=p;while(rest.length>max){let cut=Math.max(rest.lastIndexOf('. ',max),rest.lastIndexOf('। ',max),rest.lastIndexOf('? ',max),rest.lastIndexOf('! ',max),rest.lastIndexOf(' ',max));if(cut<max*.55)cut=max;out.push(rest.slice(0,cut+1).trim());rest=rest.slice(cut+1).trim()}if(rest)out.push(rest)}
+ return out;
+}
+function bestSpeechVoice(locale){
+ const voices=speechSynthesis.getVoices(),base=String(locale).split('-')[0].toLowerCase();
+ return voices.find(v=>v.lang&&v.lang.toLowerCase()===String(locale).toLowerCase())||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith(base))||null;
+}
+async function speakExploreReport(){
+ const st=document.getElementById('exploreStatus'),btn=document.getElementById('speakExplore');
+ if(!currentExplore){st.textContent='Generate or reopen a report first.';return}
+ if(!('speechSynthesis'in window)){st.textContent='Speech synthesis unavailable in this browser.';return}
+ if(speechSynthesis.speaking||speechSynthesis.pending){exploreSpeechCancelled=true;speechSynthesis.cancel();btn.textContent='🔊 Listen';st.textContent='Speech stopped.';return}
+ const text=explorePlainText();if(!text.trim()){st.textContent='No report text available to read.';return}
+ exploreSpeechCancelled=false;const locale=speechLocale(currentExplore.langCode),chunks=speechChunks(text),voice=bestSpeechVoice(locale);let i=0;
+ btn.textContent='■ Stop Listening';st.textContent='Starting '+(currentExplore.langName||'report')+' speech…';
+ const next=()=>{
+   if(exploreSpeechCancelled||i>=chunks.length){btn.textContent='🔊 Listen';if(!exploreSpeechCancelled)st.textContent='Speech playback complete.';return}
+   const u=new SpeechSynthesisUtterance(chunks[i]);u.lang=locale;if(voice)u.voice=voice;u.rate=.95;u.pitch=1;
+   u.onstart=()=>{st.textContent='Speaking report… '+(i+1)+' / '+chunks.length};
+   u.onend=()=>{i++;setTimeout(next,40)};
+   u.onerror=e=>{btn.textContent='🔊 Listen';st.textContent='Speech error: '+(e.error||'browser voice unavailable')+'. Check Windows/Chrome voice support for '+locale+'.'};
+   speechSynthesis.speak(u);
+ };
+ if(!speechSynthesis.getVoices().length){await new Promise(resolve=>{let done=false;const finish=()=>{if(!done){done=true;resolve()}};speechSynthesis.onvoiceschanged=finish;setTimeout(finish,700)})}
+ next();
+}
+document.getElementById('speakExplore').onclick=speakExploreReport;
 document.getElementById('printExplore').onclick=()=>{if(!currentExplore)return;window.print()};
 document.getElementById('shareExplore').onclick=async()=>{if(!currentExplore)return;const payload={q:currentExplore.question,lang:currentExplore.langCode,depth:currentExplore.depth};const u=location.origin+location.pathname+'#ask='+base64UrlEncode(JSON.stringify(payload));try{await navigator.clipboard.writeText(u);document.getElementById('exploreStatus').textContent='Ask link copied. It contains the question/settings, not the provider answer or API key.'}catch{document.getElementById('exploreStatus').textContent=u}};
 document.getElementById('benchmarkExplore').onclick=()=>{if(!currentExplore)return;document.getElementById('prompt').value=currentExplore.question;const target=currentExplore.langCode;document.querySelectorAll('#langs input').forEach(x=>x.checked=x.value==='en'||x.value===target);document.getElementById('maxLang').value=target==='en'?1:2;document.querySelector('.flow-top').scrollIntoView({behavior:'smooth',block:'start'});setStatus('Explore question loaded into Benchmark Mode. Select answer models and run the real global test.')};
 const ExploreSR=window.SpeechRecognition||window.webkitSpeechRecognition;
 document.getElementById('exploreVoice').onclick=()=>{const st=document.getElementById('exploreStatus');if(!ExploreSR)return st.textContent='Voice recognition is not available in this browser.';try{exploreRecognizer=new ExploreSR();exploreRecognizer.lang=document.getElementById('exploreLang').value;exploreRecognizer.interimResults=false;exploreRecognizer.onstart=()=>st.textContent='Listening…';exploreRecognizer.onresult=e=>{const t=e.results?.[0]?.[0]?.transcript||'';document.getElementById('exploreQuestion').value=t;st.textContent=t?'Voice question captured.':'No speech captured.'};exploreRecognizer.onerror=e=>st.textContent='Voice error: '+e.error;exploreRecognizer.start()}catch(e){st.textContent=e.message}};
 function loadAskLink(){if(!location.hash.startsWith('#ask='))return;try{const d=JSON.parse(base64UrlDecode(location.hash.slice(5)));if(d.q)document.getElementById('exploreQuestion').value=d.q;if(d.lang)document.getElementById('exploreLang').value=d.lang;if(d.depth)document.getElementById('exploreDepth').value=d.depth;document.getElementById('exploreStatus').textContent='Shared Ask configuration loaded. Connect your own real provider to answer it.';document.getElementById('exploreMode').scrollIntoView({block:'start'})}catch{}}
-populateExploreLanguages();refreshExploreProviders();renderExploreHistory();loadAskLink();
+function syncExploreGenerateLabel(){const mode=document.getElementById('exploreResearchMode')?.value,b=document.getElementById('askExplore');if(b)b.textContent=mode==='deep'?'Generate A–Z Research Report →':'Generate Knowledge Report →'}
+document.querySelectorAll('.rs-mode-card').forEach(card=>card.addEventListener('click',()=>setTimeout(syncExploreGenerateLabel,0)));
+document.getElementById('exploreResearchMode')?.addEventListener('change',syncExploreGenerateLabel);
+populateExploreLanguages();refreshExploreProviders();renderExploreHistory();loadAskLink();syncExploreGenerateLabel();
 
 
 function vihaaSetView(view,scroll=true){
