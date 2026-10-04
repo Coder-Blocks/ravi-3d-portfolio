@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>VIHAA ONE Search — Don’t search the web. Understand it.</title>
+  <meta name="description" content="VIHAA ONE Search combines web search, source-backed answers, deep research, multilingual search, compare, images, news and privacy-first discovery."/>
+  <meta name="theme-color" content="#10183f"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%236a66ff' d='M6 8h18l8 14 8-14h18L32 58z'/%3E%3Cpath fill='white' d='M18 8h12l2 4 2-4h12L32 34z'/%3E%3C/svg%3E"/>
+  <style>
+    :root{
+      --ink:#0f1634;--muted:#69718f;--line:#e6e9f3;--card:#fff;--lav:#6b63ff;--vio:#8b59ff;
+      --navy:#111a43;--soft:#f6f8ff;--green:#13a76a;--cyan:#29b7e8;
+      --shadow:0 18px 55px rgba(39,48,91,.12);
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans Telugu",sans-serif;background:#f5f7fb;color:var(--ink)}
+    button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+    .hero{
+      min-height:320px;color:white;position:relative;overflow:hidden;padding:20px 22px 32px;
+      background:
+      radial-gradient(circle at 80% 20%,rgba(255,148,95,.55),transparent 24%),
+      radial-gradient(circle at 28% 82%,rgba(31,83,160,.5),transparent 35%),
+      linear-gradient(180deg,#0b1230 0%,#121d49 42%,#10183a 100%);
+    }
+    .hero:before,.hero:after{content:"";position:absolute;left:-8%;right:-8%;height:140px;bottom:-35px;clip-path:polygon(0 72%,8% 50%,15% 67%,25% 38%,31% 55%,39% 26%,46% 58%,57% 31%,65% 50%,73% 20%,81% 49%,89% 28%,100% 70%,100% 100%,0 100%);background:linear-gradient(180deg,#101a42,#08112d);opacity:.9}
+    .hero:after{bottom:-70px;opacity:.72;transform:scaleX(1.06);background:linear-gradient(180deg,#1f345d,#0a1430)}
+    .stars{position:absolute;inset:0;opacity:.45;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(#000,transparent 70%)}
+    .topbar,.hero-inner{position:relative;z-index:2}.topbar{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:25px;letter-spacing:.2px}.brand .one{color:#8462ff}.mark{width:34px;height:34px;position:relative}
+    .mark:before,.mark:after{content:"";position:absolute;inset:2px;clip-path:polygon(0 0,48% 0,100% 100%,72% 100%);background:linear-gradient(145deg,#69b8ff,#5d52ff)}
+    .mark:after{transform:scaleX(-1);background:linear-gradient(145deg,#fff,#735dff);opacity:.94}
+    .top-actions{display:flex;gap:10px;align-items:center}.glass{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);color:#fff;border-radius:999px;padding:9px 12px;backdrop-filter:blur(10px)}
+    .hero-inner{max-width:1040px;margin:20px auto 0;text-align:center}.tag{font-size:15px;opacity:.9;margin:4px 0 18px}
+    .search-shell{display:flex;background:white;border-radius:999px;padding:7px 8px 7px 18px;box-shadow:0 0 0 3px rgba(126,101,255,.72),0 22px 50px rgba(0,0,0,.22)}
+    .search-shell input{border:0;outline:0;flex:1;font-size:16px;min-width:0;color:#202744;background:transparent}
+    .icon-btn{width:44px;height:44px;border:0;background:transparent;border-radius:50%;display:grid;place-items:center;color:#1a2754;font-size:18px}.search-btn{background:linear-gradient(135deg,#4d79ff,#744cff);color:white;box-shadow:0 8px 20px rgba(86,82,255,.35)}
+    .modes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}.pill{border:1px solid rgba(255,255,255,.12);background:rgba(8,15,44,.55);color:#fff;border-radius:999px;padding:9px 14px;font-size:13px}
+    .pill.active{background:linear-gradient(135deg,#743af0,#4f5aff);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+    .micro{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:22px;font-size:12px}.micro button{border:0;background:none;color:#fff;opacity:.96}.micro b{display:block;font-size:19px;margin-bottom:3px}
+    .shell{max-width:1420px;margin:-1px auto 0;display:grid;grid-template-columns:190px minmax(0,1fr) 310px;gap:14px;padding:0 14px 24px;position:relative;z-index:4}
+    .side,.right,.main{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.side{border-radius:18px;padding:14px;align-self:start;position:sticky;top:10px}
+    .side-brand{display:flex;gap:9px;align-items:center;font-weight:900;font-size:17px;margin-bottom:12px}.side-brand .mark{width:26px;height:26px}.nav a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;color:#2d3556;text-decoration:none;font-size:13px;margin:2px 0}
+    .nav a.active{background:#eaf0ff;color:#384dff;border-left:3px solid #5260ff}.nav-sep{height:1px;background:var(--line);margin:11px 0}
+    .main{border-radius:18px;overflow:hidden}.inner-search{padding:14px 14px 8px;border-bottom:1px solid var(--line);background:#fbfcff}.inner-search .search-shell{box-shadow:0 0 0 1px #dbe0ef;border-radius:16px;padding-left:14px}
+    .tabs{display:flex;gap:18px;overflow:auto;padding:10px 4px 0;font-size:12px}.tabs button{border:0;background:none;padding:8px 2px;color:#59607c;white-space:nowrap}.tabs button.active{color:#4f54fa;border-bottom:2px solid #5a55ff}
+    .result-area{padding:14px}.answer-card{border:1px solid #e9ebf6;border-radius:14px;padding:16px;background:linear-gradient(180deg,#fff,#fcfdff)}
+    .answer-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.answer-title{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}.spark{color:#645bff}
+    .lang-toggle{display:flex;background:#f0f2f8;border-radius:999px;padding:3px;gap:2px}.lang-toggle button{font-size:11px;border:0;background:transparent;border-radius:999px;padding:6px 10px}.lang-toggle button.active{background:linear-gradient(135deg,#526fff,#7551ff);color:#fff}
+    #answerTitle{font-size:22px;margin:18px 0 10px}.answer-text{line-height:1.7;background:#f3f6ff;border-radius:12px;padding:13px 15px;color:#29314f;min-height:66px}
+    .examples{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:14px}.example{border:1px solid #edf0f7;border-radius:10px;overflow:hidden;background:#fff}.visual{height:72px;background:linear-gradient(145deg,#7ab5ff,#365ec6 42%,#e3c454 43%,#83bc56 69%,#315d3d);position:relative}.visual:after{content:"";position:absolute;inset:auto 10px 8px 10px;height:18px;background:repeating-linear-gradient(90deg,#1e407c 0 12px,#9fc9ff 13px 20px);transform:skewX(-15deg);opacity:.9}.example b{font-size:11px;display:block;padding:7px;text-align:center}
+    .summary{margin-top:14px;border-radius:12px;padding:14px;background:linear-gradient(135deg,#e9fbf5,#f4f8ff)}.summary-head{display:flex;justify-content:space-between;gap:10px;color:#19895e;font-weight:800;font-size:13px}.summary ul{margin:8px 0 0;padding-left:18px;line-height:1.55;color:#38506a;font-size:13px}
+    .sources{margin-top:14px}.section-title{font-weight:850;font-size:14px;margin-bottom:10px}.source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.source{border:1px solid var(--line);border-radius:11px;padding:10px;text-decoration:none;color:#2d3454;min-height:106px}.source:hover{border-color:#7775ff;box-shadow:0 10px 24px rgba(85,80,230,.1)}.source .domain{font-size:11px;color:#6d7390}.source h4{font-size:12px;margin:6px 0}.source p{font-size:11px;line-height:1.35;color:#68718a;margin:0}
+    .right{border-radius:18px;padding:12px;align-self:start}.panel{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}.related-visual{height:175px;border-radius:11px;background:linear-gradient(145deg,#66b8ff,#bfd9ff 30%,#e4c549 31%,#69b75d 56%,#2e6d47 76%,#31517d);position:relative;overflow:hidden}.related-visual:before{content:"";position:absolute;width:86px;height:86px;background:#fff7b1;border-radius:50%;top:18px;left:28px;box-shadow:0 0 36px #fff0a8}.related-visual:after{content:"";position:absolute;left:22%;right:6%;bottom:20px;height:42px;background:repeating-linear-gradient(90deg,#203a74 0 24px,#7fc8ff 25px 36px);transform:skewY(-5deg)}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.action{border:1px solid var(--line);background:#fafbff;border-radius:10px;padding:10px;text-align:left;font-size:11px;color:#2d3556}.action b{display:block;font-size:12px;margin-bottom:3px}.action:hover{background:#f2f4ff;border-color:#cacbff}
+    .questions button{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px;margin:7px 0;font-size:11px;color:#4a526f}
+    .footer-features{max-width:1420px;margin:0 auto 28px;padding:0 14px;display:grid;grid-template-columns:repeat(8,1fr);gap:8px}.feature{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;min-height:112px;box-shadow:0 8px 20px rgba(45,55,93,.06)}.feature .ico{height:42px;border-radius:9px;background:linear-gradient(145deg,#dbe8ff,#eff0ff);display:grid;place-items:center;font-size:22px;margin-bottom:8px}.feature b{font-size:12px;display:block}.feature span{font-size:10px;color:#6e7590}
+    .loader{display:inline-flex;gap:4px;align-items:center}.loader i{width:6px;height:6px;border-radius:50%;background:#665dff;animation:b 1s infinite alternate}.loader i:nth-child(2){animation-delay:.2s}.loader i:nth-child(3){animation-delay:.4s}@keyframes b{to{opacity:.25;transform:translateY(-4px)}}
+    .notice{font-size:11px;color:#77809d;margin-top:9px}.toast{position:fixed;right:18px;bottom:18px;z-index:20;background:#111934;color:#fff;padding:12px 14px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:340px;font-size:13px}
+    @media(max-width:1100px){.shell{grid-template-columns:160px 1fr}.right{grid-column:2}.footer-features{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:760px){.hero{min-height:360px;padding-left:12px;padding-right:12px}.brand{font-size:20px}.top-actions .glass:not(:first-child){display:none}.micro{gap:14px}.shell{display:block;padding:10px}.side{display:none}.main,.right{margin-bottom:10px}.examples{grid-template-columns:repeat(2,1fr)}.source-grid{grid-template-columns:1fr}.footer-features{grid-template-columns:repeat(2,1fr);padding:0 10px}.hero-inner{margin-top:26px}.search-shell{padding-left:12px}.search-shell input{font-size:14px}}
+  </style>
+  <script src="https://js.puter.com/v2/" async></script>
+</head>
+<body>
+<section class="hero">
+  <div class="stars"></div>
+  <div class="topbar">
+    <div class="brand"><span class="mark"></span><span>VIHAA <span class="one">ONE</span> Search</span></div>
+    <div class="top-actions">
+      <select id="globalLang" class="glass" aria-label="Language"><option>English</option><option>తెలుగు</option><option>हिन्दी</option><option>தமிழ்</option><option>ಕನ್ನಡ</option></select>
+      <button class="glass" id="themeBtn" title="Theme">☼</button><button class="glass" title="Apps">▦</button>
+    </div>
+  </div>
+  <div class="hero-inner">
+    <div class="tag">Don’t search the web. Understand it.</div>
+    <form class="search-shell" id="heroForm">
+      <input id="heroInput" placeholder="Ask anything… in your language" autocomplete="off"/>
+      <button type="button" class="icon-btn" id="voiceBtn" title="Voice search">🎙</button>
+      <button class="icon-btn search-btn" aria-label="Search">⌕</button>
+    </form>
+    <div class="modes" id="modes">
+      <button class="pill active" data-mode="answer">✦ AI Answer</button><button class="pill" data-mode="web">Web Search</button><button class="pill" data-mode="research">Deep Research</button><button class="pill" data-mode="images">Images</button><button class="pill" data-mode="videos">Videos</button><button class="pill" data-mode="news">News</button><button class="pill" data-mode="maps">Maps</button><button class="pill" data-mode="scholar">Scholarly</button><button class="pill" data-mode="compare">Compare</button>
+    </div>
+    <div class="micro">
+      <button data-action="image"><b>▧</b>Search by Image</button><button data-action="document"><b>▤</b>Search by Document</button><button id="voiceMini"><b>◉</b>Voice Search</button><button data-lang="te"><b>తెల</b>Telugu Search</button><button><b>◎</b>Multilingual</button><button id="privacyBtn"><b>♢</b>Private Mode</button><button><b>♙</b>Personal Search</button>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+  <aside class="side">
+    <div class="side-brand"><span class="mark"></span><span>VIHAA <span style="color:#735cff">ONE</span></span></div>
+    <nav class="nav" id="nav">
+      <a href="#" class="active" data-mode="answer">⌕ All</a><a href="#" data-mode="answer">✦ AI Answer</a><a href="#" data-mode="web">◎ Web</a><a href="#" data-mode="images">▧ Images</a><a href="#" data-mode="videos">▣ Videos</a><a href="#" data-mode="news">▤ News</a><a href="#" data-mode="maps">⌖ Maps</a><a href="#" data-mode="scholar">▥ Books / Scholar</a><a href="#" data-mode="research">◉ Deep Research</a><a href="#" data-mode="compare">⌘ Compare</a><a href="#" id="askPage">♧ Ask This Page</a>
+      <div class="nav-sep"></div><a href="#">♡ Saved</a><a href="#">◴ History</a><div class="nav-sep"></div><a href="#">⚙ Settings</a><a href="#">ⓘ Feedback</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="inner-search">
+      <form class="search-shell" id="innerForm"><input id="innerInput" value="What is renewable energy? Explain in simple terms in Telugu with examples."/><button type="button" class="icon-btn" id="voiceInner">🎙</button><button class="icon-btn search-btn">⌕</button></form>
+      <div class="tabs" id="tabs"><button class="active" data-mode="answer">AI Answer</button><button data-mode="web">Web</button><button data-mode="images">Images</button><button data-mode="videos">Videos</button><button data-mode="news">News</button><button data-mode="maps">Maps</button><button data-mode="scholar">Books</button><button data-mode="research">Deep Research</button><button data-mode="compare">Compare</button></div>
+    </div>
+    <div class="result-area">
+      <section class="answer-card">
+        <div class="answer-head"><div class="answer-title"><span class="spark">✦</span> AI Answer</div><div class="lang-toggle" id="langToggle"><button class="active" data-lang="Telugu">Telugu</button><button data-lang="English">English</button><button data-lang="Dual">Dual</button></div></div>
+        <h1 id="answerTitle">పునరుత్పాదక శక్తి (Renewable Energy) అంటే ఏమిటి?</h1>
+        <div class="answer-text" id="answerText">ప్రకృతిలో సహజంగా తిరిగి తిరిగి లభించే వనరుల నుంచి పొందే శక్తినే పునరుత్పాదక శక్తి అంటారు. సౌరశక్తి, గాలిశక్తి, జలవిద్యుత్, బయోమాస్ మరియు భూఉష్ణ శక్తి ప్రధాన ఉదాహరణలు.</div>
+        <div class="examples" id="examples">
+          <div class="example"><div class="visual"></div><b>సౌర శక్తి (Solar)</b></div><div class="example"><div class="visual"></div><b>గాలి శక్తి (Wind)</b></div><div class="example"><div class="visual"></div><b>జల శక్తి (Hydro)</b></div><div class="example"><div class="visual"></div><b>జీవ శక్తి (Biomass)</b></div><div class="example"><div class="visual"></div><b>భూఉష్ణ శక్తి</b></div>
+        </div>
+        <div class="summary"><div class="summary-head"><span>సంక్షిప్తంగా:</span><span>● Source-backed</span></div><ul id="summaryList"><li>సహజంగా పునరుద్ధరించబడే వనరుల నుంచి శక్తి.</li><li>ఇంధన కాలుష్యాన్ని తగ్గించడంలో సహాయపడుతుంది.</li><li>ప్రధాన రకాలు: సౌర, గాలి, జల, బయోమాస్, భూఉష్ణ.</li></ul></div>
+        <div class="sources"><div class="section-title" id="sourceTitle">Sources</div><div class="source-grid" id="sourceGrid"></div><div class="notice" id="backendNote">Live search uses free/open sources with fallbacks. Some public engines may rate-limit requests.</div></div>
+      </section>
+    </div>
+  </main>
+
+  <aside class="right">
+    <div class="panel"><div class="section-title">✦ Related Visuals</div><div class="related-visual"></div></div>
+    <div class="panel"><div class="section-title">✦ Quick Actions</div><div class="quick-grid">
+      <button class="action" id="pdfBtn"><b>▤ Generate PDF</b>with sources</button><button class="action" id="deepBtn"><b>⌕ Deep Research</b>more sources</button><button class="action" id="compareBtn"><b>▦ Compare</b>side by side</button><button class="action" id="askBtn"><b>◉ Ask This Page</b>follow-up</button><button class="action" id="papersBtn"><b>▥ Find Papers</b>scholarly search</button><button class="action" id="diagramBtn"><b>⌁ Create Diagram</b>topic map</button>
+    </div></div>
+    <div class="panel questions"><div class="section-title">✦ Related Questions</div><div id="relatedQuestions"><button>పునరుత్పాదక శక్తి ఎందుకు ముఖ్యం?</button><button>సౌర శక్తి ఎలా పనిచేస్తుంది?</button><button>Renewable vs non-renewable difference</button><button>Indiaలో renewable energy future?</button></div></div>
+  </aside>
+</div>
+
+<section class="footer-features">
+  <div class="feature"><div class="ico">🤖</div><b>AI Answer Mode</b><span>Source-backed answers</span></div><div class="feature"><div class="ico">🔎</div><b>Classic Web Search</b><span>Web, images, video, news</span></div><div class="feature"><div class="ico">🧠</div><b>Deep Research</b><span>Multi-source research</span></div><div class="feature"><div class="ico">అ</div><b>Multi-Language</b><span>Telugu + global languages</span></div><div class="feature"><div class="ico">VS</div><b>Compare Mode</b><span>Side-by-side discovery</span></div><div class="feature"><div class="ico">📄</div><b>Research PDF</b><span>Print/save with sources</span></div><div class="feature"><div class="ico">🎙</div><b>Image / Voice</b><span>Voice-ready search</span></div><div class="feature"><div class="ico">♢</div><b>Privacy Mode</b><span>No local history when on</span></div>
+</section>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let state={mode:"answer",lang:"Telugu",query:$("#innerInput").value,private:false,last:[]};
+
+function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.remove("hidden");setTimeout(()=>el.classList.add("hidden"),2600)}
+function setMode(mode){
+  state.mode=mode;
+  $$(".pill,.tabs button").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));
+  $$(".nav a[data-mode]").forEach(a=>a.classList.toggle("active",a.dataset.mode===mode));
+}
+$$("[data-mode]").forEach(el=>el.addEventListener("click",e=>{e.preventDefault();setMode(el.dataset.mode);if(el.closest("#tabs,#modes,.nav")&&state.query)runSearch(state.query)}));
+$("#langToggle").addEventListener("click",e=>{if(e.target.tagName!=="BUTTON")return;state.lang=e.target.dataset.lang;$$("#langToggle button").forEach(b=>b.classList.toggle("active",b===e.target)); if(state.query)runSearch(state.query)});
+$("#globalLang").addEventListener("change",e=>{state.lang=e.target.value==="తెలుగు"?"Telugu":"English";toast("Answer language: "+e.target.value)});
+
+function clean(s=""){return s.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim()}
+function escapeHtml(s=""){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch{return "source"}}
+
+function renderSources(items){
+  state.last=items||[];
+  const grid=$("#sourceGrid");grid.innerHTML="";
+  (items||[]).slice(0,state.mode==="research"?12:6).forEach((r,i)=>{
+    const a=document.createElement("a");a.className="source";a.href=r.url||"#";a.target="_blank";a.rel="noopener";
+    a.innerHTML='<div class="domain">'+escapeHtml(r.engine||host(r.url||""))+'</div><h4>'+escapeHtml(r.title||"Result "+(i+1))+'</h4><p>'+escapeHtml(clean(r.content||r.snippet||"").slice(0,150))+'</p>';
+    grid.appendChild(a);
+  });
+  if(!grid.children.length)grid.innerHTML='<div class="source"><h4>No open-source results returned</h4><p>Try a broader query or run Web Search again.</p></div>';
+}
+
+function buildFallbackAnswer(q,items){
+  const snippets=(items||[]).map(x=>clean(x.content||x.snippet||"")).filter(Boolean).slice(0,5);
+  if(!snippets.length)return "I could not build a source-backed answer yet. Try Web Search or another query.";
+  return snippets.join(" ").slice(0,950);
+}
+
+async function aiAnswer(q,items){
+  const fallback=buildFallbackAnswer(q,items);
+  if(state.mode!=="answer"&&state.mode!=="research"&&state.mode!=="compare") return fallback;
+  try{
+    if(window.puter?.ai?.chat){
+      const src=(items||[]).slice(0,6).map((r,i)=>"["+ (i+1) +"] "+clean(r.title)+" — "+clean(r.content||r.snippet||"")).join("\\n");
+      const language=state.lang==="Dual"?"Telugu and English":state.lang;
+      const prompt="Answer the search query in "+language+". Be concise, factual and source-grounded. Do not invent facts. Query: "+q+"\\nSources:\\n"+src;
+      const res=await Promise.race([puter.ai.chat(prompt),new Promise((_,rej)=>setTimeout(()=>rej(new Error("AI timeout")),12000))]);
+      const text=typeof res==="string"?res:(res?.message?.content||res?.text||"");
+      if(text)return clean(String(text));
+    }
+  }catch(e){}
+  return fallback;
+}
+
+async function runSearch(q){
+  q=(q||"").trim();if(!q)return;
+  state.query=q;$("#heroInput").value=q;$("#innerInput").value=q;
+  if(!state.private){try{localStorage.setItem("vihaa-last-query",q)}catch{}}
+  $("#answerTitle").textContent=q;
+  $("#answerText").innerHTML='<span class="loader"><i></i><i></i><i></i></span> Searching open sources…';
+  $("#sourceGrid").innerHTML="";
+  $("#summaryList").innerHTML="<li>Collecting and cross-checking source snippets…</li>";
+  let mode=state.mode;
+  if(mode==="answer")mode="web";
+  try{
+    const url="/api/search?q="+encodeURIComponent(q)+"&mode="+encodeURIComponent(mode);
+    const r=await fetch(url,{headers:{"Accept":"application/json"}});
+    const data=await r.json();
+    const items=data.results||[];
+    renderSources(items);
+    const answer=await aiAnswer(q,items);
+    $("#answerText").textContent=answer;
+    $("#summaryList").innerHTML=(data.highlights||items.slice(0,3).map(x=>clean(x.content||x.snippet||"").slice(0,160))).map(x=>"<li>"+escapeHtml(x)+"</li>").join("")||"<li>Open the sources below for more detail.</li>";
+    $("#sourceTitle").textContent="Sources ("+items.length+")";
+    $("#backendNote").textContent=data.provider?"Live provider: "+data.provider:"Live open-source search with fallback sources.";
+  }catch(e){
+    $("#answerText").textContent="Search service is temporarily unavailable. Please retry.";
+    $("#summaryList").innerHTML="<li>"+escapeHtml(e.message||"Network error")+"</li>";
+  }
+}
+
+$("#heroForm").addEventListener("submit",e=>{e.preventDefault();runSearch($("#heroInput").value)});
+$("#innerForm").addEventListener("submit",e=>{e.preventDefault();runSearch($("#innerInput").value)});
+
+function voice(target){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast("Voice recognition is not supported in this browser.");return}
+  const r=new SR();r.lang=state.lang==="Telugu"?"te-IN":"en-IN";r.interimResults=false;r.onresult=e=>{const q=e.results[0][0].transcript;$(target).value=q;runSearch(q)};r.onerror=()=>toast("Voice search could not start.");r.start();
+}
+$("#voiceBtn").onclick=()=>voice("#heroInput");$("#voiceInner").onclick=()=>voice("#innerInput");$("#voiceMini").onclick=()=>voice("#heroInput");
+$("#privacyBtn").onclick=()=>{state.private=!state.private;if(state.private){try{localStorage.removeItem("vihaa-last-query")}catch{}}toast("Private Mode "+(state.private?"ON — local search history disabled":"OFF"))};
+$("#pdfBtn").onclick=()=>window.print();
+$("#deepBtn").onclick=()=>{setMode("research");runSearch(state.query)};
+$("#papersBtn").onclick=()=>{setMode("scholar");runSearch(state.query)};
+$("#compareBtn").onclick=()=>{const q=prompt("Compare what? Example: Firebase vs Supabase",state.query.includes(" vs ")?state.query:"");if(q){setMode("compare");runSearch(q)}};
+function askFollow(){const q=prompt("Ask a follow-up about these results:");if(q)runSearch(state.query+" — "+q)}
+$("#askBtn").onclick=askFollow;$("#askPage").onclick=e=>{e.preventDefault();askFollow()};
+$("#diagramBtn").onclick=()=>{const terms=state.last.slice(0,5).map(x=>x.title).join(" → ");toast(terms||"Run a search first to create a topic map.")};
+$$(".questions button").forEach(b=>b.onclick=()=>runSearch(b.textContent));
+$$(".micro [data-lang]").forEach(b=>b.onclick=()=>{state.lang="Telugu";$$("#langToggle button").forEach(x=>x.classList.toggle("active",x.dataset.lang==="Telugu"));toast("Telugu answer mode selected")});
+$$(".micro [data-action]").forEach(b=>b.onclick=()=>toast(b.dataset.action==="image"?"Image reverse-search requires a dedicated vision provider. Text/image discovery remains available.":"Document ingestion will be added when a storage provider is connected."));
+$("#themeBtn").onclick=()=>{document.body.classList.toggle("dark");toast("Core visual theme is locked to the VIHAA ONE design.")};
+
+const saved=(()=>{try{return localStorage.getItem("vihaa-last-query")}catch{return null}})();
+if(saved){$("#heroInput").value=saved}
+runSearch(state.query);
+</script>
+</body></html>
