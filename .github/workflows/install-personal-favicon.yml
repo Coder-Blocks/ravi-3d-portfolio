@@ -1,0 +1,36 @@
+name: Install personal favicon
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-personal-favicon.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download profile image as favicon
+        run: |
+          set -euo pipefail
+          mkdir -p ravi-personal-brand/assets
+          curl -L --fail --retry 3             "https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcLljZbbQ2Up01WOT9nbHnOtt/54fb2d7b-cad9-4731-84f9-19395efdc7cf.jpg"             -o ravi-personal-brand/assets/favicon.jpg
+
+      - name: Commit favicon
+        run: |
+          git config user.name "Ravi Portfolio Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add ravi-personal-brand/assets/favicon.jpg
+          if git diff --cached --quiet; then
+            echo "Favicon already up to date."
+            exit 0
+          fi
+          git commit -m "Add personal photo favicon"
+          git push
