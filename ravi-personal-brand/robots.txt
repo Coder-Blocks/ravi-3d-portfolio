@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://garimella-ravi-kumar-sarma.onrender.com/sitemap.xml
