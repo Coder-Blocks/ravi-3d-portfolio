@@ -1,0 +1,64 @@
+name: Sync portfolio to Hugging Face Space
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "ravi-personal-brand/index.html"
+      - "ravi-personal-brand/assets/**"
+      - "ravi-personal-brand/featured-products/**"
+      - "ravi-personal-brand/collaboration/**"
+      - ".github/workflows/sync-huggingface-portfolio.yml"
+
+concurrency:
+  group: huggingface-portfolio-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub portfolio
+        uses: actions/checkout@v4
+
+      - name: Sync website into Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${HF_TOKEN:-}" ]; then
+            echo "HF_TOKEN secret is missing."
+            exit 1
+          fi
+
+          rm -rf /tmp/hf-portfolio
+          git clone "https://ravikumarsarma:${HF_TOKEN}@huggingface.co/spaces/ravikumarsarma/portfolio" /tmp/hf-portfolio
+
+          cd /tmp/hf-portfolio
+
+          # Keep the Space configuration files, but replace the website itself.
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name ".git" \
+            ! -name "README.md" \
+            ! -name ".gitattributes" \
+            -exec rm -rf {} +
+
+          cp "$GITHUB_WORKSPACE/ravi-personal-brand/index.html" ./index.html
+          cp -R "$GITHUB_WORKSPACE/ravi-personal-brand/assets" ./assets
+          cp -R "$GITHUB_WORKSPACE/ravi-personal-brand/featured-products" ./featured-products
+          cp -R "$GITHUB_WORKSPACE/ravi-personal-brand/collaboration" ./collaboration
+
+          git config user.name "Ravi Portfolio Sync"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "Hugging Face Space is already up to date."
+            exit 0
+          fi
+
+          git commit -m "Sync latest cinematic portfolio from GitHub"
+          git push origin HEAD:main
