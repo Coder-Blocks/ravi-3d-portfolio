@@ -98,6 +98,16 @@ await fs.writeFile(photoPath, Buffer.from(photoB64, 'base64'));
 // Runtime enhancement file is committed as plain JS.
 await fs.copyFile(path.resolve('tic-render-assets/overlay.js'), path.join(OUT, 'tic-overlay.js'));
 
+const fixedFounderSource = path.resolve('tic-render-assets/ravi-founder-fixed.jpg');
+try {
+  const fixedFounderDest = path.join(OUT, 'assets', 'team', 'ravi_kumar_sarma_fixed.jpg');
+  await fs.mkdir(path.dirname(fixedFounderDest), { recursive: true });
+  await fs.copyFile(fixedFounderSource, fixedFounderDest);
+  console.log('installed fixed founder portrait');
+} catch (err) {
+  console.warn('fixed founder portrait unavailable:', err.message);
+}
+
 const canonical = 'https://thinkinnovativecreations.onrender.com/';
 const seo = `
 <title>Think Innovative Creations (TIC) | Ravi Kumar Sarma Garimella | InvoiceFlowPro.in</title>
@@ -150,6 +160,14 @@ const attribution = `
 
 html = html.replace('</body>', `${attribution}\n<script src="/tic-overlay.js" defer></script>\n</body>`);
 await fs.writeFile(path.join(OUT, 'index.html'), html);
+
+// Render static sites serve real files reliably on nested routes.
+// Create physical SPA entry points so Courses, Idea Forge and Careers work on direct navigation and refresh.
+for (const route of ['courses','idea-forge','careers']) {
+  const routeDir = path.join(OUT, route);
+  await fs.mkdir(routeDir, { recursive: true });
+  await fs.writeFile(path.join(routeDir, 'index.html'), html);
+}
 
 const commonStyle = `body{margin:0;background:#030914;color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif}main{max-width:920px;margin:auto;padding:64px 22px}a{color:#38BDF8}.eyebrow{color:#FF8A3D;font:800 12px ui-monospace,monospace;letter-spacing:.08em}.card{border:1px solid #17355B;background:#0A192F;border-radius:24px;padding:28px;margin:24px 0}h1{font-size:clamp(38px,7vw,64px);line-height:1.03;margin:12px 0 18px}h2{margin-top:28px}p,li{color:#CBD5E1;line-height:1.8}.portrait{width:220px;height:220px;border-radius:50%;object-fit:cover;background:transparent;border:3px solid #FF6600}.btn{display:inline-block;background:#FF6600;color:#fff;text-decoration:none;font-weight:900;padding:12px 16px;border-radius:12px;margin:6px 8px 6px 0}`;
 
