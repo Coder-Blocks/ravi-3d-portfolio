@@ -1,0 +1,13 @@
+name = "grks-3d-gallery-api"
+main = "worker.js"
+compatibility_date = "2026-10-30"
+workers_dev = true
+account_id = "REPLACED_BY_GITHUB_ACTION"
+
+[vars]
+SITE_ORIGIN = "https://garimella-ravi-kumar-sarma.onrender.com"
+ENVIRONMENT = "production"
+
+[[r2_buckets]]
+binding = "GALLERY"
+bucket_name = "grks-3d-video-gallery"
