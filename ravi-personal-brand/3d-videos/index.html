@@ -148,7 +148,7 @@ progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-to
   const PART_SIZE = 10 * 1024 * 1024;
   const $ = (id) => document.getElementById(id);
   const el = {
-    toggle:$("adminToggle"), panel:$("adminPanel"), login:$("loginForm"), password:$("ownerPassword"),
+    toggle:$("adminToggle"), notice:$("galleryNotice"), panel:$("adminPanel"), login:$("loginForm"), password:$("ownerPassword"),
     title:$("adminTitle"), description:$("adminDescription"), tools:$("ownerTools"), logout:$("logoutBtn"),
     choose:$("chooseBtn"), file:$("fileInput"), import:$("importBtn"), drop:$("dropzone"),
     progress:$("uploadProgress"), status:$("status"), playlist:$("playlist"), video:$("mainVideo"),
@@ -293,6 +293,10 @@ progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-to
     if (!videos.length) {
       el.nowCount.textContent = "0 videos";
       if (!currentKey) el.nowMeta.textContent = "Your published videos will appear here";
+      el.notice.hidden = false;
+      el.notice.textContent = "No videos have been published yet.";
+    } else {
+      el.notice.hidden = true;
     }
   }
   function showLoggedOut() {
@@ -540,7 +544,9 @@ progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-to
 
   async function initialise() {
     if (!API) {
-      el.playlist.innerHTML = '<div class="empty-library">Secure cloud storage is not connected yet. The gallery will be available after the owner completes Cloudflare setup.</div>';
+      el.playlist.innerHTML = '<div class="empty-library">The secure video library is being configured.</div>';
+      el.notice.hidden = false;
+      el.notice.textContent = "Secure video storage is being connected. Published videos will appear here once setup is complete.";
       message("Backend deployment is pending. Owner upload remains disabled until secure storage is connected.", true);
       el.toggle.disabled = true;
       return;
@@ -551,6 +557,8 @@ progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-to
       if (!videos.length) message("Gallery is ready. Published videos will appear here.");
     } catch (error) {
       message("Could not load gallery: " + error.message, true);
+      el.notice.hidden = false;
+      el.notice.textContent = "The gallery service is temporarily unavailable. Please try again later.";
       el.playlist.innerHTML = '<div class="empty-library">The gallery service is temporarily unavailable.</div>';
     }
   }
