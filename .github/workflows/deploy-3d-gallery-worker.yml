@@ -1,0 +1,126 @@
+name: Deploy 3D Gallery Secure Backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare/**"
+      - ".github/workflows/deploy-3d-gallery-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: grks-3d-gallery-worker
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check required secrets
+        shell: bash
+        env:
+          CF_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: \${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          OWNER_PASSWORD: \${{ secrets.GALLERY_ADMIN_PASSWORD }}
+          SESSION_SECRET: \${{ secrets.GALLERY_SESSION_SECRET }}
+        run: |
+          set -euo pipefail
+          for item in CF_TOKEN CF_ACCOUNT OWNER_PASSWORD SESSION_SECRET; do
+            if [ -z "\${!item}" ]; then
+              echo "::error::Missing GitHub Actions secret: $item (see cloudflare/SETUP.md)"
+              exit 1
+            fi
+          done
+          if [ "\${#OWNER_PASSWORD}" -lt 14 ]; then
+            echo "::error::GALLERY_ADMIN_PASSWORD must be at least 14 characters."
+            exit 1
+          fi
+          if [ "\${#SESSION_SECRET}" -lt 40 ]; then
+            echo "::error::GALLERY_SESSION_SECRET must be at least 40 characters."
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Wrangler
+        run: npm install --global wrangler@4
+
+      - name: Create private R2 bucket when missing
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: \${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/r2/buckets"
+          response=$(curl --fail --silent --show-error -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api")
+          if ! printf '%s' "$response" | jq -e '.result[]? | select(.name == "grks-3d-video-gallery")' >/dev/null; then
+            curl --fail --silent --show-error -X POST "$api" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data '{"name":"grks-3d-video-gallery"}'
+          fi
+
+      - name: Configure Cloudflare account
+        shell: bash
+        env:
+          CLOUDFLARE_ACCOUNT_ID: \${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          sed -i "s/REPLACED_BY_GITHUB_ACTION/$CLOUDFLARE_ACCOUNT_ID/" cloudflare/wrangler.toml
+
+      - name: Set private Worker secrets
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GALLERY_ADMIN_PASSWORD: \${{ secrets.GALLERY_ADMIN_PASSWORD }}
+          GALLERY_SESSION_SECRET: \${{ secrets.GALLERY_SESSION_SECRET }}
+        run: |
+          set -euo pipefail
+          set +x
+          password_hash=$(printf '%s' "$GALLERY_ADMIN_PASSWORD" | sha256sum | cut -d ' ' -f 1)
+          printf '%s' "$password_hash" | wrangler secret put ADMIN_PASSWORD_SHA256 --config cloudflare/wrangler.toml
+          printf '%s' "$GALLERY_SESSION_SECRET" | wrangler secret put SESSION_SECRET --config cloudflare/wrangler.toml
+
+      - name: Deploy Worker
+        env:
+          CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: wrangler deploy --config cloudflare/wrangler.toml
+
+      - name: Publish API endpoint into the static gallery
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: \${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          subdomain_response=$(curl --fail --silent --show-error \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
+          subdomain=$(printf '%s' "$subdomain_response" | jq -r '.result.subdomain // empty')
+          if [ -z "$subdomain" ]; then
+            echo "::error::Cloudflare workers.dev subdomain is not enabled. Enable it in Cloudflare Workers & Pages, then rerun this workflow."
+            exit 1
+          fi
+          api_base="https://grks-3d-gallery-api.$subdomain.workers.dev"
+          printf '"use strict";\nwindow.GALLERY_API_BASE = "%s";\n' "$api_base" > ravi-personal-brand/3d-videos/api-config.js
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ravi-personal-brand/3d-videos/api-config.js
+          if git diff --cached --quiet; then
+            echo "Gallery API endpoint is already configured."
+          else
+            git commit -m "Configure secure 3D gallery API endpoint"
+            git push
+          fi
