@@ -167,7 +167,7 @@ async function listVideos(request, env) {
   let cursor;
   let pages = 0;
   do {
-    const page = await env.GALLERY.list({ prefix: "videos/", limit: 1000, cursor: cursor });
+    const page = await env.GALLERY.list({ prefix: "videos/", limit: 1000, cursor: cursor, include: ["httpMetadata", "customMetadata"] });
     for (const item of page.objects) {
       videos.push({
         key: item.key,
