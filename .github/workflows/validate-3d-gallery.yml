@@ -37,5 +37,5 @@ jobs:
           console.log("Parsed " + scripts.length + " inline script(s).");
           NODE
 
-      - name: Check gallery API config JavaScript
-        run: node --check ravi-personal-brand/3d-videos/api-config.js
+      - name: Check YouTube playlist config JavaScript
+        run: node --check ravi-personal-brand/3d-videos/youtube-config.js
