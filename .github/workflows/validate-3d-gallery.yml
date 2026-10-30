@@ -1,0 +1,41 @@
+name: Validate 3D Gallery
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare/**"
+      - "ravi-personal-brand/3d-videos/**"
+      - ".github/workflows/validate-3d-gallery.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check Worker JavaScript
+        run: node --check cloudflare/worker.js
+
+      - name: Check gallery JavaScript
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const html = fs.readFileSync("ravi-personal-brand/3d-videos/index.html", "utf8");
+          const scripts = [...html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)];
+          if (!scripts.length) throw new Error("No inline gallery scripts were found.");
+          for (let i = 0; i < scripts.length; i++) {
+            new Function(scripts[i][1]);
+          }
+          console.log("Parsed " + scripts.length + " inline script(s).");
+          NODE
+
+      - name: Check gallery API config JavaScript
+        run: node --check ravi-personal-brand/3d-videos/api-config.js
