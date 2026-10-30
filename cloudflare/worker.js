@@ -305,6 +305,10 @@ export default {
         return json(request, env, { ok: true, service: "grks-3d-gallery", storage: "private-r2" }, 200);
       }
       if (path === "/api/auth/login" && request.method === "POST") return await login(request, env);
+      if (path === "/api/admin/session" && request.method === "GET") {
+        const blocked = await requireOwner(request, env);
+        return blocked || json(request, env, { ok: true, expiresIn: SESSION_SECONDS }, 200);
+      }
       if (path === "/api/videos" && request.method === "GET") return await listVideos(request, env);
       if (path === "/api/video" && (request.method === "GET" || request.method === "HEAD")) return await streamVideo(request, env, url);
       if (path === "/api/admin/upload/start" && request.method === "POST") return await startUpload(request, env);
