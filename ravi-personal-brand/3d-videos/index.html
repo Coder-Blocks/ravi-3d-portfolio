@@ -548,8 +548,8 @@ progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-to
       el.playlist.innerHTML = '<div class="empty-library">The secure video library is being configured.</div>';
       el.notice.hidden = false;
       el.notice.textContent = "Secure video storage is being connected. Published videos will appear here once setup is complete.";
-      message("Backend deployment is pending. Owner upload remains disabled until secure storage is connected.", true);
-      el.toggle.disabled = true;
+      message("Secure backend setup is pending. You can open Owner Login, but sign-in and uploads will be enabled after Cloudflare setup.", true);
+      el.toggle.disabled = false;
       return;
     }
     await validateSavedSession();
