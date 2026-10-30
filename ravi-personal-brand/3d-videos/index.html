@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D Videos | Ravi Kumar Sarma Garimella</title>
+<meta name="description" content="A dedicated 3D video portfolio gallery by Ravi Kumar Sarma Garimella. Upload, organise and play 3D videos in one cinematic player.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://garimella-ravi-kumar-sarma.onrender.com/3d-videos/">
+<meta name="theme-color" content="#080d18">
+<link rel="icon" type="image/jpeg" href="../assets/favicon.jpg">
+<style>
+:root{--bg:#080d18;--panel:#111a2a;--panel2:#17243a;--ink:#f4f6fb;--muted:#9eabc0;--accent:#ee9caf;--gold:#e6c58e;--line:rgba(255,255,255,.14);--good:#9de0c0;--danger:#ffabb0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,rgba(91,110,170,.17),transparent 42%),var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.nav{height:72px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);background:rgba(8,13,24,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:baseline;text-decoration:none;font-weight:950;letter-spacing:-.04em}.brand span{font-size:.78rem;letter-spacing:0;color:var(--muted);font-weight:650}
+.nav-actions{display:flex;align-items:center;gap:18px}.nav-actions a{text-decoration:none;color:#d8dfeb;font-weight:750}.nav-actions a:hover{color:var(--accent)}
+.wrap{max-width:1500px;margin:auto;padding:38px clamp(16px,3vw,44px) 80px}
+.topline{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:24px}
+.eyebrow{color:var(--accent);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:950;margin:0 0 10px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(2.5rem,5vw,4.8rem);letter-spacing:-.06em;line-height:.98;margin-bottom:12px}
+.intro{max-width:720px;color:var(--muted);margin:0}
+.badge{border:1px solid rgba(238,156,175,.3);color:#f3bdc9;background:rgba(238,156,175,.08);border-radius:999px;padding:8px 13px;font-size:.78rem;font-weight:850;white-space:nowrap}
+.gallery{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.75fr);gap:18px;align-items:stretch}
+.player-panel,.library-panel,.upload-panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));box-shadow:0 22px 60px rgba(0,0,0,.24);overflow:hidden}
+.player-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 20px;border-bottom:1px solid var(--line)}
+.player-head strong{font-size:.95rem;max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.player-meta{color:var(--muted);font-size:.76rem}
+.stage{position:relative;aspect-ratio:16/9;min-height:280px;background:radial-gradient(ellipse at 50% 40%,#1c2b46,#080d18 72%);display:grid;place-items:center;overflow:hidden}
+.stage:before,.stage:after{content:"";position:absolute;width:52%;aspect-ratio:1;border:1px solid rgba(238,156,175,.14);border-radius:50%;transform:rotateX(66deg) rotateZ(25deg);pointer-events:none}
+.stage:after{width:38%;border-color:rgba(230,197,142,.18);transform:rotateX(66deg) rotateZ(-35deg)}
+.stage video{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;background:#05080e;display:none}
+.empty-state{position:relative;z-index:1;text-align:center;padding:30px;max-width:520px}
+.empty-icon{width:76px;height:76px;border-radius:24px;margin:0 auto 18px;display:grid;place-items:center;border:1px solid rgba(238,156,175,.32);background:rgba(238,156,175,.08);font-size:2rem;box-shadow:0 0 55px rgba(238,156,175,.12)}
+.empty-state h2{font-size:1.45rem;margin-bottom:7px}.empty-state p{color:var(--muted);margin:0}
+.player-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:15px 18px}
+.control{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:var(--ink);padding:10px 15px;font-weight:800;transition:.2s}
+.control:hover{border-color:var(--accent);transform:translateY(-1px)}
+.control.primary{background:var(--accent);border-color:var(--accent);color:#19111a}
+.control:disabled{opacity:.36;cursor:not-allowed;transform:none}
+.auto-next{display:flex;align-items:center;gap:8px;margin-left:auto;color:var(--muted);font-size:.82rem}.auto-next input{accent-color:var(--accent);width:16px;height:16px}
+.library-panel{display:flex;flex-direction:column;min-height:100%}
+.library-head{padding:18px 18px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.library-head h2{font-size:1.1rem;margin:0}.count{color:var(--muted);font-size:.78rem}
+.playlist{overflow:auto;max-height:560px;padding:9px}
+.video-item{display:grid;grid-template-columns:78px 1fr auto;gap:11px;align-items:center;padding:10px;border:1px solid transparent;border-radius:14px;transition:.2s}
+.video-item:hover{background:rgba(255,255,255,.045)}
+.video-item.active{background:rgba(238,156,175,.09);border-color:rgba(238,156,175,.38)}
+.thumb{width:78px;aspect-ratio:16/10;border-radius:9px;background:linear-gradient(145deg,#24334f,#111827);display:grid;place-items:center;color:#f1b9c7;font-size:1.3rem;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.video-name{font-size:.83rem;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.video-info{font-size:.72rem;color:var(--muted);margin-top:3px}
+.item-actions{display:flex;gap:4px}
+.icon-btn{border:0;background:transparent;color:#aab6c8;border-radius:8px;padding:7px;font-size:.95rem}
+.icon-btn:hover{background:rgba(255,255,255,.1);color:white}
+.empty-library{padding:28px 18px;text-align:center;color:var(--muted);font-size:.85rem}
+.upload-panel{margin-top:18px;padding:22px}
+.upload-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:15px}
+.upload-row h2{font-size:1.2rem;margin:0 0 3px}.upload-row p{margin:0;color:var(--muted);font-size:.82rem}
+.dropzone{border:1.5px dashed rgba(238,156,175,.43);border-radius:18px;padding:28px 18px;text-align:center;background:rgba(238,156,175,.035);transition:.2s}
+.dropzone.drag{background:rgba(238,156,175,.13);border-color:var(--accent);transform:scale(1.005)}
+.dropzone strong{display:block;margin-bottom:5px}.dropzone p{color:var(--muted);font-size:.8rem;margin-bottom:15px}
+.upload-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.note{margin:15px 0 0;color:#b7c3d5;font-size:.77rem;line-height:1.6}
+.note strong{color:var(--gold)}
+.status{min-height:22px;margin-top:12px;color:var(--good);font-size:.82rem}.status.error{color:var(--danger)}
+progress{width:100%;height:7px;display:none;accent-color:var(--accent);margin-top:8px}
+.storage-note{font-size:.75rem;color:var(--muted);margin-top:8px}
+.footer{border-top:1px solid var(--line);padding:26px clamp(18px,5vw,70px);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:.78rem}
+[hidden]{display:none!important}
+@media(max-width:980px){.gallery{grid-template-columns:1fr}.library-panel{min-height:0}.playlist{max-height:360px}.topline{align-items:start;flex-direction:column;gap:12px}}
+@media(max-width:560px){.nav{height:64px}.brand span{display:none}.nav-actions{gap:12px;font-size:.8rem}.wrap{padding-top:28px}.stage{min-height:210px;aspect-ratio:16/10}.player-controls{gap:7px}.control{padding:9px 11px;font-size:.8rem}.auto-next{width:100%;margin-left:0}.upload-row{align-items:start;flex-direction:column}.video-item{grid-template-columns:66px 1fr auto}.thumb{width:66px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="../"><b>GRKS</b><span>3D &amp; Creative Portfolio</span></a>
+  <div class="nav-actions"><a href="../about/">About</a><a href="../#work">Work</a><a href="../">Home</a></div>
+</nav>
+<main class="wrap">
+  <header class="topline">
+    <div><p class="eyebrow">Personal 3D Video Gallery</p><h1>My 3D Creations</h1><p class="intro">Upload your 3D animations, CGI renders, walkthroughs, and creative videos. Select any item from the playlist to play it on the main screen.</p></div>
+    <span class="badge">LOCAL PRIVATE LIBRARY</span>
+  </header>
+
+  <section class="gallery" aria-label="3D video player and playlist">
+    <div class="player-panel">
+      <div class="player-head"><div><strong id="nowTitle">No video selected</strong><div class="player-meta" id="nowMeta">Your selected video will play here</div></div><span class="player-meta" id="nowCount">0 videos</span></div>
+      <div class="stage" id="stage">
+        <video id="mainVideo" controls playsinline preload="metadata"></video>
+        <div class="empty-state" id="emptyState"><div class="empty-icon">▶</div><h2>Your 3D video screen</h2><p>Upload a video below. It will appear in your playlist and play here.</p></div>
+      </div>
+      <div class="player-controls">
+        <button class="control" id="prevBtn" type="button" disabled>← Previous</button>
+        <button class="control primary" id="playBtn" type="button" disabled>▶ Play</button>
+        <button class="control" id="nextBtn" type="button" disabled>Next →</button>
+        <button class="control" id="fullBtn" type="button">⛶ Full screen</button>
+        <label class="auto-next"><input id="autoNext" type="checkbox" checked> Play next automatically</label>
+      </div>
+    </div>
+
+    <aside class="library-panel">
+      <div class="library-head"><h2>Video Playlist</h2><span class="count" id="libraryCount">0 videos</span></div>
+      <div class="playlist" id="playlist"><div class="empty-library">Your uploaded videos will appear here.</div></div>
+    </aside>
+  </section>
+
+  <section class="upload-panel" aria-label="Upload 3D videos">
+    <div class="upload-row"><div><p class="eyebrow">Add to your gallery</p><h2>Upload 3D Videos</h2><p>Select one or multiple video files, or drag them into the upload area.</p></div><button class="control primary" id="chooseBtn" type="button">＋ Choose videos</button></div>
+    <input id="fileInput" type="file" accept="video/*,.mp4,.webm,.mov,.m4v,.mkv" multiple hidden>
+    <div class="dropzone" id="dropzone"><strong>Drop your video files here</strong><p>MP4, WebM, MOV and other browser-supported video formats</p><div class="upload-actions"><button class="control primary" id="dropChooseBtn" type="button">Browse files</button></div></div>
+    <progress id="uploadProgress" max="100" value="0"></progress>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+    <p class="note"><strong>Storage note:</strong> This first version saves videos privately in this browser on this device, so they remain available here after refresh. They are not uploaded to the public website server and other visitors cannot see them. Browser storage capacity varies by device and available space. For a shared public gallery, an online media-storage backend must be connected.</p>
+    <div class="storage-note" id="storageInfo"></div>
+  </section>
+</main>
+<footer class="footer"><span>Ravi Kumar Sarma Garimella · 3D Video Portfolio</span><span>Built by Think Innovative Creations (TIC)</span></footer>
+
+<script>
+(() => {
+  "use strict";
+  const DB_NAME = "grks_3d_video_gallery";
+  const DB_VERSION = 1;
+  const STORE = "videos";
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    fileInput:$("fileInput"), chooseBtn:$("chooseBtn"), dropChooseBtn:$("dropChooseBtn"),
+    dropzone:$("dropzone"), playlist:$("playlist"), video:$("mainVideo"),
+    empty:$("emptyState"), nowTitle:$("nowTitle"), nowMeta:$("nowMeta"),
+    nowCount:$("nowCount"), libraryCount:$("libraryCount"), status:$("status"),
+    progress:$("uploadProgress"), prev:$("prevBtn"), play:$("playBtn"),
+    next:$("nextBtn"), full:$("fullBtn"), autoNext:$("autoNext"),
+    storageInfo:$("storageInfo"), stage:$("stage")
+  };
+  let db = null;
+  let videos = [];
+  let currentId = null;
+  let currentUrl = null;
+  let busy = false;
+
+  function setStatus(message, isError=false) {
+    els.status.textContent = message;
+    els.status.classList.toggle("error", isError);
+  }
+  function openDatabase() {
+    return new Promise((resolve,reject) => {
+      if (!("indexedDB" in window)) return reject(new Error("This browser does not support local video storage. Please use a recent Chrome, Edge, or Firefox browser."));
+      const request = indexedDB.open(DB_NAME,DB_VERSION);
+      request.onupgradeneeded = () => {
+        const database = request.result;
+        if (!database.objectStoreNames.contains(STORE)) database.createObjectStore(STORE,{keyPath:"id"});
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error || new Error("Could not open local video storage."));
+      request.onblocked = () => reject(new Error("Video library is blocked by another open tab. Close other gallery tabs and refresh."));
+    });
+  }
+  function transaction(mode, action) {
+    return new Promise((resolve,reject) => {
+      const tx = db.transaction(STORE,mode);
+      const store = tx.objectStore(STORE);
+      let request;
+      try { request = action(store); } catch(error) { reject(error); return; }
+      tx.oncomplete = () => resolve(request ? request.result : undefined);
+      tx.onerror = () => reject(tx.error || new Error("Storage operation failed."));
+      tx.onabort = () => reject(tx.error || new Error("Storage operation was cancelled."));
+      if(request) request.onerror = () => reject(request.error || new Error("Storage request failed."));
+    });
+  }
+  const getAll = () => transaction("readonly",store=>store.getAll());
+  const put = item => transaction("readwrite",store=>store.put(item));
+  const remove = id => transaction("readwrite",store=>store.delete(id));
+
+  function formatBytes(bytes) {
+    if(!Number.isFinite(bytes) || bytes<0) return "";
+    if(bytes<1024*1024) return (bytes/1024).toFixed(0)+" KB";
+    if(bytes<1024*1024*1024) return (bytes/(1024*1024)).toFixed(1)+" MB";
+    return (bytes/(1024*1024*1024)).toFixed(2)+" GB";
+  }
+  function formatDate(timestamp) {
+    try { return new Date(timestamp).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }
+    catch { return ""; }
+  }
+  function safeFileName(name) {
+    return String(name || "Untitled video").replace(/[\u0000-\u001f]/g,"").slice(0,240);
+  }
+  function setPlayer(item, shouldPlay=false) {
+    if(!item) return;
+    if(currentUrl) URL.revokeObjectURL(currentUrl);
+    currentUrl = URL.createObjectURL(item.blob);
+    currentId = item.id;
+    els.video.src = currentUrl;
+    els.video.style.display = "block";
+    els.empty.hidden = true;
+    els.nowTitle.textContent = item.name;
+    els.nowMeta.textContent = formatBytes(item.size)+" · Added "+formatDate(item.createdAt);
+    els.play.textContent = "▶ Play";
+    els.play.disabled = false;
+    renderPlaylist();
+    if(shouldPlay) {
+      const promise = els.video.play();
+      if(promise && typeof promise.catch==="function") promise.catch(()=>setStatus("Video loaded. Press Play to start playback."));
+    }
+  }
+  function makeButton(label,className,onClick,title) {
+    const button=document.createElement("button");
+    button.type="button";button.className=className;button.textContent=label;
+    if(title) button.title=title;
+    button.addEventListener("click",onClick);
+    return button;
+  }
+  function renderPlaylist() {
+    els.playlist.replaceChildren();
+    const count=videos.length;
+    const countText=count+" video"+(count===1?"":"s");
+    els.libraryCount.textContent=countText;
+    els.nowCount.textContent=countText;
+    els.prev.disabled=count===0 || indexOfCurrent()<=0;
+    els.next.disabled=count===0 || indexOfCurrent()<0 || indexOfCurrent()>=count-1;
+    if(!count) {
+      const empty=document.createElement("div");empty.className="empty-library";
+      empty.textContent="Your uploaded videos will appear here.";
+      els.playlist.appendChild(empty);
+      els.play.disabled=true;
+      return;
+    }
+    videos.forEach((item,index)=>{
+      const row=document.createElement("div");
+      row.className="video-item"+(item.id===currentId?" active":"");
+      const thumb=document.createElement("div");thumb.className="thumb";thumb.textContent="▶";
+      const details=document.createElement("div");details.style.minWidth="0";
+      const name=document.createElement("div");name.className="video-name";name.textContent=item.name;name.title=item.name;
+      const info=document.createElement("div");info.className="video-info";info.textContent=formatBytes(item.size)+" · "+formatDate(item.createdAt);
+      details.append(name,info);
+      const actions=document.createElement("div");actions.className="item-actions";
+      const play=makeButton("▶","icon-btn",()=>setPlayer(item,true),"Play "+item.name);
+      const del=makeButton("✕","icon-btn",()=>deleteVideo(item),"Remove "+item.name);
+      actions.append(play,del);row.append(thumb,details,actions);
+      row.addEventListener("click",event=>{if(event.target.closest("button"))return;setPlayer(item,true);});
+      els.playlist.appendChild(row);
+    });
+    els.play.disabled=false;
+  }
+  function indexOfCurrent(){return videos.findIndex(item=>item.id===currentId);}
+  async function refreshList(keepCurrent=true) {
+    videos=(await getAll()).sort((a,b)=>b.createdAt-a.createdAt);
+    if(keepCurrent && currentId) {
+      const current=videos.find(item=>item.id===currentId);
+      if(current) setPlayer(current,false);
+      else clearPlayer();
+    }
+    renderPlaylist();
+    updateStorageInfo();
+  }
+  function clearPlayer() {
+    if(currentUrl) URL.revokeObjectURL(currentUrl);
+    currentUrl=null;currentId=null;
+    els.video.pause();els.video.removeAttribute("src");els.video.load();els.video.style.display="none";
+    els.empty.hidden=false;els.nowTitle.textContent="No video selected";els.nowMeta.textContent="Your selected video will play here";
+    els.play.textContent="▶ Play";els.play.disabled=true;
+    renderPlaylist();
+  }
+  async function addFiles(fileList) {
+    if(busy)return;
+    const files=Array.from(fileList||[]);
+    if(!files.length)return;
+    busy=true;els.chooseBtn.disabled=true;els.dropChooseBtn.disabled=true;
+    els.progress.hidden=false;els.progress.style.display="block";els.progress.value=0;
+    let saved=0,failed=0;
+    for(let i=0;i<files.length;i++){
+      const file=files[i];
+      const looksVideo=(file.type&&file.type.startsWith("video/")) || /\.(mp4|webm|mov|m4v|mkv|avi|ogv)$/i.test(file.name);
+      if(!looksVideo || !file.size){failed++;continue;}
+      const item={id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(16).slice(2)),name:safeFileName(file.name),type:file.type||"application/octet-stream",size:file.size,createdAt:Date.now(),blob:file};
+      try {
+        await put(item);saved++;
+        els.progress.value=Math.round(((i+1)/files.length)*100);
+      } catch(error) {
+        failed++;
+        if(error && (error.name==="QuotaExceededError" || error.name==="NS_ERROR_DOM_QUOTA_REACHED")) {
+          setStatus("Browser storage is full. Remove some videos or use smaller files, then try again.",true);
+          break;
+        }
+        setStatus("Could not save "+file.name+": "+(error.message||"storage error"),true);
+      }
+    }
+    await refreshList(false);
+    if(saved>0){
+      setStatus(saved+" video"+(saved===1?"":"s")+" added to your private gallery."+(failed?" "+failed+" file(s) could not be added.":""));
+      if(!currentId){const newest=videos.find(item=>item.createdAt);if(newest)setPlayer(newest,false);}
+    } else if(!els.status.classList.contains("error")) {
+      setStatus("No supported video files were added. Please select video files.",true);
+    }
+    els.progress.hidden=true;els.progress.style.display="none";els.progress.value=0;
+    els.fileInput.value="";
+    busy=false;els.chooseBtn.disabled=false;els.dropChooseBtn.disabled=false;
+    updateStorageInfo();
+  }
+  async function deleteVideo(item) {
+    if(!window.confirm("Remove this video from this browser's gallery?"))return;
+    try{
+      await remove(item.id);
+      if(currentId===item.id)clearPlayer();
+      await refreshList(false);
+      setStatus("Video removed from this browser.");
+    }catch(error){setStatus("Could not remove video: "+(error.message||"unknown error"),true);}
+  }
+  function playStep(direction) {
+    const index=indexOfCurrent();const next=videos[index+direction];
+    if(next)setPlayer(next,true);
+  }
+  async function updateStorageInfo() {
+    if(navigator.storage && navigator.storage.estimate){
+      try{
+        const estimate=await navigator.storage.estimate();
+        const used=formatBytes(estimate.usage||0);
+        const quota=formatBytes(estimate.quota||0);
+        els.storageInfo.textContent="This browser is using approximately "+used+" of "+quota+" available storage.";
+      }catch{els.storageInfo.textContent="Video storage is managed by your browser.";}
+    } else els.storageInfo.textContent="Video storage is managed by your browser.";
+  }
+  async function initialise() {
+    try{
+      db=await openDatabase();
+      if(navigator.storage && navigator.storage.persist){
+        try{await navigator.storage.persist();}catch{/* Browser may decline persistent-storage request. */}
+      }
+      await refreshList(false);
+      if(videos.length){
+        const lastPlayed=videos[0];
+        setPlayer(lastPlayed,false);
+        setStatus(videos.length+" saved video"+(videos.length===1?"":"s")+" restored from this browser.");
+      }else{
+        setStatus("Ready. Choose your first 3D video to begin.");
+      }
+    }catch(error){
+      setStatus(error.message||"Could not initialise local storage.",true);
+      els.chooseBtn.disabled=true;els.dropChooseBtn.disabled=true;
+    }
+  }
+
+  els.chooseBtn.addEventListener("click",()=>els.fileInput.click());
+  els.dropChooseBtn.addEventListener("click",()=>els.fileInput.click());
+  els.fileInput.addEventListener("change",event=>addFiles(event.target.files));
+  ["dragenter","dragover"].forEach(type=>els.dropzone.addEventListener(type,event=>{event.preventDefault();els.dropzone.classList.add("drag");}));
+  ["dragleave","drop"].forEach(type=>els.dropzone.addEventListener(type,event=>{event.preventDefault();els.dropzone.classList.remove("drag");}));
+  els.dropzone.addEventListener("drop",event=>addFiles(event.dataTransfer.files));
+  els.prev.addEventListener("click",()=>playStep(-1));
+  els.next.addEventListener("click",()=>playStep(1));
+  els.play.addEventListener("click",()=>{
+    if(!currentId && videos.length){setPlayer(videos[0],true);return;}
+    if(els.video.paused){const promise=els.video.play();if(promise)promise.catch(()=>setStatus("Press Play on the video controls to start."));}
+    else els.video.pause();
+  });
+  els.video.addEventListener("play",()=>els.play.textContent="Ⅱ Pause");
+  els.video.addEventListener("pause",()=>els.play.textContent="▶ Play");
+  els.video.addEventListener("ended",()=>{if(els.autoNext.checked)playStep(1);});
+  els.full.addEventListener("click",async()=>{
+    try{
+      if(!document.fullscreenElement){
+        if(els.stage.requestFullscreen)await els.stage.requestFullscreen();
+        else if(els.video.webkitEnterFullscreen)els.video.webkitEnterFullscreen();
+      }else await document.exitFullscreen();
+    }catch(error){setStatus("Full screen could not be opened: "+(error.message||"unsupported"),true);}
+  });
+  window.addEventListener("beforeunload",()=>{if(currentUrl)URL.revokeObjectURL(currentUrl);});
+  initialise();
+})();
+</script>
+</body>
+</html>
