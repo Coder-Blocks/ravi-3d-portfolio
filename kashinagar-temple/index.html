@@ -28,6 +28,17 @@
     @media(max-width:800px){.navlinks{display:none}.menu-btn{display:block}.navbar{height:72px}.mob-nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff9ef;box-shadow:0 12px 30px #2a121627;padding:15px 25px}.mob-nav.open{display:grid;gap:17px}.mob-nav a{font-size:14px;color:#54252b}.hero-grid{grid-template-columns:1fr}.hero-copy{padding:58px 0 8px;text-align:center}.hero .overline{justify-content:center}.hero p{margin-left:auto;margin-right:auto}.hero-cta,.hero-tags{justify-content:center}.hero-art{min-height:410px}.hero-art svg{max-width:410px}.art-caption{bottom:24px}.ribbon-grid{grid-template-columns:repeat(2,1fr)}.ribbon-item:nth-child(2){border:0}.ribbon-item:nth-child(n+3){border-top:1px solid var(--line)}.sevas{grid-template-columns:repeat(2,1fr)}.darshan-grid,.location-grid{grid-template-columns:1fr}.video-card{max-width:480px;width:100%;margin:auto}.offer-grid{gap:15px}.closing-wrap{flex-direction:column;text-align:center}.footer-main{flex-direction:column}.location-grid{gap:35px}}
     @media(max-width:530px){.container{width:calc(100% - 30px)}.brand-logo{width:38px;height:44px}.brand-logo svg{width:38px}.brand-text strong{font-size:12px}.brand-text small{font-size:8px;letter-spacing:1px}.navbar{gap:6px}.lang{padding:8px 4px;font-size:10px;max-width:77px}.actions{gap:3px}.hero-copy{padding-top:41px}.hero h1{font-size:34px}.hero p{font-size:13px}.hero-cta{display:grid;grid-template-columns:1fr 1fr}.hero-cta .btn{padding:13px 6px;font-size:11px}.hero-tags{gap:11px;margin-top:24px}.hero-art{min-height:340px}.hero-art svg{max-width:340px}.ribbon-grid{grid-template-columns:1fr 1fr}.ribbon-item{padding:13px 4px!important;gap:8px}.ribbon-icon{width:36px;height:36px;font-size:18px}.ribbon strong{font-size:11px}.ribbon small{font-size:10px}.section{padding:65px 0}.section-title{font-size:29px}.sevas,.offer-grid{grid-template-columns:1fr}.seva-card{padding:24px}.seva-card p{min-height:0}.offer-card{min-height:290px;padding:27px}.darshan{padding:58px 0}.darshan-grid{gap:26px}.video-card{border-width:4px}.footer-main{gap:12px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}.modal{padding:23px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.seva-card{transition:none}}
+  
+    /* Hero: show the devotee-supplied original photo; clip only phone status bar and screenshot borders. */
+    .vigraha-photo{position:relative;width:min(100%,360px);aspect-ratio:689/1215;overflow:hidden;border:4px solid #d7a85a;border-radius:14px;background:#150d10;box-shadow:0 23px 65px #10080bc9,0 0 0 1px #fae1ae82,0 0 50px #d8a65a33;z-index:1}
+    .vigraha-photo img{position:absolute;left:0;top:-12.2%;width:100%;height:126.5%;object-fit:fill;max-width:none}
+    .hero-art .art-caption{z-index:2;bottom:16px;left:5%;right:5%;color:#fce3ab;text-shadow:0 2px 6px #1d0a0b;font-weight:700;letter-spacing:1.8px}
+    .suprabhatam-player{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:30;background:#fff9ec;box-shadow:0 12px 40px #1b0e1080;border:1px solid #bf9654;border-radius:14px;display:flex;align-items:center;gap:11px;padding:9px;max-width:min(350px,calc(100% - 28px))}
+    .suprabhatam-player button{flex:0 0 auto;border:0;border-radius:9px;background:linear-gradient(115deg,#6c2530,#43161d);color:#fff;padding:10px 13px;font:700 12px "Noto Sans Telugu",system-ui,sans-serif;min-height:44px}
+    .suprabhatam-player button:hover,.suprabhatam-player button:focus-visible{background:#90424a}
+    .suprabhatam-player small{font:500 10px/1.5 "Noto Sans Telugu",system-ui,sans-serif;color:#795e52;max-width:115px}
+    @media(max-width:530px){.vigraha-photo{width:min(100%,320px)}.hero-art{padding:20px 0 43px}.hero-art .art-caption{bottom:38px;font-size:10px}.suprabhatam-player{right:10px;bottom:calc(10px + env(safe-area-inset-bottom, 0px));max-width:calc(100% - 20px)}.suprabhatam-player small{max-width:100px}}
+
   </style>
 </head>
 <body>
@@ -49,31 +60,10 @@
         <div class="hero-cta"><button class="btn btn-gold" data-action="seva" data-service="అర్చన" type="button"><span data-i18n="exploreSeva">పూజా సేవలు చూడండి</span> <span>↗</span></button><a class="btn btn-ghost" href="#darshan"><span data-i18n="viewDarshan">దర్శనం వివరాలు</span> <span>▷</span></a></div>
         <div class="hero-tags"><span data-i18n="tag1">నాలుగు భాషలు</span><span data-i18n="tag2">భక్తులకు సులభమైన సేవలు</span><span data-i18n="tag3">వెబ్‌సైట్ ప్రివ్యూ</span></div>
       </div>
-      <div class="hero-art" aria-label="Decorative illustration inspired by a traditional Vaishnava temple, not a photograph of the temple">
-        <svg viewBox="0 0 600 620" fill="none" role="img" aria-label="Traditional temple-inspired decorative illustration">
-          <defs><radialGradient id="halo"><stop stop-color="#fedb8f" stop-opacity=".52"/><stop offset=".52" stop-color="#ebbe69" stop-opacity=".11"/><stop offset="1" stop-color="#dfaa5c" stop-opacity="0"/></radialGradient><linearGradient id="goldEdge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5d995"/><stop offset=".5" stop-color="#b8843f"/><stop offset="1" stop-color="#f3d69b"/></linearGradient><linearGradient id="archFill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6e2f29"/><stop offset="1" stop-color="#301015"/></linearGradient></defs>
-          <circle cx="302" cy="291" r="244" fill="url(#halo)"/><circle cx="302" cy="296" r="205" stroke="#e5b86a" stroke-opacity=".26" stroke-width="1.6"/><circle cx="302" cy="296" r="185" stroke="#e5b86a" stroke-opacity=".25" stroke-dasharray="3 9"/>
-          <g opacity=".65" fill="#d5a85b"><circle cx="302" cy="83" r="3"/><circle cx="484" cy="187" r="3"/><circle cx="480" cy="414" r="2"/><circle cx="122" cy="416" r="2"/><circle cx="115" cy="187" r="3"/><path d="m112 291 9-4-9-4-4-9-4 9-9 4 9 4 4 9zm389 9 7-4-7-4-4-7-4 7-7 4 7 4 4 7z"/></g>
-          <path d="M167 519V258c0-77 60-160 135-191 76 31 135 114 135 191v261" fill="url(#archFill)" stroke="url(#goldEdge)" stroke-width="8"/>
-          <path d="M184 515V263c0-67 49-138 118-169 68 31 117 102 117 169v252" stroke="#d3a455" stroke-width="2" opacity=".86"/>
-          <path d="M201 506V268c0-66 45-125 101-149 56 24 100 83 100 149v238" stroke="#d3a455" stroke-opacity=".45" stroke-width="1.5"/>
-          <path d="M152 522h300M141 538h322M129 554h347M160 241h283M177 205h250M199 167h205" stroke="url(#goldEdge)" stroke-width="6" stroke-linecap="round"/>
-          <path d="M150 253c18-15 23-30 30-48M453 253c-18-15-23-30-30-48" stroke="#f0d394" stroke-width="3"/>
-          <g fill="#e9c27a"><path d="M302 33c14 17 22 35 21 54h-42c-1-19 7-37 21-54Z"/><path d="M301 11c7 10 9 18 1 24-9-6-7-14-1-24Z"/><circle cx="302" cy="105" r="4"/><circle cx="302" cy="145" r="4"/><circle cx="198" cy="230" r="5"/><circle cx="406" cy="230" r="5"/></g>
-          <path d="M231 330c8-67 27-100 71-111 45 11 63 44 71 111l19 165H212z" fill="#191016" stroke="#c99448" stroke-width="2.5"/>
-          <path d="M250 304c10-30 20-38 52-43 33 5 43 13 51 43" fill="#a45b35" opacity=".72"/>
-          <ellipse cx="302" cy="288" rx="45" ry="53" fill="#2c1a19" stroke="#ca994c" stroke-width="2"/>
-          <path d="M282 252c5-11 14-17 20-17 9 0 18 6 21 17" stroke="#cfaa66" stroke-width="3"/>
-          <path d="m292 261 10 16 10-16M293 267v25M312 267v25" stroke="#f4e1ba" stroke-width="5" stroke-linecap="round"/>
-          <path d="M258 312c26 18 62 18 89 0" stroke="#d2a25f" stroke-width="3"/>
-          <path d="M254 322c-9 34-11 93-10 158m106-158c10 34 12 93 11 158" stroke="#e9bc74" stroke-width="7" stroke-linecap="round"/>
-          <path d="M281 339c-4 30-5 83 0 139m42-139c4 30 5 83 0 139" stroke="#dbad68" stroke-width="7"/>
-          <g fill="#e6b567"><circle cx="254" cy="346" r="5"/><circle cx="253" cy="364" r="5"/><circle cx="351" cy="346" r="5"/><circle cx="352" cy="364" r="5"/><circle cx="279" cy="385" r="4"/><circle cx="325" cy="385" r="4"/></g>
-          <path d="M257 466q45 36 89 0" stroke="#bd843c" stroke-width="5"/><path d="M264 501h75" stroke="#e3be7e" stroke-width="3"/>
-          <g stroke="#e9bd6f" stroke-width="2.4"><path d="M228 552v-35M376 552v-35M202 551v-28M402 551v-28"/></g>
-          <g fill="#e9bd6f"><path d="M222 520h12l-6-17Z"/><path d="M370 520h12l-6-17Z"/><path d="M198 525h9l-4-13Z"/><path d="M397 525h9l-4-13Z"/></g>
-          <path d="M106 570h397" stroke="#ca964b" stroke-width="2" opacity=".7"/>
-        </svg>
+      <div class="hero-art" aria-label="Sri Venkateswaraswami vigraham photograph supplied by user">
+        <div class="vigraha-photo">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcLljZbbQ2Up01WOT9nbHnOtt/fb92d219-ffc6-40f1-9765-fa1d7580e112.png" alt="శ్రీ వెంకటేశ్వర స్వామి విగ్రహం, పుష్పమాలలు, దీపాలతో అలంకరించిన చిత్రం" loading="eager" decoding="async" fetchpriority="high">
+        </div>
         <span class="art-caption">ॐ NAMO VENKATESAYA ॐ</span>
       </div>
     </div></section>
@@ -154,5 +144,44 @@
       translate("te");
     })();
   </script>
+
+  <!-- Full user-supplied Sri Venkateshwara Suprabhatham audio. Browsers may block automatic playback with sound. -->
+  <audio id="suprabhatamAudio" preload="none" playsinline loop src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcLljZbbQ2Up01WOT9nbHnOtt/87c47118-ac17-41b4-81af-079ce6c4e784.mp3"></audio>
+  <div class="suprabhatam-player" role="group" aria-label="Suprabhatam audio player">
+    <button type="button" id="suprabhatamToggle" aria-pressed="false">▶ సుప్రభాతం ప్లే</button>
+    <small id="suprabhatamHint" role="status">శబ్దం కోసం ప్లే నొక్కండి</small>
+  </div>
+  <script>
+  (function(){
+    "use strict";
+    var audio=document.getElementById("suprabhatamAudio");
+    var btn=document.getElementById("suprabhatamToggle");
+    var hint=document.getElementById("suprabhatamHint");
+    var language=document.getElementById("language");
+    var failed=false,requested=false,visitorPaused=false;
+    var captions={
+      te:{play:"▶ సుప్రభాతం ప్లే",pause:"⏸ సుప్రభాతం ఆపు",tap:"శబ్దం కోసం ప్లే నొక్కండి",playing:"సుప్రభాతం వినిపిస్తోంది",unavailable:"ఆడియో లోడ్ కాలేదు"},
+      or:{play:"▶ ସୁପ୍ରଭାତମ୍ ଚଲାନ୍ତୁ",pause:"⏸ ବନ୍ଦ କରନ୍ତୁ",tap:"ଶୁଣିବାକୁ ପ୍ଲେ ଦବାନ୍ତୁ",playing:"ସୁପ୍ରଭାତମ୍ ଚାଲିଛି",unavailable:"ଅଡିଓ ଲୋଡ୍ ହେଲାନି"},
+      hi:{play:"▶ सुप्रभातम चलाएँ",pause:"⏸ सुप्रभातम रोकें",tap:"सुनने के लिए प्ले दबाएँ",playing:"सुप्रभातम चल रहा है",unavailable:"ऑडियो लोड नहीं हुआ"},
+      en:{play:"▶ Play Suprabhatam",pause:"⏸ Pause Suprabhatam",tap:"Tap play to hear Suprabhatam",playing:"Suprabhatam is playing",unavailable:"Audio could not load"}
+    };
+    function words(){return captions[language.value]||captions.te;}
+    function render(){var p=!audio.paused&&!audio.ended,w=words();btn.textContent=p?w.pause:w.play;btn.setAttribute("aria-pressed",String(p));hint.textContent=failed?w.unavailable:p?w.playing:w.tap;}
+    function start(){if(failed||!audio.paused)return;requested=true;var promise=audio.play();if(promise&&typeof promise.then==="function"){promise.then(function(){visitorPaused=false;render();}).catch(function(){render();});}}
+    btn.addEventListener("click",function(){if(!audio.paused){visitorPaused=true;audio.pause();}else{visitorPaused=false;start();}render();});
+    audio.addEventListener("play",render);
+    audio.addEventListener("pause",render);
+    audio.addEventListener("ended",render);
+    audio.addEventListener("error",function(){failed=true;render();});
+    language.addEventListener("change",render);
+    window.addEventListener("load",function(){if(!visitorPaused)start();render();},{once:true});
+    // A first real user gesture is allowed to start sound even when audible autoplay was blocked by Android/Chrome.
+    document.addEventListener("pointerdown",function(e){if(visitorPaused||failed||e.target.closest("#suprabhatamToggle"))return;if(audio.paused)start();},{once:true,passive:true});
+    document.addEventListener("keydown",function(e){if(visitorPaused||failed||e.target.closest("#suprabhatamToggle"))return;if((e.key==="Enter"||e.key===" ")&&audio.paused)start();},{once:true});
+    audio.volume=0.65;
+    render();
+  })();
+  </script>
+
 </body>
 </html>
